@@ -7,7 +7,8 @@
 //
 
 #include "fireball.h"
+#include "agk.h"
 
 void Fireball::updateBullet() {
-//    agk::setspriteposition
+    agk::SetSpritePosition(getID_(), agk::GetSpriteX(getID_())+5, agk::GetSpriteY(getID_()));
 }
