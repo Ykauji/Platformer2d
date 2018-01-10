@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "interpreter", "interpreter.vcproj", "{DD70E2E6-C062-4A2D-82EA-6247DE822C9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+		ReleaseFree|Win32 = ReleaseFree|Win32
+		ReleaseSteam|Win32 = ReleaseSteam|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD70E2E6-C062-4A2D-82EA-6247DE822C9B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DD70E2E6-C062-4A2D-82EA-6247DE822C9B}.Debug|Win32.Build.0 = Debug|Win32
+		{DD70E2E6-C062-4A2D-82EA-6247DE822C9B}.Release|Win32.ActiveCfg = Release|Win32
+		{DD70E2E6-C062-4A2D-82EA-6247DE822C9B}.Release|Win32.Build.0 = Release|Win32
+		{DD70E2E6-C062-4A2D-82EA-6247DE822C9B}.ReleaseFree|Win32.ActiveCfg = ReleaseFree|Win32
+		{DD70E2E6-C062-4A2D-82EA-6247DE822C9B}.ReleaseFree|Win32.Build.0 = ReleaseFree|Win32
+		{DD70E2E6-C062-4A2D-82EA-6247DE822C9B}.ReleaseSteam|Win32.ActiveCfg = ReleaseSteam|Win32
+		{DD70E2E6-C062-4A2D-82EA-6247DE822C9B}.ReleaseSteam|Win32.Build.0 = ReleaseSteam|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
