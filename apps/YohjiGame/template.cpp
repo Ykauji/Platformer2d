@@ -56,12 +56,6 @@ void app::Begin(void)
     agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk11.png"));
     agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_jump.png"));
     
-<<<<<<< Updated upstream
-    // Load PlayerGroundHitBox
-//    agk::SpriteRayCast(, -100, -500, -400);
-    
-=======
->>>>>>> Stashed changes
     // Load Music/Sound
     agk::LoadMusicOGG(1,"media/song.ogg"); // Mooncatcher temporary music.
     agk::PlayMusicOGG(1,1);
