@@ -12,7 +12,7 @@
 
 class Fireball : public Projectile {
   public:
-    
+
     void updateBullet();
     
   private:

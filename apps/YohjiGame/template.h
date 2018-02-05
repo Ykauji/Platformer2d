@@ -1,12 +1,9 @@
 #ifndef _H_APP
 #define _H_APP
 
-// Includes
 #include "agk.h"
 #include "player.h"
 #include "level.h"
-
-
 
 // use in Core.mm to set the window properties
 #define DEVICE_WIDTH 1920
@@ -25,7 +22,6 @@ class app
         Level levelOne;
         UI userInterface;
         int background;
-        float xSin = 0;
         // global game vars
     
         // Global Func
@@ -37,7 +33,7 @@ class app
 		app() {}
         ~app() {}
 
-		// main app functions - mike to experiment with a derived class for this..
+		// main app functions
         void Begin( void );
         int Loop( void );
         void End( void );

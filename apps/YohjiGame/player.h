@@ -17,7 +17,12 @@
 
 class Player {
 public:
-    Player() {health_ = 100; speed_ = 6000; jumpHeight_ = 7000; maxJumps = 2; recentlyJumped = 0; currentWep = 1; direction_ = 1; dashTimer_ = 0; recentlyDamaged_ = 0; maxHealth_ = 100; experience_ = 0; maxExperience_ = 100; charLevel_ = 1; damage_ = 10;}
+    Player() {health_ = 100; speed_ = 6500; jumpHeight_ = 7500; maxJumps = 1; recentlyJumped = 0; currentWep = 1; direction_ = 1; dashTimer_ = 0; recentlyDamaged_ = 0; maxHealth_ = 100; experience_ = 0; maxExperience_ = 100; charLevel_ = 1; damage_ = 10;}
+    
+    // Load Players
+    void loadPlayer();
+    void loadPlayerTest();
+    void loadPlayerPhysics();
     
     // Movement
     void movementLeft();
@@ -49,6 +54,9 @@ public:
     void setMaxHealth(int maxHealth) {maxHealth_ = maxHealth;}
     void setCharLevelStr(std::string charLevelStr) {charLevelStr_ = charLevelStr;}
     void setCurrentHealthRatio(std::string currentHealthRatio) {currentHealthRatio_ = currentHealthRatio;}
+    int getGroundSensor() {return groundSensorID_;}
+    int getLeftSensor() {return wallSensorIDLeft_;}
+    int getRightSensor() {return wallSensorIDRight_;}
     int getHealth() {return health_;}
     int getMaxHealth() {return maxHealth_;}
     int getHealthBar() {return healthBar_;}
@@ -87,6 +95,9 @@ private:
     float speed_;
     double damage_;
     int iD_;
+    int groundSensorID_;
+    int wallSensorIDLeft_;
+    int wallSensorIDRight_;
     int iDBox_;
     int jumpHeight_;
     int recentlyJumped;

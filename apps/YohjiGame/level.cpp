@@ -12,7 +12,7 @@
 #include "slime.h"
 #include "bat.h"
 
-
+// Taken care of in deleteLevel.
 Level::~Level() {
 //    for (int i = 0; i < enemies.size(); i++) {
 //        deleteEnemy(enemies[i]->getID_());
@@ -223,7 +223,7 @@ void Level::spawnBat(int x, int y) {
     agk::SetSpriteShape(bat->getID_(),3);
     agk::SetSpriteSize(bat->getID_(),200);
     agk::SetSpritePosition(bat->getID_(), x, y);
-    bat->setSpeed(500);
+    bat->setSpeed(5);
     bat->setHealth(150);
     bat->setDamage(5);
     bat->setExperience(1000);

@@ -10,6 +10,44 @@
 #include "agk.h"
 #include <iostream>
 
+void UI::initUI() {
+    // Empty Bar
+    setHealthBarEmpty(agk::CreateSprite(15));
+    agk::SetSpritePosition(getHealthBarEmpty(), 785 , 965);
+    agk::SetSpriteSize(getHealthBarEmpty(),400,20); // Original 400,20
+    agk::SetSpriteSize(getHealthBarEmpty(),400,22.5);
+    agk::FixSpriteToScreen(getHealthBarEmpty(), 1);
+    agk::SetSpriteDepth(getHealthBarEmpty(), 2);
+    
+    // Green HealthBar
+    setHealthBarGreen(agk::CreateSprite(16));
+    agk::SetSpritePosition(getHealthBarGreen() , 791 , 969);
+    agk::SetSpriteSize(getHealthBarGreen(),350,15); // Original 350,15
+    agk::SetSpriteSize(getHealthBarGreen(),190,14); // 395 max
+    agk::FixSpriteToScreen(getHealthBarGreen(), 1);
+    agk::SetSpriteDepth(getHealthBarGreen(), 2);
+    
+    // ExperienceBar Empty
+    int experienceBar = agk::CreateSprite(15);
+    agk::SetSpritePosition(experienceBar, 785, 992);
+    agk::SetSpriteSize(experienceBar,400,12);
+    agk::FixSpriteToScreen(experienceBar, 1);
+    agk::SetSpriteDepth(experienceBar, 2);
+    
+    // ExperienceBar
+    setexperienceBar(agk::CreateSprite(18));
+    agk::SetSpritePosition(getexperienceBar(), 790, 995);
+    agk::SetSpriteSize(getexperienceBar(),350,5);
+    agk::FixSpriteToScreen(getexperienceBar(), 1);
+    agk::SetSpriteDepth(getexperienceBar(), 2);
+    
+    // Level Text add to UI later..
+    agk::CreateText(112, "Lv. 1");
+    agk::SetTextSize(112, 30);
+    agk::SetTextPosition(112, 0, 0);
+    agk::FixTextToScreen(112, 1);
+}
+
 void UI::createFadingText(std::string text,int timer,int x, int y, int size) {
     fadingTextStruct fadingText;
     fadingText.timer_ = timer;

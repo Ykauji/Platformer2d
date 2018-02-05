@@ -62,6 +62,8 @@ void Bat::moveToPlayer(Player mainPlayer) {
 
 void Bat::isHit(Projectile bullet,UI &userInterface) {
     setHealth(getHealth()-bullet.getDamage());
+    const std::string bulletNumbero = intToStringo(bullet.getDamage());
+    userInterface.createFadingText(bulletNumbero, 60, agk::GetSpriteX(this->getID_())+ agk::Random2(-10,30), agk::GetSpriteY(this->getID_()), 40);
     agk::PlaySprite(getID_(),10,0,18,19);
     if (getHealth() < enrageHealth_) {
         angryMode = 1;

@@ -40,34 +40,19 @@ void app::Begin(void)
 //    agk::SetPhysicsDebugOn();
     
     // Load Player
-    agk::LoadImage(1, "Player/p3_walk01.png");
-    mainPlayer.setID(agk::CreateSprite(1));
-    agk::SetSpriteSize(mainPlayer.getID(),68);
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk01.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk02.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk03.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk04.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk05.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk06.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk07.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk08.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk09.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk10.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_walk11.png"));
-    agk::AddSpriteAnimationFrame(mainPlayer.getID(), agk::LoadImage("Player/p3_jump.png"));
+    mainPlayer.loadPlayerTest();
+    
+    // Player Physics
+    mainPlayer.loadPlayerPhysics();
+    agk::SetSpriteActive(mainPlayer.getID(), 1);
+    
+    // Ground Sensor
+    
+    // When loading images, if performance issues delete after usage?
     
     // Load Music/Sound
     agk::LoadMusicOGG(1,"media/song.ogg"); // Mooncatcher temporary music.
-    agk::PlayMusicOGG(1,1);
-    
-    // Player Physics
-    agk::SetSpritePosition(mainPlayer.getID(), 200, 200);
-    agk::SetSpritePhysicsOn(mainPlayer.getID());
-    agk::SetSpritePhysicsFriction(mainPlayer.getID(), 1);
-    agk::SetSpritePhysicsCanRotate(mainPlayer.getID(), 0);
-    agk::SetSpriteShape(mainPlayer.getID(),3);
-    agk::SetSpritePhysicsRestitution(mainPlayer.getID(), 0);
-    agk::SetSpriteDepth(mainPlayer.getID(), 1);
+//    agk::PlayMusicOGG(1,1);
     
     // Load Tile
      agk::LoadImage(2, "Tiles/castleHalf.png");
@@ -135,46 +120,15 @@ void app::Begin(void)
     agk::LoadImage(35, "Enemy sprites/yeti.png");
     
     // Load CastleBackground Level 2
-    agk::LoadImage(36, "media/CastleBackground.png");
+    agk::LoadImage(36, "media/CastleBackgroundNight.png");
+    
+    // Load Dragon
     
     
-    // Empty Bar
-    userInterface.setHealthBarEmpty(agk::CreateSprite(15));
-    agk::SetSpritePosition(userInterface.getHealthBarEmpty(), 785 , 965);
-    agk::SetSpriteSize(userInterface.getHealthBarEmpty(),400,20); // Original 400,20
-    agk::SetSpriteSize(userInterface.getHealthBarEmpty(),400,22.5);
-    agk::FixSpriteToScreen(userInterface.getHealthBarEmpty(), 1);
-    agk::SetSpriteDepth(userInterface.getHealthBarEmpty(), 2);
+    // Load UI
+    userInterface.initUI();
     
-    // Green HealthBar
-    userInterface.setHealthBarGreen(agk::CreateSprite(16));
-    agk::SetSpritePosition(userInterface.getHealthBarGreen() , 791 , 969);
-    agk::SetSpriteSize(userInterface.getHealthBarGreen(),350,15); // Original 350,15
-     agk::SetSpriteSize(userInterface.getHealthBarGreen(),190,14); // 395 max
-    agk::FixSpriteToScreen(userInterface.getHealthBarGreen(), 1);
-    agk::SetSpriteDepth(userInterface.getHealthBarGreen(), 2);
-    
-    // ExperienceBar Empty
-    int experienceBar = agk::CreateSprite(15);
-    agk::SetSpritePosition(experienceBar, 785, 992);
-    agk::SetSpriteSize(experienceBar,400,12);
-    agk::FixSpriteToScreen(experienceBar, 1);
-    agk::SetSpriteDepth(experienceBar, 2);
-    
-    // ExperienceBar
-    userInterface.setexperienceBar(agk::CreateSprite(18));
-    agk::SetSpritePosition(userInterface.getexperienceBar(), 790, 995);
-    agk::SetSpriteSize(userInterface.getexperienceBar(),350,5);
-    agk::FixSpriteToScreen(userInterface.getexperienceBar(), 1);
-    agk::SetSpriteDepth(userInterface.getexperienceBar(), 2);
-    
-    // Level Text add to UI later..
-    agk::CreateText(112, "Lv. 1");
-    agk::SetTextSize(112, 30);
-    agk::SetTextPosition(112, 0, 0);
-    agk::FixTextToScreen(112, 1);
-    
-    // Load Health
+    // Load Health Numbers
     std::string currentHealth = intToString(mainPlayer.getHealth()) + "/";
     agk::CreateText(1,  currentHealth.c_str());
     agk::SetTextPosition(1, 945, 966);
@@ -183,13 +137,10 @@ void app::Begin(void)
     agk::FixTextToScreen(1, 1);
     
     // Load Tiles for Test Level
-   
-    levelOne.loadLevelTwo();
+    levelOne.loadLevelOne();
     
-    // Cursor
+    // Cursor invisible
     agk::SetRawMouseVisible(0);
-    
-    
     
     // Highest Image = 27.
 }
@@ -198,18 +149,22 @@ void app::Begin(void)
 // Game Logic
 int app::Loop (void)
 {
+    
     // World Scrolling
-    agk::SetViewOffset(agk::GetSpriteX(mainPlayer.getID())-(agk::GetDeviceWidth()+200), agk::GetSpriteY(mainPlayer.getID())-(agk::GetDeviceHeight()+500));
+    agk::SetViewOffset(agk::GetSpriteX(mainPlayer.getID())-(agk::GetDeviceWidth()+160), agk::GetSpriteY(mainPlayer.getID())-(agk::GetDeviceHeight()+500));
+    
+    agk::Print(agk::GetSpriteCurrentFrame(mainPlayer.getID()));
     
     //Player Movement
     if (mainPlayer.getRecentlyDamaged() < 0) {
-        if (agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) {
+        if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && agk::GetSpriteFirstContact(mainPlayer.getLeftSensor()) != 1) {
             mainPlayer.movementLeft();
-        } else if(agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) {
+        } else if((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && agk::GetSpriteFirstContact(mainPlayer.getRightSensor()) != 1) {
             mainPlayer.movementRight();
-        } else if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) == 0){
-            mainPlayer.stopMovement();
         }
+    }
+    if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) == 0){
+    mainPlayer.stopMovement();
     }
 
     // Restrict Jumps to maxJumps
@@ -219,9 +174,15 @@ int app::Loop (void)
         }
     }    
     // When landing, reset RecentlyJumped to 0
-    if (agk::GetSpritePhysicsVelocityY(mainPlayer.getID()) == 0) {
+    if (agk::GetSpriteFirstContact(mainPlayer.getGroundSensor()) == 1 && agk::GetSpritePhysicsVelocityY(mainPlayer.getID()) <= 0){
         mainPlayer.resetJump();
     }
+    
+    // Move Character Sensors (For some reason if moved before, GetSpriteFirstContact is changed to 0)
+    agk::SetSpritePosition(mainPlayer.getGroundSensor(), agk::GetSpriteX(mainPlayer.getID())+66,agk::GetSpriteY(mainPlayer.getID())+130);
+    agk::SetSpritePosition(mainPlayer.getLeftSensor(), agk::GetSpriteX(mainPlayer.getID())+30,agk::GetSpriteY(mainPlayer.getID())+50);
+    agk::SetSpritePosition(mainPlayer.getRightSensor(), agk::GetSpriteX(mainPlayer.getID())+130,agk::GetSpriteY(mainPlayer.getID())+50);
+
     
     // Holding down drops faster
     
@@ -233,18 +194,16 @@ int app::Loop (void)
     
     // If moving then play animation
     if (agk::GetSpritePhysicsVelocityY(mainPlayer.getID()) < 0) {
-        
+        // When moving play running animations!
     } else {
         if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) > 0) {
-            if (!agk::GetSpritePlaying(mainPlayer.getID())) {
-                agk::PlaySprite(mainPlayer.getID(), 10, 1, 1, 11);
-                agk::SetSpriteActive(mainPlayer.getID(), 1);
+            if (!(agk::GetSpriteCurrentFrame(mainPlayer.getID()) < 6) && agk::GetSpriteCurrentFrame(mainPlayer.getID()) > 1) {
+                agk::PlaySprite(mainPlayer.getID(), 8, 1, 1, 6);
             }
         } else if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) < 0) {
-            if (!agk::GetSpritePlaying(mainPlayer.getID())) {
-                agk::PlaySprite(mainPlayer.getID(), 10, 1, 1, 11);
-                agk::SetSpriteActive(mainPlayer.getID(), 1);
-            }
+            if (!(agk::GetSpriteCurrentFrame(mainPlayer.getID()) < 6) && agk::GetSpriteCurrentFrame(mainPlayer.getID()) > 1) {
+                agk::PlaySprite(mainPlayer.getID(), 8, 1, 1, 6);
+            }   
         }
     }
     // Update Direction
@@ -390,7 +349,7 @@ int app::Loop (void)
         mainPlayer.setExperience(500);
     }
     if (agk::GetRawKeyPressed(82)) {
-        userInterface.createFadingText("potato", 100, agk::GetSpriteX(mainPlayer.getID()), agk::GetSpriteY(mainPlayer.getID()), 30);
+        levelOne.spawnBat(agk::Random2(-2500,2500), 0);
     }
     if (agk::GetRawKeyPressed(84)) {
         levelOne.spawnTrainingDummy(6000, 15);

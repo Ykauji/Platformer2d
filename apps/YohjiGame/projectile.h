@@ -15,10 +15,13 @@ class Projectile {
 public:
     Projectile() {time_ = 0; weaponDamage_ = 20;}
     Projectile(int iD, int time, int weaponDamage) {weaponType_ = iD; time_ = time; weaponDamage_ = weaponDamage;}
+    Projectile(int iD, int time, int weaponDamage,int direction,int speed) {weaponType_ = iD; time_ = time; weaponDamage_ = weaponDamage; direction_ = direction; speed_ = speed;}
     Projectile(std::pair<float,float> trajectory);
     void setID(int iD_) {weaponType_ = iD_;}
     int getID_() {return weaponType_;}
+    int getDirection() {return direction_;}
     void setSpeed(int speed) {speed_ = speed;}
+    void setDirection(int direction) {direction_ = direction;}
     void setTrajectory(std::pair<float,float> trajectory) {trajectory_ = trajectory;}
     std::pair<float,float> getTrajectory() {return trajectory_;}
     int getSpeed() {return speed_;}
@@ -37,6 +40,7 @@ private:
     int speed_;
     int weaponDamage_;
     int time_;
+    int direction_;
     bool isMelee_;
     // Float of mouse pointer
     std::pair<float,float> trajectory_;

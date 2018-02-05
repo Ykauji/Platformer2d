@@ -37,7 +37,7 @@ public:
     void loadPlatform(int xTiles, int yTiles, int xPos, int Ypos);
     void loadPlatform(int xTiles, int yTiles, int xPos, int yPos,int PhysicsOn,int depth);
     void updateDamageText(float xSin);
-    
+
 private:
     std::vector<int> ladders;
     std::vector<int> castleBlock;

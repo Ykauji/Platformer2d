@@ -24,5 +24,5 @@ Projectile::Projectile(std::pair<float,float> trajectory) {
 }
 
 void Projectile::updateBullet() {
-    
+//        agk::SetSpritePosition(getID_(), agk::GetSpriteX(getID_())+(getDirection()*getSpeed()), agk::GetSpriteY(getID_()));
 }

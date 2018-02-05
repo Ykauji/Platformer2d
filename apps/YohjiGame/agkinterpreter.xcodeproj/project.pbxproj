@@ -27,6 +27,8 @@
 		C13E28221F511526003B478C /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13E28201F511526003B478C /* player.cpp */; };
 		C13E28251F5115C1003B478C /* projectile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13E28231F5115C1003B478C /* projectile.cpp */; };
 		C13E28281F511A52003B478C /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13E28261F511A52003B478C /* UI.cpp */; };
+		C15AFCD3200ACCEB00EA551B /* dragon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C15AFCD1200ACCEB00EA551B /* dragon.cpp */; };
+		C165359320266179000E225B /* mainCharacter in Resources */ = {isa = PBXBuildFile; fileRef = C165359220266179000E225B /* mainCharacter */; };
 		C16D9B4F1FEC4DFA005A9BD8 /* fx in Resources */ = {isa = PBXBuildFile; fileRef = C16D9B4E1FEC4DFA005A9BD8 /* fx */; };
 		C18B882D1F51354C00FAF323 /* projectile.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28241F5115C1003B478C /* projectile.h */; };
 		C18B882E1F51355100FAF323 /* UI.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28271F511A52003B478C /* UI.h */; };
@@ -72,6 +74,9 @@
 		C13E28241F5115C1003B478C /* projectile.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; lineEnding = 2; path = projectile.h; sourceTree = "<group>"; };
 		C13E28261F511A52003B478C /* UI.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; lineEnding = 2; path = UI.cpp; sourceTree = "<group>"; };
 		C13E28271F511A52003B478C /* UI.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; lineEnding = 2; path = UI.h; sourceTree = "<group>"; usesTabs = 0; };
+		C15AFCD1200ACCEB00EA551B /* dragon.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = dragon.cpp; sourceTree = "<group>"; };
+		C15AFCD2200ACCEB00EA551B /* dragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dragon.h; sourceTree = "<group>"; };
+		C165359220266179000E225B /* mainCharacter */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mainCharacter; sourceTree = "<group>"; };
 		C16D9B4E1FEC4DFA005A9BD8 /* fx */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fx; sourceTree = "<group>"; };
 		C1E478891F1EBF92005955B4 /* Player */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Player; path = "media/TempArt/Base pack/Player"; sourceTree = "<group>"; };
 		C1E4788B1F1EC800005955B4 /* Tiles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Tiles; path = "media/TempArt/Base pack/Tiles"; sourceTree = "<group>"; };
@@ -216,6 +221,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C165359220266179000E225B /* mainCharacter */,
 				C16D9B4E1FEC4DFA005A9BD8 /* fx */,
 				C1FC64941F57855E00250D72 /* circle */,
 				C13E281B1F4E8164003B478C /* bat */,
@@ -258,6 +264,8 @@
 				C13378041F514360004179DE /* slime.cpp */,
 				C13378021F5142AA004179DE /* bat.h */,
 				C13378011F5142AA004179DE /* bat.cpp */,
+				C15AFCD2200ACCEB00EA551B /* dragon.h */,
+				C15AFCD1200ACCEB00EA551B /* dragon.cpp */,
 			);
 			name = Enemies;
 			sourceTree = "<group>";
@@ -397,6 +405,7 @@
 				C13E281C1F4E8164003B478C /* bat in Resources */,
 				D8D8206216FD0A8400D08FAD /* icons.iconset in Resources */,
 				C1FC64951F57855E00250D72 /* circle in Resources */,
+				C165359320266179000E225B /* mainCharacter in Resources */,
 				C1E478901F32A6ED005955B4 /* fireball in Resources */,
 				C1E4788A1F1EBF92005955B4 /* Player in Resources */,
 				C1E4788C1F1EC800005955B4 /* Tiles in Resources */,
@@ -415,6 +424,7 @@
 				C13378001F514072004179DE /* enemy.cpp in Sources */,
 				C13E28281F511A52003B478C /* UI.cpp in Sources */,
 				C13E28251F5115C1003B478C /* projectile.cpp in Sources */,
+				C15AFCD3200ACCEB00EA551B /* dragon.cpp in Sources */,
 				C13378031F5142AA004179DE /* bat.cpp in Sources */,
 				C13378061F514360004179DE /* slime.cpp in Sources */,
 				C13377FD1F513FB4004179DE /* level.cpp in Sources */,

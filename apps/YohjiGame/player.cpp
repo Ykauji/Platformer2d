@@ -8,6 +8,7 @@
 
 #include "player.h"
 #include "agk.h"
+#include "fireball.h"
 #include <sstream>
 
 
@@ -27,15 +28,15 @@ void Player::attack() {
         numBullets_.push_back(beam);
     }
     if (currentWep == 2 && numBullets_.size() < 10) {
-        Projectile * beam = new Projectile(agk::CreateSprite(6),120,20+(damage_*.5));
+        Projectile * beam = new Fireball();
+        
+        beam->setID(agk::CreateSprite(7));
+        beam->setTime(100);
+        beam->setDamage(25);
+        beam->setDirection(direction_);
+        beam->setSpeed(7);
         // How long the bullet exists for
         agk::SetSpriteSize((*beam).getID_(), 100,-1);
-        if (direction_ == 1) {
-            agk::SetSpriteFlip((*beam).getID_(), 1, 0);
-        }
-        if (direction_ == -1) {
-            agk::SetSpriteFlip((*beam).getID_(), 0, 0);
-        }
         agk::AddSpriteAnimationFrame((*beam).getID_(), 7);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 8);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 9);
@@ -43,13 +44,18 @@ void Player::attack() {
         agk::AddSpriteAnimationFrame((*beam).getID_(), 11);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 12);
         agk::PlaySprite((*beam).getID_());
+        agk::SetSpriteActive(beam->getID_(), 1);
         
-        agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+60*direction_), agk::GetSpriteY(iD_));
-        agk::SetSpritePhysicsOn((*beam).getID_(),3);
-        agk::SetSpriteShape(beam->getID_(),3);
-        agk::SetSpritePhysicsVelocity((*beam).getID_(), 750*direction_, 0);
-        agk::SetSpritePhysicsCanRotate((*beam).getID_(), 0);
-        agk::SetSpritePhysicsIsBullet((*beam).getID_(), 1);
+        if (direction_ == 1) {
+            agk::SetSpriteFlip((*beam).getID_(), 1, 0);
+            agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+80*direction_), agk::GetSpriteY(iD_)+35);
+        }
+        if (direction_ == -1) {
+            agk::SetSpriteFlip((*beam).getID_(), 0, 0);
+            agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+40*direction_), agk::GetSpriteY(iD_)+35);
+        }
+        
+        
         
         numBullets_.push_back(beam);
     }
@@ -57,75 +63,26 @@ void Player::attack() {
     if (currentWep == 3) {
         Projectile *beam = new Projectile(agk::CreateSprite(30),10,5+(damage_*.1));
         agk::SetSpriteSize((*beam).getID_(), 100,-1);
-        if (direction_ == 1) {
-            agk::SetSpriteFlip((*beam).getID_(), 0, 1);
-        }
-        if (direction_ == -1) {
-            agk::SetSpriteFlip((*beam).getID_(), 1, 1);
-        }
         agk::AddSpriteAnimationFrame((*beam).getID_(), 30);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 31);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 32);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 33);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 34);
         
+        if (direction_ == 1) {
+            agk::SetSpriteFlip((*beam).getID_(), 0, 1);
+            agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+150*direction_), agk::GetSpriteY(iD_));
+        }
+        if (direction_ == -1) {
+            agk::SetSpriteFlip((*beam).getID_(), 1, 1);
+            agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+80*direction_), agk::GetSpriteY(iD_));
+        }
+        
         agk::PlaySprite((*beam).getID_(),40,0);
         beam->setMelee(true);
-        agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+120*direction_), agk::GetSpriteY(iD_));
         numBullets_.push_back(beam);
     }
 }
-
-//void Player::mouseAttack() {
-//    if (currentWep == 1 && numBullets_.size() < 10) {
-//        int wepSpeed = 100;
-//        Projectile * beam = new Projectile();
-//        (*beam).setID(agk::CreateSprite(3));
-//        // How long the bullet exists for
-//        (*beam).setTime(120);
-//        agk::SetSpritePosition((*beam).getID_(),agk::GetSpriteX(iD_)+42*direction_, agk::GetSpriteY(iD_));
-//        std::pair<float,float> trajectory(agk::GetRawMouseX() ,agk::GetRawMouseY());
-//        beam->setTrajectory(trajectory);
-//        beam->setSpeed(wepSpeed);
-//        agk::SetSpritePhysicsOn((*beam).getID_());
-//        agk::SetSpriteShape((*beam).getID_(),3);
-////        agk::SetSpritePhysicsImpulse((*beam).getID_(), agk::GetSpriteX(iD_)+direction_+50, agk::GetSpriteY(iD_)+50, speed_*direction_, 0);
-//
-//        agk::SetSpritePhysicsIsBullet((*beam).getID_(), 1);
-//        agk::SetSpritePhysicsRestitution((*beam).getID_(), .5);
-//        numBullets_.push_back(beam);
-//    }
-//    if (currentWep == 2 && numBullets_.size() < 3) {
-//        Projectile * beam = new Projectile(agk::CreateSprite(6),120,20+(damage_*.5));
-//        // How long the bullet exists for
-//        beam->setTime(60);
-//        agk::SetSpriteSize((*beam).getID_(), 100,-1);
-//        if (direction_ == 1) {
-//            agk::SetSpriteFlip((*beam).getID_(), 1, 0);
-//        }
-//        if (direction_ == -1) {
-//            agk::SetSpriteFlip((*beam).getID_(), 0, 0);
-//        }
-//        agk::AddSpriteAnimationFrame((*beam).getID_(), 7);
-//        agk::AddSpriteAnimationFrame((*beam).getID_(), 8);
-//        agk::AddSpriteAnimationFrame((*beam).getID_(), 9);
-//        agk::AddSpriteAnimationFrame((*beam).getID_(), 10);
-//        agk::AddSpriteAnimationFrame((*beam).getID_(), 11);
-//        agk::AddSpriteAnimationFrame((*beam).getID_(), 12);
-//        agk::PlaySprite((*beam).getID_());
-//        
-//        agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+60*direction_), agk::GetSpriteY(iD_));
-//        std::pair<float,float> trajectory(agk::GetRawMouseX() ,agk::GetRawMouseY());
-//        beam->setTrajectory(trajectory);
-//        agk::SetSpritePhysicsOn((*beam).getID_(),3);
-//        agk::SetSpritePhysicsIsSensor(beam->getID_(), 1);
-//        agk::SetSpriteShape((*beam).getID_(),3);
-//        agk::SetSpritePhysicsIsBullet((*beam).getID_(), 1);
-//        agk::SetSpritePhysicsRestitution((*beam).getID_(), .5);
-//        
-//        numBullets_.push_back(beam);
-//    }
-//}
 
 void Player::updateDirection(float mouseX) {
     if (dashTimer_ < 0) {
@@ -138,6 +95,7 @@ void Player::updateDirection(float mouseX) {
         }
     }
 }
+
 void Player::updateDirection() {
     if (dashTimer_ < 0) {
         if (direction_ == -1) {
@@ -187,7 +145,7 @@ void Player::movementDashRight() {
     }
 }
 void Player::movementJump() {
-    agk::PlaySprite(iD_,60,0,12,12);
+//    agk::PlaySprite(iD_,60,0,12,12);
     agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_), 0);
     agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), 0, jumpHeight_*-1);
     recentlyJumped++;
@@ -198,7 +156,9 @@ void Player::movementDashDown() {
 }
 
 void Player::stopMovement() {
-    agk::StopSprite(iD_);
+    if (!(agk::GetSpriteCurrentFrame(getID()) < 10 && agk::GetSpriteCurrentFrame(getID()) > 6)) {
+        agk::PlaySprite(getID(), 7, 1, 7, 9);
+    }
 }
 
 void Player::clearBullet(int index) {
@@ -228,9 +188,129 @@ bool Player::levelUp(UI &userInterface) {
     return false;
 }
 
+void Player::loadPlayer() {
+    agk::LoadImage(1, "Player/p3_walk01.png");
+    setID(agk::CreateSprite(1));
+    agk::SetSpriteSize(getID(),68);
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk01.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk02.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk03.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk04.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk05.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk06.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk07.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk08.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk09.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk10.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk11.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_jump.png"));
+}
+void Player::loadPlayerTest() {
+    agk::LoadImage(1, "mainCharacter/rogue like idle_Animation 1_0.png");
+    setID(agk::CreateSprite(1));
+    agk::SetSpriteSize(getID(),170);
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_0.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_1.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_2.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_3.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_4.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_5.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like idle_Animation 1_0.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like idle_Animation 1_1.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like idle_Animation 1_2.png"));
+    
+    // Ground Sensor
+    groundSensorID_ = agk::CreateSprite(0);
+    agk::SetSpriteSize(groundSensorID_ ,30,5);
+    agk::SetSpriteVisible(groundSensorID_, 0);
+    agk::SetSpritePhysicsOn(groundSensorID_,2);
+    agk::SetSpriteShape(groundSensorID_,3);
+    agk::SetSpritePhysicsIsSensor(groundSensorID_, 1);
+    
+    // Wall Sensors
+    wallSensorIDLeft_ = agk::CreateSprite(0);
+    agk::SetSpriteSize(wallSensorIDLeft_ ,5,45);
+    agk::SetSpriteVisible(wallSensorIDLeft_, 0);
+    agk::SetSpritePhysicsOn(wallSensorIDLeft_,2);
+    agk::SetSpritePhysicsIsSensor(wallSensorIDLeft_, 1);
+    
+    wallSensorIDRight_ = agk::CreateSprite(0);
+    agk::SetSpriteSize(wallSensorIDRight_ ,5,45);
+    agk::SetSpriteVisible(wallSensorIDRight_, 0);
+    agk::SetSpritePhysicsOn(wallSensorIDRight_,2);
+    agk::SetSpritePhysicsIsSensor(wallSensorIDRight_, 1);
+
+    
+}
+
+void Player::loadPlayerPhysics() {
+    agk::SetSpritePosition(getID(), 200, 200);
+    agk::SetSpritePhysicsOn(getID());
+    agk::SetSpritePhysicsFriction(getID(), 1);
+    agk::SetSpritePhysicsCanRotate(getID(), 0);
+    agk::SetSpriteShape(getID(),3);
+    agk::SetSpritePhysicsRestitution(getID(), 0);
+    agk::SetSpriteDepth(getID(), 1);
+}
+
 void Player::updateLevelStats() {
     damage_ = damage_ + 5;
     maxHealth_ = maxHealth_ + 20;
     health_ = health_ + 20;
 }
+
+
+
+
+
+//void Player::mouseAttack() {
+//    if (currentWep == 1 && numBullets_.size() < 10) {
+//        int wepSpeed = 100;
+//        Projectile * beam = new Projectile();
+//        (*beam).setID(agk::CreateSprite(3));
+//        // How long the bullet exists for
+//        (*beam).setTime(120);
+//        agk::SetSpritePosition((*beam).getID_(),agk::GetSpriteX(iD_)+42*direction_, agk::GetSpriteY(iD_));
+//        std::pair<float,float> trajectory(agk::GetRawMouseX() ,agk::GetRawMouseY());
+//        beam->setTrajectory(trajectory);
+//        beam->setSpeed(wepSpeed);
+//        agk::SetSpritePhysicsOn((*beam).getID_());
+//        agk::SetSpriteShape((*beam).getID_(),3);
+////        agk::SetSpritePhysicsImpulse((*beam).getID_(), agk::GetSpriteX(iD_)+direction_+50, agk::GetSpriteY(iD_)+50, speed_*direction_, 0);
+//
+//        agk::SetSpritePhysicsIsBullet((*beam).getID_(), 1);
+//        agk::SetSpritePhysicsRestitution((*beam).getID_(), .5);
+//        numBullets_.push_back(beam);
+//    }
+//    if (currentWep == 2 && numBullets_.size() < 3) {
+//        Projectile * beam = new Projectile(agk::CreateSprite(6),120,20+(damage_*.5));
+//        // How long the bullet exists for
+//        beam->setTime(60);
+//        agk::SetSpriteSize((*beam).getID_(), 100,-1);
+//        if (direction_ == 1) {
+//            agk::SetSpriteFlip((*beam).getID_(), 1, 0);
+//        }
+//        if (direction_ == -1) {
+//            agk::SetSpriteFlip((*beam).getID_(), 0, 0);
+//        }
+//        agk::AddSpriteAnimationFrame((*beam).getID_(), 7);
+//        agk::AddSpriteAnimationFrame((*beam).getID_(), 8);
+//        agk::AddSpriteAnimationFrame((*beam).getID_(), 9);
+//        agk::AddSpriteAnimationFrame((*beam).getID_(), 10);
+//        agk::AddSpriteAnimationFrame((*beam).getID_(), 11);
+//        agk::AddSpriteAnimationFrame((*beam).getID_(), 12);
+//        agk::PlaySprite((*beam).getID_());
+//
+//        agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+60*direction_), agk::GetSpriteY(iD_));
+//        std::pair<float,float> trajectory(agk::GetRawMouseX() ,agk::GetRawMouseY());
+//        beam->setTrajectory(trajectory);
+//        agk::SetSpritePhysicsOn((*beam).getID_(),3);
+//        agk::SetSpritePhysicsIsSensor(beam->getID_(), 1);
+//        agk::SetSpriteShape((*beam).getID_(),3);
+//        agk::SetSpritePhysicsIsBullet((*beam).getID_(), 1);
+//        agk::SetSpritePhysicsRestitution((*beam).getID_(), .5);
+//
+//        numBullets_.push_back(beam);
+//    }
+//}
 

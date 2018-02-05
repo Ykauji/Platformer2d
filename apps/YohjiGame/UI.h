@@ -28,6 +28,8 @@ public:
     void createFadingText(std::string text,int timer,int x, int y,int size, int color);
     void fadeTimeUpdate(int decreaseValue);
     
+    // UI Init
+    void initUI();
     
 
     
