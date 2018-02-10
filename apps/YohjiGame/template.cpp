@@ -11,6 +11,7 @@ using namespace AGK;
 
 app App;
 
+// Sprite Groups: 1 Player, 2 Tiles, 3 Enemies, 4 Ladders, 5 Doors
 
 // Had to use C style b/c StringStream performance issues and project not configured for C++ 11 so cannot to_string.
 std::string app::intToString(int value) {
@@ -122,6 +123,8 @@ void app::Begin(void)
     // Load CastleBackground Level 2
     agk::LoadImage(36, "media/CastleBackgroundNight.png");
     
+    // Load Attack Animations
+    
     // Load Dragon
     
     
@@ -142,7 +145,11 @@ void app::Begin(void)
     // Cursor invisible
     agk::SetRawMouseVisible(0);
     
-    // Highest Image = 27.
+    
+    // Load Player Animations
+    
+    
+    // Highest Image = 40.
 }
 
 
@@ -157,7 +164,7 @@ int app::Loop (void)
     
     //Player Movement
     if (mainPlayer.getRecentlyDamaged() < 0) {
-        if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && agk::GetSpriteFirstContact(mainPlayer.getLeftSensor()) != 1) {
+        if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && !mainPlayer.touchingWall()) {
             mainPlayer.movementLeft();
         } else if((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && agk::GetSpriteFirstContact(mainPlayer.getRightSensor()) != 1) {
             mainPlayer.movementRight();
@@ -184,10 +191,19 @@ int app::Loop (void)
     agk::SetSpritePosition(mainPlayer.getRightSensor(), agk::GetSpriteX(mainPlayer.getID())+130,agk::GetSpriteY(mainPlayer.getID())+50);
 
     
-    // Holding down drops faster
-    
+    // Holding down drops faster and Doors, S
+
     if (agk::GetRawKeyState(83)) {
-    mainPlayer.movementDashDown();
+        mainPlayer.movementDashDown();
+    // Checks what level Door is pointing to and loads it.
+        for (int i = 0; i < levelOne.getDoor().size(); i++) {
+            if (mainPlayer.checkDoor() == levelOne.getDoor()[i].getID()) {
+                levelOne.loadLevel(levelOne.getDoor()[i].getNext());
+                agk::SetSpriteX(mainPlayer.getID(), 0);
+                agk::SetSpriteY(mainPlayer.getID(), 0);
+                break;
+            }
+        }
     }
     
     
@@ -209,7 +225,7 @@ int app::Loop (void)
     // Update Direction
     mainPlayer.updateDirection();
     
-    // Dash Left and Right
+    // Dash Left and Right Q . E
     if (agk::GetRawKeyPressed(81)) {
         mainPlayer.movementDashLeft();
     }
@@ -232,7 +248,6 @@ int app::Loop (void)
     if (agk::GetRawKeyPressed(51)) {
         mainPlayer.setWep(3);
     }
-    
     
     
     // Test Attack
@@ -271,8 +286,6 @@ int app::Loop (void)
     }
     mainPlayer.setRecentlyDamaged(mainPlayer.getRecentlyDamaged()-1);
     
-   
-    
     // Bullet and Enemy Collision
     for (int i = 0; i < levelOne.getEnemies().size(); i++) {
         for (int j = 0; j < mainPlayer.getBullets().size(); j++) {
@@ -290,8 +303,6 @@ int app::Loop (void)
         }
         levelOne.getEnemies()[i]->setRecentlyDamaged(levelOne.getEnemies()[i]->getRecentlyDamaged()-1);
     }
-    
-    
     
     // If enemy is under 1 health delete.
     for (int i = 0; i < levelOne.getEnemies().size(); i++) {
@@ -312,6 +323,14 @@ int app::Loop (void)
     mainPlayer.updateHealth(userInterface);
     mainPlayer.levelUp(userInterface);
     mainPlayer.updateExperience(userInterface);
+    
+    if (mainPlayer.getHealth() <= 0) {
+        levelOne.deleteLevel();
+        levelOne.loadLevelOne();
+        agk::SetSpriteX(mainPlayer.getID(), 0);
+        agk::SetSpriteY(mainPlayer.getID(), 0);
+        mainPlayer.resetPlayer();
+    }
     
     // If OffMap Reset/Die
     if (agk::GetSpriteY(mainPlayer.getID()) > 3000) {

@@ -19,12 +19,20 @@ void Player::attack() {
         (*beam).setID(agk::CreateSprite(3));
         // How long the bullet exists for
         (*beam).setTime(120);
-        agk::SetSpritePosition((*beam).getID_(),agk::GetSpriteX(iD_)+42*direction_, agk::GetSpriteY(iD_));
+        
         agk::SetSpritePhysicsOn((*beam).getID_());
         agk::SetSpriteShape((*beam).getID_(),3);
-        agk::SetSpritePhysicsImpulse((*beam).getID_(), agk::GetSpriteX(iD_)+direction_+50, agk::GetSpriteY(iD_)+50, 300*direction_, 0);
+        if (direction_ == -1) {
+            agk::SetSpritePosition((*beam).getID_(),agk::GetSpriteX(iD_)+20*direction_, agk::GetSpriteY(iD_));
+            agk::SetSpritePhysicsImpulse((*beam).getID_(), agk::GetSpriteX(iD_)+direction_*50, agk::GetSpriteY(iD_)+50, 100*direction_, 50);
+        } else {
+            agk::SetSpritePosition((*beam).getID_(),agk::GetSpriteX(iD_)+70*direction_, agk::GetSpriteY(iD_));
+            agk::SetSpritePhysicsImpulse((*beam).getID_(), agk::GetSpriteX(iD_)+direction_*70, agk::GetSpriteY(iD_)+50, 100*direction_, 50);
+        }
+        
         agk::SetSpritePhysicsIsBullet((*beam).getID_(), 1);
         agk::SetSpritePhysicsRestitution((*beam).getID_(), .5);
+        agk::SetSpriteSize(beam->getID_(),125);
         numBullets_.push_back(beam);
     }
     if (currentWep == 2 && numBullets_.size() < 10) {
@@ -61,7 +69,7 @@ void Player::attack() {
     }
     
     if (currentWep == 3) {
-        Projectile *beam = new Projectile(agk::CreateSprite(30),10,5+(damage_*.1));
+        Projectile *beam = new Projectile(agk::CreateSprite(30),10,10+(damage_*.1));
         agk::SetSpriteSize((*beam).getID_(), 100,-1);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 30);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 31);
@@ -77,7 +85,10 @@ void Player::attack() {
             agk::SetSpriteFlip((*beam).getID_(), 1, 1);
             agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+80*direction_), agk::GetSpriteY(iD_));
         }
-        
+        if (!(agk::GetSpriteCurrentFrame(iD_) > 9 && agk::GetSpriteCurrentFrame(iD_) < 14)) {
+            agk::PlaySprite(iD_,20,1,10,13);
+        }
+        agk::PlaySprite(iD_,10,0,10,13);
         agk::PlaySprite((*beam).getID_(),40,0);
         beam->setMelee(true);
         numBullets_.push_back(beam);
@@ -150,14 +161,32 @@ void Player::movementJump() {
     agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), 0, jumpHeight_*-1);
     recentlyJumped++;
 }
+// If true, then door is hit.
 void Player::movementDashDown() {
     agk::SetSpritePhysicsVelocity(this->getID(), agk::GetSpritePhysicsVelocityX(iD_), 0);
     agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), 0, jumpHeight_);
 }
 
+int Player::checkDoor() {
+    if (agk::GetSpriteHitGroup(5, agk::GetSpriteX(iD_)+60, agk::GetSpriteY(iD_))) {
+        return agk::GetSpriteHit(agk::GetSpriteX(iD_)+60, agk::GetSpriteY(iD_));
+    }
+    return 0;
+}
+
 void Player::stopMovement() {
     if (!(agk::GetSpriteCurrentFrame(getID()) < 10 && agk::GetSpriteCurrentFrame(getID()) > 6)) {
         agk::PlaySprite(getID(), 7, 1, 7, 9);
+    }
+}
+
+bool Player::touchingWall() {
+    if (agk::GetSpriteFirstContact(wallSensorIDLeft_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDLeft_), agk::GetSpriteY(wallSensorIDLeft_))) {
+        return true;
+    } else if (agk::GetSpriteFirstContact(wallSensorIDRight_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDRight_), agk::GetSpriteY(wallSensorIDRight_))){
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -218,6 +247,7 @@ void Player::loadPlayerTest() {
     agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like idle_Animation 1_0.png"));
     agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like idle_Animation 1_1.png"));
     agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like idle_Animation 1_2.png"));
+        
     
     // Ground Sensor
     groundSensorID_ = agk::CreateSprite(0);
@@ -259,9 +289,22 @@ void Player::updateLevelStats() {
     health_ = health_ + 20;
 }
 
-
-
-
+void Player::resetPlayer() {
+    health_ = 100;
+    speed_ = 6500;
+    jumpHeight_ = 7500;
+    maxJumps = 1;
+    recentlyJumped = 0;
+    currentWep = 1;
+    direction_ = 1;
+    dashTimer_ = 0;
+    recentlyDamaged_ = 0;
+    maxHealth_ = 100;
+    experience_ = 0;
+    maxExperience_ = 100;
+    charLevel_ = 1;
+    damage_ = 10;
+}
 
 //void Player::mouseAttack() {
 //    if (currentWep == 1 && numBullets_.size() < 10) {

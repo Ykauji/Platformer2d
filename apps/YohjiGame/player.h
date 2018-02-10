@@ -23,6 +23,7 @@ public:
     void loadPlayer();
     void loadPlayerTest();
     void loadPlayerPhysics();
+    void resetPlayer();
     
     // Movement
     void movementLeft();
@@ -31,6 +32,7 @@ public:
     void movementDashRight();
     void movementJump();
     void movementDashDown();
+    int checkDoor();
     void stopMovement();
     void setDirection(int direction) {direction_ = direction;}
     int getDirection() {return direction_;}
@@ -40,6 +42,7 @@ public:
     bool levelUp(UI &userInterface);
     void updateDirection(float mouseX);
     void updateDirection();
+    bool touchingWall();
     
     // Setters and Getters. Bad practice, change later.
     void setHealth(int health) {health_ = health;}

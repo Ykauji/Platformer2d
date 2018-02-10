@@ -14,7 +14,10 @@
 class Bat : public Enemy {
 public:
     
-    Bat() {angryMode = 0; enrageHealth_ = 50;}
+//    Bat() : Enemy() {
+//    angryMode = 0; enrageHealth_ = 50;
+//    }
+    
     ~Bat();
     void attack() {}
     void isHit(Projectile bullet, UI &userInterface);

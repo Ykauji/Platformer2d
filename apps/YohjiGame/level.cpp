@@ -14,9 +14,23 @@
 
 // Taken care of in deleteLevel.
 Level::~Level() {
-//    for (int i = 0; i < enemies.size(); i++) {
-//        deleteEnemy(enemies[i]->getID_());
-//    }
+    for (int i = 0; i < enemies.size(); i++) {
+        delete enemies[i];
+    }
+}
+
+void Level::loadLevel(int levelNumber) {
+    switch (levelNumber) {
+        case 1:
+            loadLevelOne();
+            break;
+        case 2:
+            loadLevelTwo();
+            break;
+        case 3:
+        default:
+            break;
+    }
 }
 
 void Level::deleteLevel() {
@@ -27,7 +41,11 @@ void Level::deleteLevel() {
         agk::DeleteSprite(ladders[i]);
     }
     for (int i = 0; i < enemies.size(); i++) {
+        delete enemies[i];
         agk::DeleteSprite(enemies[i]->getID_());
+    }
+    for (int i = 0; i < door_.size(); i++) {
+        agk::DeleteSprite(door_[i].getID());
     }
     agk::DeleteSprite(background_);
     castleBlock.clear();
@@ -43,6 +61,7 @@ void Level::loadTile(int x, int y) {
     agk::SetSpritePhysicsOn(castleBlock.back(),1);
     agk::SetSpriteShape(castleBlock.back(),3);
     agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
+    agk::SetSpriteGroup(castleBlock.back(), 2);
 }
 void Level::loadTile(int x, int y, int image) {
     castleBlock.push_back(agk::CreateSprite(image));
@@ -50,6 +69,7 @@ void Level::loadTile(int x, int y, int image) {
     agk::SetSpritePhysicsOn(castleBlock.back(),1);
     agk::SetSpriteShape(castleBlock.back(),3);
     agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
+    agk::SetSpriteGroup(castleBlock.back(), 2);
 }
 void Level::loadTile(int x, int y, int image,int physicsOn,int depth) {
     castleBlock.push_back(agk::CreateSprite(image));
@@ -59,6 +79,7 @@ void Level::loadTile(int x, int y, int image,int physicsOn,int depth) {
         agk::SetSpritePhysicsOn(castleBlock.back(),1);
         agk::SetSpriteShape(castleBlock.back(),3);
         agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
+        agk::SetSpriteGroup(castleBlock.back(), 2);
     }
 }
 void Level::loadLadderTile(int x, int y, int image) {
@@ -78,6 +99,7 @@ void Level::loadLadder(int x, int y, int yLength) {
 
 
 void Level::loadLevelOne() {
+    deleteLevel();
     level_ = 1;
     
     loadPlatform(100, -500, 500);
@@ -89,7 +111,7 @@ void Level::loadLevelOne() {
     loadPlatform(14, 20, 2725, -2300, 0, 103);
     
     // Castle Door
-    loadDoor(3155, 330);
+    loadDoor(3155, 330,2);
     
     // Small Platforms
     loadPlatform(10,0,150);
@@ -109,6 +131,7 @@ void Level::loadLevelOne() {
 }
 
 void Level::loadLevelTwo() {
+    deleteLevel();
     level_ = 2;
     
     loadPlatform(20, 20, 0, 500, 1, 100);
@@ -124,7 +147,6 @@ void Level::loadLevelTwo() {
     loadPlatform(10, 350, 100);
     loadPlatform(10, 3250, -500);
     loadPlatform(10, -2750, -500);
-    
     
     //Load Background
     background_ = agk::CreateSprite(36);
@@ -176,13 +198,19 @@ void Level::loadPlatform(int xTiles, int yTiles, int xPos, int yPos,int PhysicsO
     }
 }
 
-void Level::loadDoor(int x, int y) {
-    castleBlock.push_back(agk::CreateSprite(28));
-    agk::SetSpriteSize(castleBlock.back(),100);
-    agk::SetSpritePosition(castleBlock.back(), x, y);
-    castleBlock.push_back(agk::CreateSprite(29));
-    agk::SetSpriteSize(castleBlock.back(),100);
-    agk::SetSpritePosition(castleBlock.back(), x, y+70);
+void Level::loadDoor(int x, int y,int nextLevel) {
+    Door tempDoor;
+    tempDoor.setiD(agk::CreateSprite(28));
+    tempDoor.setNext(nextLevel);
+    door_.push_back(tempDoor);
+    agk::SetSpriteSize(door_.back().getID(),100);
+    agk::SetSpritePosition(door_.back().getID(), x, y);
+    agk::SetSpriteGroup(door_.back().getID(), 5);
+    tempDoor.setiD(agk::CreateSprite(29));
+    door_.push_back(tempDoor);
+    agk::SetSpriteSize(door_.back().getID(),100);
+    agk::SetSpritePosition(door_.back().getID(), x, y+70);
+    agk::SetSpriteGroup(door_.back().getID(), 5);
 }
 
 
