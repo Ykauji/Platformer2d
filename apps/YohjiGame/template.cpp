@@ -399,6 +399,10 @@ int app::Loop (void)
     if (agk::GetRawKeyPressed(84)) {
         levelOne.spawnTrainingDummy(6000, 15);
     }
+    if (agk::GetRawKeyPressed(27)) {
+        gameState = 2;
+    
+    }
 	agk::Print( agk::ScreenFPS() );
 
         
@@ -420,7 +424,10 @@ int app::Loop (void)
         }
     // Pause Menu
     } else if (gameState == 2) {
-        
+        if (agk::GetRawKeyPressed(27)) {
+            gameState = 1;
+        }
+        agk::StepPhysics(0);
         
     // Life Overview
     } else if (gameState == 3) {
