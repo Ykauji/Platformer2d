@@ -10,6 +10,19 @@
 #include "agk.h"
 #include <iostream>
 
+void UI::hideUI() {
+    agk::SetSpriteVisible(healthBarEmpty_, 0);
+    agk::SetSpriteVisible(healthBarGreen_, 0);
+    agk::SetSpriteVisible(experienceBar_, 0);
+    agk::SetSpriteVisible(experienceBarBar_, 0);
+}
+void UI::showUI() {
+    agk::SetSpriteVisible(healthBarEmpty_, 1);
+    agk::SetSpriteVisible(healthBarGreen_, 1);
+    agk::SetSpriteVisible(experienceBar_, 1);
+    agk::SetSpriteVisible(experienceBarBar_, 1);
+}
+
 void UI::initUI() {
     // Empty Bar
     setHealthBarEmpty(agk::CreateSprite(15));
@@ -28,11 +41,11 @@ void UI::initUI() {
     agk::SetSpriteDepth(getHealthBarGreen(), 2);
     
     // ExperienceBar Empty
-    int experienceBar = agk::CreateSprite(15);
-    agk::SetSpritePosition(experienceBar, 785, 992);
-    agk::SetSpriteSize(experienceBar,400,12);
-    agk::FixSpriteToScreen(experienceBar, 1);
-    agk::SetSpriteDepth(experienceBar, 2);
+    experienceBarBar_ = agk::CreateSprite(15);
+    agk::SetSpritePosition(experienceBarBar_, 785, 992);
+    agk::SetSpriteSize(experienceBarBar_,400,12);
+    agk::FixSpriteToScreen(experienceBarBar_, 1);
+    agk::SetSpriteDepth(experienceBarBar_, 2);
     
     // ExperienceBar
     setexperienceBar(agk::CreateSprite(18));

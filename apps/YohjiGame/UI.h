@@ -27,22 +27,28 @@ public:
     void createFadingText(std::string text,int timer,int x, int y,int size);
     void createFadingText(std::string text,int timer,int x, int y,int size, int color);
     void fadeTimeUpdate(int decreaseValue);
+    void hideUI();
+    void showUI();
     
     // UI Init
     void initUI();
     
+    // Load TextBox
+    void loadTextBox(int xPos, int yPos, int xSize, int ySize, std::string text);
 
     
 private:
     int healthBarEmpty_;
     int healthBarGreen_;
     int experienceBar_;
+    int experienceBarBar_;
     int cursor_;
     struct fadingTextStruct {
         int timer_;
         int text_;
     };
     std::vector<fadingTextStruct> texts_;
+    int textBoxTest_;
     
     
 };

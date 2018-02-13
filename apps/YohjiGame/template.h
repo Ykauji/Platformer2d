@@ -21,6 +21,8 @@ class app
         Player mainPlayer;
         Level levelOne;
         UI userInterface;
+        // If 0, main menu, 1 game, 2 menu
+        int gameState;
         int background;
         // global game vars
     

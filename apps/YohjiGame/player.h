@@ -42,7 +42,8 @@ public:
     bool levelUp(UI &userInterface);
     void updateDirection(float mouseX);
     void updateDirection();
-    bool touchingWall();
+    bool touchingLeftWall();
+    bool touchingRightWall();
     
     // Setters and Getters. Bad practice, change later.
     void setHealth(int health) {health_ = health;}

@@ -17,6 +17,7 @@ public:
     Level() {}
     ~Level();
     void loadLevel(int levelNumber);
+    void loadStartScreen();
     void deleteLevel();
     void loadLevelOne();
     void loadLevelTwo();

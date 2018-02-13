@@ -33,6 +33,16 @@ void Level::loadLevel(int levelNumber) {
     }
 }
 
+void Level::loadStartScreen() {
+    deleteLevel();
+    
+    // Load Background
+    background_ = agk::CreateSprite(17);
+    agk::SetSpriteDepth(background_, 10000);
+    agk::FixSpriteToScreen(background_, 1);
+    agk::SetSpriteSize(background_,xRes,yRes+100);
+}
+
 void Level::deleteLevel() {
     for (int i = 0; i < castleBlock.size(); i++) {
         agk::DeleteSprite(castleBlock[i]);

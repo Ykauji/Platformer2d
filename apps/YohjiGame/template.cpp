@@ -139,11 +139,37 @@ void app::Begin(void)
     agk::SetTextDepth(1, 1);
     agk::FixTextToScreen(1, 1);
     
-    // Load Tiles for Test Level
-    levelOne.loadLevelOne();
+    // Load Start Screen Stuff
+    gameState = 0;
+    levelOne.loadStartScreen();
+    agk::SetSpriteVisible(mainPlayer.getID(), 0);
+    userInterface.hideUI();
+    agk::SetTextVisible(1, 0);
+    // Title Text
+    agk::CreateText(100, "OverThroned");
+    agk::SetTextPosition(100, 1600, 400);
+    agk::SetTextAlignment(100, 1);
+    agk::SetTextSize(100, 90);
+    
+    // Start Screen Buttonos
+    agk::AddVirtualButton(1, 960, 500, 100);
+    agk::SetVirtualButtonText(1, "Start");
+    agk::SetVirtualButtonAlpha(1, 0);
+    
+    agk::AddVirtualButton(2, 960, 600, 100);
+    agk::SetVirtualButtonText(2, "How to Play");
+    agk::SetVirtualButtonAlpha(2, 0);
+    
+    agk::AddVirtualButton(3, 960, 700, 100);
+    agk::SetVirtualButtonText(3, "Achievements");
+    agk::SetVirtualButtonAlpha(3, 0);
+
+    
+    
+    
     
     // Cursor invisible
-    agk::SetRawMouseVisible(0);
+//    agk::SetRawMouseVisible(0);
     
     
     // Load Player Animations
@@ -156,7 +182,7 @@ void app::Begin(void)
 // Game Logic
 int app::Loop (void)
 {
-    
+    if (gameState == 1) {
     // World Scrolling
     agk::SetViewOffset(agk::GetSpriteX(mainPlayer.getID())-(agk::GetDeviceWidth()+160), agk::GetSpriteY(mainPlayer.getID())-(agk::GetDeviceHeight()+500));
     
@@ -164,9 +190,9 @@ int app::Loop (void)
     
     //Player Movement
     if (mainPlayer.getRecentlyDamaged() < 0) {
-        if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && !mainPlayer.touchingWall()) {
+        if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && !mainPlayer.touchingLeftWall()) {
             mainPlayer.movementLeft();
-        } else if((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && agk::GetSpriteFirstContact(mainPlayer.getRightSensor()) != 1) {
+        } else if((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && !mainPlayer.touchingRightWall()) {
             mainPlayer.movementRight();
         }
     }
@@ -373,16 +399,35 @@ int app::Loop (void)
     if (agk::GetRawKeyPressed(84)) {
         levelOne.spawnTrainingDummy(6000, 15);
     }
-    
-//    
 	agk::Print( agk::ScreenFPS() );
-//    agk::Print( agk::GetSpriteX(mainPlayer.getID()));
-//    agk::Print( agk::GetSpriteY(mainPlayer.getID()));
-    
-    
+
+        
+        
+    // Main Menu
+    } else if (gameState == 0) {
+        if (agk::GetVirtualButtonPressed(1)) {
+            gameState = 1;
+            levelOne.loadLevel(1);
+            agk::DeleteVirtualButton(1);
+            agk::DeleteVirtualButton(2);
+            agk::DeleteVirtualButton(3);
+            agk::SetSpriteVisible(mainPlayer.getID(), 1);
+            userInterface.showUI();
+            mainPlayer.resetPlayer();
+            agk::SetTextVisible(1, 1);
+            agk::SetTextVisible(100, 0);
+            agk::SetRawMouseVisible(0);
+        }
+    // Pause Menu
+    } else if (gameState == 2) {
+        
+        
+    // Life Overview
+    } else if (gameState == 3) {
+        
+    }
     
 	agk::Sync();
-    
 	return 0; // return 1 to close app
 }
 

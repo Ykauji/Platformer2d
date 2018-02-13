@@ -180,16 +180,20 @@ void Player::stopMovement() {
     }
 }
 
-bool Player::touchingWall() {
+bool Player::touchingLeftWall() {
     if (agk::GetSpriteFirstContact(wallSensorIDLeft_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDLeft_), agk::GetSpriteY(wallSensorIDLeft_))) {
-        return true;
-    } else if (agk::GetSpriteFirstContact(wallSensorIDRight_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDRight_), agk::GetSpriteY(wallSensorIDRight_))){
         return true;
     } else {
         return false;
     }
 }
-
+bool Player::touchingRightWall() {
+    if (agk::GetSpriteFirstContact(wallSensorIDRight_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDRight_), agk::GetSpriteY(wallSensorIDRight_))){
+        return true;
+    } else {
+        return false;
+    }
+}
 void Player::clearBullet(int index) {
     numBullets_[index]->deleteProjectile();
     numBullets_.erase(numBullets_.begin()+index);
@@ -304,6 +308,7 @@ void Player::resetPlayer() {
     maxExperience_ = 100;
     charLevel_ = 1;
     damage_ = 10;
+    agk::SetSpritePosition(iD_, 0, 0);
 }
 
 //void Player::mouseAttack() {
