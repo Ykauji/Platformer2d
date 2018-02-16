@@ -18,7 +18,7 @@
 class app
 {
 	public:
-        Player mainPlayer;
+        Player * mainPlayero;
         Level levelOne;
         UI userInterface;
         // If 0, main menu, 1 game, 2 menu
@@ -32,7 +32,9 @@ class app
 	public:
 
 		// constructor
-		app() {}
+		app() {
+            mainPlayero = new Player();
+        }
         ~app() {}
 
 		// main app functions

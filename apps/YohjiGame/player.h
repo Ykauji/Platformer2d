@@ -18,7 +18,9 @@
 class Player {
 public:
     Player() {health_ = 100; speed_ = 6500; jumpHeight_ = 7500; maxJumps = 1; recentlyJumped = 0; currentWep = 1; direction_ = 1; dashTimer_ = 0; recentlyDamaged_ = 0; maxHealth_ = 100; experience_ = 0; maxExperience_ = 100; charLevel_ = 1; damage_ = 10;}
-    
+    ~Player() {
+
+    }
     // Load Players
     void loadPlayer();
     void loadPlayerTest();
@@ -28,8 +30,8 @@ public:
     // Movement
     void movementLeft();
     void movementRight();
-    void movementDashLeft();
-    void movementDashRight();
+    virtual void movementDashLeft();
+    virtual void movementDashRight();
     void movementJump();
     void movementDashDown();
     int checkDoor();
@@ -92,7 +94,7 @@ public:
     void attack();
     void mouseAttack();
     
-private:
+protected:
     int maxHealth_;
     int health_;
     int healthBar_;

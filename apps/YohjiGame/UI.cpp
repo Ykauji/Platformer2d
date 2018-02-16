@@ -100,11 +100,6 @@ void UI::createFadingText(std::string text,int timer,int x, int y, int size, int
         default:
             break;
     }
-    
-    
-    
-    
-    
     texts_.push_back(fadingText);
 }
 

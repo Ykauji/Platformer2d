@@ -52,7 +52,7 @@ public:
     virtual void isDead(Player &mainPlayer, UI &userInterface) {}
     std::string intToStringo(int value);
     
-private:
+protected:
     int health_;
     int damage_;
     int speed_;

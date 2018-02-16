@@ -1,15 +1,29 @@
 // Includes
 #include "template.h"
 #include "level.h"
+#include "Mage.h"
 #include <cmath>
 #include <string>
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+
 // Namespace
 using namespace AGK;
 
 app App;
+
+// Lazy boi fix
+#define mainPlayer (*mainPlayero)
+
+// Main Menu -> Class Select -> Game.    Create mainCharacter at Class Select with Player * mainPlayero = new Class();
+// Game States:
+// 0 = Main Menu
+// 1 = Game
+// 2 = Pause
+// 3 = Life Overview
+// 4 = Class Select
 
 // Sprite Groups: 1 Player, 2 Tiles, 3 Enemies, 4 Ladders, 5 Doors
 
@@ -23,7 +37,6 @@ std::string app::intToString(int value) {
 
 void app::Begin(void)
 {
-    
     int xRes = 1920;
     int yRes = 1080;
     
@@ -40,12 +53,12 @@ void app::Begin(void)
     
 //    agk::SetPhysicsDebugOn();
     
-    // Load Player
-    mainPlayer.loadPlayerTest();
-    
-    // Player Physics
-    mainPlayer.loadPlayerPhysics();
-    agk::SetSpriteActive(mainPlayer.getID(), 1);
+//    // Load Player
+//    mainPlayer.loadPlayerTest();
+//    
+//    // Player Physics
+//    mainPlayer.loadPlayerPhysics();
+//    agk::SetSpriteActive(mainPlayer.getID(), 1);
     
     // Ground Sensor
     
@@ -140,30 +153,36 @@ void app::Begin(void)
     agk::FixTextToScreen(1, 1);
     
     // Load Start Screen Stuff
-    gameState = 0;
-    levelOne.loadStartScreen();
-    agk::SetSpriteVisible(mainPlayer.getID(), 0);
-    userInterface.hideUI();
-    agk::SetTextVisible(1, 0);
-    // Title Text
-    agk::CreateText(100, "OverThroned");
-    agk::SetTextPosition(100, 1600, 400);
-    agk::SetTextAlignment(100, 1);
-    agk::SetTextSize(100, 90);
     
-    // Start Screen Buttonos
-    agk::AddVirtualButton(1, 960, 500, 100);
-    agk::SetVirtualButtonText(1, "Start");
-    agk::SetVirtualButtonAlpha(1, 0);
+    // Change GameState to 0 for mainScreen
+    gameState = 4;
+    if (gameState == 0) {
+        levelOne.loadStartScreen();
+        agk::SetSpriteVisible(mainPlayer.getID(), 0);
+        userInterface.hideUI();
+        agk::SetTextVisible(1, 0);
+        // Title Text
+        agk::CreateText(100, "OverThroned");
+        agk::SetTextPosition(100, 1600, 400);
+        agk::SetTextAlignment(100, 1);
+        agk::SetTextSize(100, 90);
+        
+        // Start Screen Buttonos
+        agk::AddVirtualButton(1, 960, 500, 100);
+        agk::SetVirtualButtonText(1, "Start");
+        agk::SetVirtualButtonAlpha(1, 0);
+        
+        agk::AddVirtualButton(2, 960, 600, 100);
+        agk::SetVirtualButtonText(2, "How to Play");
+        agk::SetVirtualButtonAlpha(2, 0);
+        
+        agk::AddVirtualButton(3, 960, 700, 100);
+        agk::SetVirtualButtonText(3, "Achievements");
+        agk::SetVirtualButtonAlpha(3, 0);
+    } else {
+        levelOne.loadLevel(1);
+    }
     
-    agk::AddVirtualButton(2, 960, 600, 100);
-    agk::SetVirtualButtonText(2, "How to Play");
-    agk::SetVirtualButtonAlpha(2, 0);
-    
-    agk::AddVirtualButton(3, 960, 700, 100);
-    agk::SetVirtualButtonText(3, "Achievements");
-    agk::SetVirtualButtonAlpha(3, 0);
-
     
     
     
@@ -344,7 +363,6 @@ int app::Loop (void)
     }
     
     
-    
     // Updates Health and Experience
     mainPlayer.updateHealth(userInterface);
     mainPlayer.levelUp(userInterface);
@@ -432,6 +450,33 @@ int app::Loop (void)
     // Life Overview
     } else if (gameState == 3) {
         
+    } else if (gameState == 4) {
+        // For now only one Class
+        // 1 is Mage
+        int classChoice = 2;
+        
+        switch (classChoice) {
+            case 1: {
+                Player * playerPointer = new Player();
+                mainPlayero = playerPointer;
+                gameState = 1;
+                break;
+            }
+                
+            case 2: {
+                Player * magePointer = new Mage();
+                mainPlayero = magePointer;
+                gameState = 1;
+                break;
+
+            }
+        }
+        // Load Player
+        mainPlayer.loadPlayerTest();
+        
+        // Player Physics
+        mainPlayer.loadPlayerPhysics();
+        agk::SetSpriteActive(mainPlayer.getID(), 1);
     }
     
 	agk::Sync();

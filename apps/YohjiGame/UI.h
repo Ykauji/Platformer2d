@@ -27,6 +27,7 @@ public:
     void createFadingText(std::string text,int timer,int x, int y,int size);
     void createFadingText(std::string text,int timer,int x, int y,int size, int color);
     void fadeTimeUpdate(int decreaseValue);
+    
     void hideUI();
     void showUI();
     

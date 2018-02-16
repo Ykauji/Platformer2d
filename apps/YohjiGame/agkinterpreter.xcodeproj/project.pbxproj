@@ -31,6 +31,7 @@
 		C165359320266179000E225B /* mainCharacter in Resources */ = {isa = PBXBuildFile; fileRef = C165359220266179000E225B /* mainCharacter */; };
 		C1653596202BD152000E225B /* npc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1653594202BD152000E225B /* npc.cpp */; };
 		C1653599202F9B38000E225B /* door.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1653597202F9B38000E225B /* door.cpp */; };
+		C165359E20350DF5000E225B /* Mage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C165359C20350DF5000E225B /* Mage.cpp */; };
 		C16D9B4F1FEC4DFA005A9BD8 /* fx in Resources */ = {isa = PBXBuildFile; fileRef = C16D9B4E1FEC4DFA005A9BD8 /* fx */; };
 		C18B882D1F51354C00FAF323 /* projectile.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28241F5115C1003B478C /* projectile.h */; };
 		C18B882E1F51355100FAF323 /* UI.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28271F511A52003B478C /* UI.h */; };
@@ -83,6 +84,8 @@
 		C1653595202BD152000E225B /* npc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = npc.h; sourceTree = "<group>"; };
 		C1653597202F9B38000E225B /* door.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; fileEncoding = 4; path = door.cpp; sourceTree = "<group>"; };
 		C1653598202F9B38000E225B /* door.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = door.h; sourceTree = "<group>"; };
+		C165359C20350DF5000E225B /* Mage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Mage.cpp; sourceTree = "<group>"; };
+		C165359D20350DF5000E225B /* Mage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mage.h; sourceTree = "<group>"; };
 		C16D9B4E1FEC4DFA005A9BD8 /* fx */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fx; sourceTree = "<group>"; };
 		C1E478891F1EBF92005955B4 /* Player */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Player; path = "media/TempArt/Base pack/Player"; sourceTree = "<group>"; };
 		C1E4788B1F1EC800005955B4 /* Tiles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Tiles; path = "media/TempArt/Base pack/Tiles"; sourceTree = "<group>"; };
@@ -167,6 +170,7 @@
 			children = (
 				D8D8206C16FD0F0C00D08FAD /* template.h */,
 				D8D8206B16FD0F0C00D08FAD /* template.cpp */,
+				C165359B20350DDD000E225B /* Jobs */,
 				C1FF99C82001E2E100060FDD /* Projectiles */,
 				C1FF99C72001E2B200060FDD /* Enemies */,
 				C1653595202BD152000E225B /* npc.h */,
@@ -263,6 +267,15 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C165359B20350DDD000E225B /* Jobs */ = {
+			isa = PBXGroup;
+			children = (
+				C165359D20350DF5000E225B /* Mage.h */,
+				C165359C20350DF5000E225B /* Mage.cpp */,
+			);
+			name = Jobs;
 			sourceTree = "<group>";
 		};
 		C1FF99C72001E2B200060FDD /* Enemies */ = {
@@ -441,6 +454,7 @@
 				9B8B6E4F1360BFC200BEF23D /* Core.mm in Sources */,
 				C18B882F1F51355400FAF323 /* player.h in Sources */,
 				C18B882E1F51355100FAF323 /* UI.h in Sources */,
+				C165359E20350DF5000E225B /* Mage.cpp in Sources */,
 				D8D8206D16FD0F0C00D08FAD /* template.cpp in Sources */,
 				C1653596202BD152000E225B /* npc.cpp in Sources */,
 				C1653599202F9B38000E225B /* door.cpp in Sources */,
