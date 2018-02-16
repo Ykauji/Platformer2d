@@ -10,8 +10,8 @@
 #include "agk.h"
 
 void Mage::movementDashLeft() {
-    agk::SetSpritePosition(iD_, agk::GetSpriteX(iD_)-200, agk::GetSpriteY(iD_));
+    agk::SetSpritePosition(iD_, agk::GetSpriteX(iD_)-400, agk::GetSpriteY(iD_));
 }
 void Mage::movementDashRight() {
-    agk::SetSpritePosition(iD_, agk::GetSpriteX(iD_)+200, agk::GetSpriteY(iD_));
+    agk::SetSpritePosition(iD_, agk::GetSpriteX(iD_)+400, agk::GetSpriteY(iD_));
 }

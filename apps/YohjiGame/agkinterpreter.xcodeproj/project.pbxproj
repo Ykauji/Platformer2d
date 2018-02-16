@@ -19,6 +19,7 @@
 		4A80ECD41A0F1C4F0090553F /* media in Resources */ = {isa = PBXBuildFile; fileRef = 4A80ECD31A0F1C4F0090553F /* media */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		9B8B6E4F1360BFC200BEF23D /* Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B8B6E4E1360BFC200BEF23D /* Core.mm */; };
+		C1138CFD2036B17F00CF2328 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1138CFB2036B17F00CF2328 /* camera.cpp */; };
 		C13377FD1F513FB4004179DE /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13377FB1F513FB4004179DE /* level.cpp */; };
 		C13378001F514072004179DE /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13377FE1F514072004179DE /* enemy.cpp */; };
 		C13378031F5142AA004179DE /* bat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13378011F5142AA004179DE /* bat.cpp */; };
@@ -62,6 +63,8 @@
 		721285AF167A597500C0661F /* cObjectMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cObjectMgr.h; path = ../../common/include/cObjectMgr.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Jim's Conquest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jim's Conquest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B8B6E4E1360BFC200BEF23D /* Core.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Core.mm; sourceTree = "<group>"; };
+		C1138CFB2036B17F00CF2328 /* camera.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = camera.cpp; sourceTree = "<group>"; };
+		C1138CFC2036B17F00CF2328 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		C13377FB1F513FB4004179DE /* level.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = level.cpp; sourceTree = "<group>"; };
 		C13377FC1F513FB4004179DE /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
 		C13377FE1F514072004179DE /* enemy.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = enemy.cpp; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				C1653598202F9B38000E225B /* door.h */,
 				C1653597202F9B38000E225B /* door.cpp */,
 				C13E28271F511A52003B478C /* UI.h */,
+				C1138CFC2036B17F00CF2328 /* camera.h */,
+				C1138CFB2036B17F00CF2328 /* camera.cpp */,
 				C13E28261F511A52003B478C /* UI.cpp */,
 				C13E28211F511526003B478C /* player.h */,
 				C13E28201F511526003B478C /* player.cpp */,
@@ -447,6 +452,7 @@
 				C13378001F514072004179DE /* enemy.cpp in Sources */,
 				C13E28281F511A52003B478C /* UI.cpp in Sources */,
 				C13E28251F5115C1003B478C /* projectile.cpp in Sources */,
+				C1138CFD2036B17F00CF2328 /* camera.cpp in Sources */,
 				C15AFCD3200ACCEB00EA551B /* dragon.cpp in Sources */,
 				C13378031F5142AA004179DE /* bat.cpp in Sources */,
 				C13378061F514360004179DE /* slime.cpp in Sources */,

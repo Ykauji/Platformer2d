@@ -14,10 +14,10 @@
 
 class Mage : public Player {
   public:
-//    Mage();
-//    ~Mage();
+    
     void movementDashLeft();
     void movementDashRight();
+    
   private:
     
 };

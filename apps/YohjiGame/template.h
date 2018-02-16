@@ -4,6 +4,7 @@
 #include "agk.h"
 #include "player.h"
 #include "level.h"
+#include "camera.h"
 
 // use in Core.mm to set the window properties
 #define DEVICE_WIDTH 1920
@@ -19,6 +20,7 @@ class app
 {
 	public:
         Player * mainPlayero;
+        Camera2D potato;
         Level levelOne;
         UI userInterface;
         // If 0, main menu, 1 game, 2 menu

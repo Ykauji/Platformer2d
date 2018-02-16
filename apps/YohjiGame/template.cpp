@@ -51,15 +51,6 @@ void app::Begin(void)
     agk::SetPhysicsWallBottom(0);
     agk::SetViewZoom(.60);
     
-//    agk::SetPhysicsDebugOn();
-    
-//    // Load Player
-//    mainPlayer.loadPlayerTest();
-//    
-//    // Player Physics
-//    mainPlayer.loadPlayerPhysics();
-//    agk::SetSpriteActive(mainPlayer.getID(), 1);
-    
     // Ground Sensor
     
     // When loading images, if performance issues delete after usage?
@@ -202,9 +193,7 @@ void app::Begin(void)
 int app::Loop (void)
 {
     if (gameState == 1) {
-    // World Scrolling
-    agk::SetViewOffset(agk::GetSpriteX(mainPlayer.getID())-(agk::GetDeviceWidth()+160), agk::GetSpriteY(mainPlayer.getID())-(agk::GetDeviceHeight()+500));
-    
+        
     agk::Print(agk::GetSpriteCurrentFrame(mainPlayer.getID()));
     
     //Player Movement
@@ -421,6 +410,13 @@ int app::Loop (void)
         gameState = 2;
     
     }
+        // Camera Stuff
+        potato.Camera2DFollow(mainPlayer.getID());
+   
+        
+        // World Scrolling
+//    agk::SetViewOffset(agk::GetSpriteX(mainPlayer.getID())-(agk::GetDeviceWidth()+160), agk::GetSpriteY(mainPlayer.getID())-(agk::GetDeviceHeight()+500));
+    
 	agk::Print( agk::ScreenFPS() );
 
         
@@ -477,6 +473,9 @@ int app::Loop (void)
         // Player Physics
         mainPlayer.loadPlayerPhysics();
         agk::SetSpriteActive(mainPlayer.getID(), 1);
+        
+        potato.Camera2DInit(1500, 1000, 5, 0);
+        potato.Camera2DSet(mainPlayer.getID(), -40000, -40000, 40000, 40000);
     }
     
 	agk::Sync();
