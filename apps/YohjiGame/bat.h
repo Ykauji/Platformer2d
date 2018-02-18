@@ -20,11 +20,11 @@ public:
     
     ~Bat();
     void attack() {}
-    void isHit(Projectile bullet, UI &userInterface);
     void moveToPlayer(Player mainPlayer);
     void isDead(Player &mainPlayer);
     void setEnrage(int enrageHealth) {enrageHealth_ = enrageHealth;}
     int getEnrage() {return enrageHealth_;}
+    void enemySpecificHit();
     
 private:
     int yDirection;

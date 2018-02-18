@@ -164,7 +164,7 @@ void Player::movementJump() {
 // If true, then door is hit.
 void Player::movementDashDown() {
     agk::SetSpritePhysicsVelocity(this->getID(), agk::GetSpritePhysicsVelocityX(iD_), 0);
-    agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), 0, jumpHeight_);
+    agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), 1, jumpHeight_);
 }
 
 int Player::checkDoor() {
@@ -309,6 +309,8 @@ void Player::resetPlayer() {
     charLevel_ = 1;
     damage_ = 10;
     agk::SetSpritePosition(iD_, 0, 0);
+    movementRight();
+
 }
 
 //void Player::mouseAttack() {

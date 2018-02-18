@@ -11,9 +11,6 @@
 #include <vector>
 
 
-
-
-
 class UI {
 public:
     void setHealthBarEmpty(int healthBarEmpty) {healthBarEmpty_ = healthBarEmpty;}

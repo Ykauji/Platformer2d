@@ -52,7 +52,7 @@ void Level::deleteLevel() {
     }
     for (int i = 0; i < enemies.size(); i++) {
         delete enemies[i];
-        agk::DeleteSprite(enemies[i]->getID_());
+        enemies[i]->deleteSprites();
     }
     for (int i = 0; i < door_.size(); i++) {
         agk::DeleteSprite(door_[i].getID());
@@ -245,12 +245,17 @@ void Level::spawnSlime(int x, int y) {
     agk::SetSpritePosition(slime->getID_(), x, y);
     agk::SetSpritePhysicsOn(slime->getID_());
     agk::SetSpriteShape(slime->getID_(), 3);
-    agk::SetSpriteSize(slime->getID_(),agk::Random(65,75));
+    float sizeTest = agk::Random(60,85);
+    agk::SetSpriteSize(slime->getID_(),sizeTest);
     agk::SetSpritePhysicsCanRotate(slime->getID_(), 0);
     slime->setSpeed(700);
-    slime->setHealth(100);
+    sizeTest = sizeTest * 1.5;
+    slime->setHealth(sizeTest);
+    slime->setMaxHealth(sizeTest);
+    slime->setEngaged(false);
     slime->setDamage(10);
     slime->setExperience(50);
+    
     enemies.push_back(slime);
 }
 
@@ -263,6 +268,7 @@ void Level::spawnBat(int x, int y) {
     agk::SetSpritePosition(bat->getID_(), x, y);
     bat->setSpeed(5);
     bat->setHealth(150);
+    bat->setMaxHealth(150);
     bat->setDamage(5);
     bat->setExperience(1000);
     enemies.push_back(bat);
@@ -277,15 +283,17 @@ void Level::spawnTrainingDummy(int x,int y) {
     agk::SetSpriteFlip(dummy->getID_(), 1, 0);
     dummy->setSpeed(0);
     dummy->setHealth(9999);
+    dummy->setMaxHealth(9999);
     dummy->setDamage(5);
     dummy->setExperience(5000);
+    
     enemies.push_back(dummy);
 }
 
 void Level::deleteEnemy(int iD) {
     for (int i = 0; i < enemies.size(); i++) {
         if (enemies[i]->getID_() == iD) {
-            agk::DeleteSprite(enemies[i]->getID_());
+            enemies[i]->deleteSprites();
             enemies.erase(enemies.begin()+i);
         }
     }

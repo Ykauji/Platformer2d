@@ -1,10 +1,5 @@
-//
-//  camera.hpp
-//  agkinterpreter
-//
-//  Created by Yohji Kusakabe on 2/16/18.
-//
-//
+
+//  Ty Mr. TrezSoft
 
 #ifndef camera_h
 #define camera_h
@@ -17,6 +12,7 @@
 // 2D Camera for AGK T1 1088
 // Version 1.0
 // Stuart Tresadern
+// Translated into C++ by Yojo
 // ------------------------------------
 
 

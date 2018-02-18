@@ -27,7 +27,6 @@ void UI::initUI() {
     // Empty Bar
     setHealthBarEmpty(agk::CreateSprite(15));
     agk::SetSpritePosition(getHealthBarEmpty(), 785 , 965);
-    agk::SetSpriteSize(getHealthBarEmpty(),400,20); // Original 400,20
     agk::SetSpriteSize(getHealthBarEmpty(),400,22.5);
     agk::FixSpriteToScreen(getHealthBarEmpty(), 1);
     agk::SetSpriteDepth(getHealthBarEmpty(), 2);
@@ -35,7 +34,6 @@ void UI::initUI() {
     // Green HealthBar
     setHealthBarGreen(agk::CreateSprite(16));
     agk::SetSpritePosition(getHealthBarGreen() , 791 , 969);
-    agk::SetSpriteSize(getHealthBarGreen(),350,15); // Original 350,15
     agk::SetSpriteSize(getHealthBarGreen(),190,14); // 395 max
     agk::FixSpriteToScreen(getHealthBarGreen(), 1);
     agk::SetSpriteDepth(getHealthBarGreen(), 2);

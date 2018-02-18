@@ -21,10 +21,20 @@ class Player;
 class Projectile;
 class UI;
 
+class enemyHealthBar {
+  public:
+    int healthBarBox_;
+    int greenHealthBar_;
+    int x1_;
+    int y1_;
+    int x2_;
+    int y2_;
+};
+
 class Enemy {
 public:
-    Enemy(int spriteID,int health,int damage,int speed,int experience) {SpriteID_ = spriteID; health_ = health; damage_ = damage; experience_ = experience; recentlyDamaged_ = 0;}
-    Enemy() {}
+    Enemy(int spriteID,int MaxHealth,int damage,int speed,int experience) {SpriteID_ = spriteID; health_ = MaxHealth; damage_ = damage; experience_ = experience; recentlyDamaged_ = 0; maxHealth_ = MaxHealth; isEngage_ = 0;}
+    Enemy();
     ~Enemy() {}
     
     void setID_(int iD) {SpriteID_ = iD;}
@@ -44,6 +54,11 @@ public:
     virtual void moveToPlayer(Player mainPlayer);
     void canMoveToPlayer(Player mainPlayer);
     int checkCollision(Player mainPlayer);
+    void setMaxHealth(int maxHealth) {maxHealth_ = maxHealth;}
+    int getMaxHealth() {return maxHealth_;}
+    void setEngaged(bool engaged) {isEngage_ = engaged;}
+    bool getEngaged() {return isEngage_;}
+    
     std::vector<int> getDamageText() {return damageText;}
     
     void deleteEnemy();
@@ -51,8 +66,19 @@ public:
     virtual void isHit(Projectile bullet, UI &userInterface);
     virtual void isDead(Player &mainPlayer, UI &userInterface) {}
     std::string intToStringo(int value);
+    virtual void enemySpecificHit();
+    
+    // HealthBar Stuff
+    // X and Y = fix to center healthbars
+    void initHealthBar(int x1, int y1,int x2,int y2);
+    virtual void initHealthBar();
+    void updateEnemyHealthBar();
+    void showHealthBar();
+    void deleteSprites();
     
 protected:
+    bool isEngage_;
+    int maxHealth_;
     int health_;
     int damage_;
     int speed_;
@@ -62,5 +88,6 @@ protected:
     int direction_;
     std::vector<int> damageText;
     int recentlyDamaged_;
+    enemyHealthBar healthBar_;
 };
 #endif /* enemy_h */

@@ -176,16 +176,8 @@
 				C165359B20350DDD000E225B /* Jobs */,
 				C1FF99C82001E2E100060FDD /* Projectiles */,
 				C1FF99C72001E2B200060FDD /* Enemies */,
-				C1653595202BD152000E225B /* npc.h */,
-				C1653594202BD152000E225B /* npc.cpp */,
-				C13377FC1F513FB4004179DE /* level.h */,
-				C13377FB1F513FB4004179DE /* level.cpp */,
-				C1653598202F9B38000E225B /* door.h */,
-				C1653597202F9B38000E225B /* door.cpp */,
-				C13E28271F511A52003B478C /* UI.h */,
-				C1138CFC2036B17F00CF2328 /* camera.h */,
-				C1138CFB2036B17F00CF2328 /* camera.cpp */,
-				C13E28261F511A52003B478C /* UI.cpp */,
+				C1138CFE203791A700CF2328 /* UI/Camera */,
+				C1138CFF2037920800CF2328 /* Level */,
 				C13E28211F511526003B478C /* player.h */,
 				C13E28201F511526003B478C /* player.cpp */,
 			);
@@ -272,6 +264,30 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1138CFE203791A700CF2328 /* UI/Camera */ = {
+			isa = PBXGroup;
+			children = (
+				C13E28271F511A52003B478C /* UI.h */,
+				C13E28261F511A52003B478C /* UI.cpp */,
+				C1138CFC2036B17F00CF2328 /* camera.h */,
+				C1138CFB2036B17F00CF2328 /* camera.cpp */,
+			);
+			name = UI/Camera;
+			sourceTree = "<group>";
+		};
+		C1138CFF2037920800CF2328 /* Level */ = {
+			isa = PBXGroup;
+			children = (
+				C1653595202BD152000E225B /* npc.h */,
+				C1653594202BD152000E225B /* npc.cpp */,
+				C1653598202F9B38000E225B /* door.h */,
+				C1653597202F9B38000E225B /* door.cpp */,
+				C13377FC1F513FB4004179DE /* level.h */,
+				C13377FB1F513FB4004179DE /* level.cpp */,
+			);
+			name = Level;
 			sourceTree = "<group>";
 		};
 		C165359B20350DDD000E225B /* Jobs */ = {

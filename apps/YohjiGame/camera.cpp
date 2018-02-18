@@ -49,6 +49,8 @@ void Camera2D::Camera2DFollow(int objectId) {
     
 }
 
+
+
 float Camera2D::Camera2DMove(int X, int Y,int objectId,float position,float size) {
     
     float returnValue;

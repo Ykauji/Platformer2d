@@ -127,6 +127,10 @@ void app::Begin(void)
     // Load CastleBackground Level 2
     agk::LoadImage(36, "media/CastleBackgroundNight.png");
     
+    // Load HealthBarRed
+    agk::LoadImage(37, "media/red.png");
+    agk::LoadImage(38, "media/HealthBarEmptyBlue.png");
+    
     // Load Attack Animations
     
     // Load Dragon
@@ -145,7 +149,7 @@ void app::Begin(void)
     
     // Load Start Screen Stuff
     
-    // Change GameState to 0 for mainScreen
+    // Change GameState to 0 for mainScreen    Flow = 0 -> 4 -> 1
     gameState = 4;
     if (gameState == 0) {
         levelOne.loadStartScreen();
@@ -235,6 +239,7 @@ int app::Loop (void)
                 levelOne.loadLevel(levelOne.getDoor()[i].getNext());
                 agk::SetSpriteX(mainPlayer.getID(), 0);
                 agk::SetSpriteY(mainPlayer.getID(), 0);
+                mainPlayer.movementRight();
                 break;
             }
         }
@@ -336,6 +341,9 @@ int app::Loop (void)
             }
         }
         levelOne.getEnemies()[i]->setRecentlyDamaged(levelOne.getEnemies()[i]->getRecentlyDamaged()-1);
+        if (levelOne.getEnemies()[i]->getEngaged() == true) {
+            levelOne.getEnemies()[i]->updateEnemyHealthBar();
+        }
     }
     
     // If enemy is under 1 health delete.
@@ -363,12 +371,6 @@ int app::Loop (void)
         agk::SetSpriteX(mainPlayer.getID(), 0);
         agk::SetSpriteY(mainPlayer.getID(), 0);
         mainPlayer.resetPlayer();
-    }
-    
-    // If OffMap Reset/Die
-    if (agk::GetSpriteY(mainPlayer.getID()) > 3000) {
-        agk::SetSpritePosition(mainPlayer.getID(), 0, 0);
-        mainPlayer.setHealth(mainPlayer.getHealth()/2);
     }
     
     // Floating Text Update
@@ -411,15 +413,18 @@ int app::Loop (void)
     
     }
         // Camera Stuff
-        potato.Camera2DFollow(mainPlayer.getID());
-   
+        if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) != 0) {
+            potato.Camera2DFollow(mainPlayer.getID());
+        }
+        // If OffMap Reset/Die
+        if (agk::GetSpriteY(mainPlayer.getID()) > 3000) {
+            agk::SetSpritePosition(mainPlayer.getID(), 0, 0);
+            mainPlayer.movementRight();
+            mainPlayer.setHealth(mainPlayer.getHealth()/2);
+            potato.Camera2DFollow(mainPlayer.getID());
+        }
         
-        // World Scrolling
-//    agk::SetViewOffset(agk::GetSpriteX(mainPlayer.getID())-(agk::GetDeviceWidth()+160), agk::GetSpriteY(mainPlayer.getID())-(agk::GetDeviceHeight()+500));
-    
 	agk::Print( agk::ScreenFPS() );
-
-        
         
     // Main Menu
     } else if (gameState == 0) {
@@ -435,6 +440,7 @@ int app::Loop (void)
             agk::SetTextVisible(1, 1);
             agk::SetTextVisible(100, 0);
             agk::SetRawMouseVisible(0);
+            
         }
     // Pause Menu
     } else if (gameState == 2) {
@@ -449,7 +455,7 @@ int app::Loop (void)
     } else if (gameState == 4) {
         // For now only one Class
         // 1 is Mage
-        int classChoice = 2;
+        int classChoice = 1;
         
         switch (classChoice) {
             case 1: {
@@ -474,8 +480,9 @@ int app::Loop (void)
         mainPlayer.loadPlayerPhysics();
         agk::SetSpriteActive(mainPlayer.getID(), 1);
         
-        potato.Camera2DInit(1500, 1000, 5, 0);
+        potato.Camera2DInit(1500, 1140, 5, 0);
         potato.Camera2DSet(mainPlayer.getID(), -40000, -40000, 40000, 40000);
+        potato.Camera2DFollow(mainPlayer.getID());
     }
     
 	agk::Sync();

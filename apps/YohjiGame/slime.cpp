@@ -24,20 +24,17 @@ void Slime::moveToPlayer(Player mainPlayer) {
         }
     }
     // Decides how slime jumps
-    if (std::abs(agk::GetSpriteX(mainPlayer.getID()) - agk::GetSpriteX(getID_())) < 275 && (agk::GetSpritePhysicsVelocityY(getID_()) == 0)){
+    if (std::abs(agk::GetSpriteX(mainPlayer.getID()) - agk::GetSpriteX(getID_())) < 550 && (agk::GetSpritePhysicsVelocityY(getID_()) == 0)){
         agk::SetSpritePhysicsVelocity(getID_(), agk::GetSpritePhysicsVelocityX(getID_()), 0);
-        agk::SetSpritePhysicsImpulse(getID_(), agk::GetSpriteXByOffset(getID_()), agk::GetSpriteYByOffset(getID_()), (getSpeed()*1.5)*getDirection(), agk::Random2(-1200, -4000));
+        agk::SetSpritePhysicsImpulse(getID_(), agk::GetSpriteXByOffset(getID_()), agk::GetSpriteYByOffset(getID_()), (getSpeed()*3)*getDirection(), agk::Random2(-1200, -3500));
     } else if (agk::GetSpritePhysicsVelocityY(getID_()) == 0){
         agk::SetSpritePhysicsVelocity(getID_(), 0, agk::GetSpritePhysicsVelocityY(getID_()));
-        agk::SetSpritePhysicsImpulse(getID_(), agk::GetSpriteXByOffset(getID_()), agk::GetSpriteYByOffset(getID_()), (getSpeed()+agk::Random2(0, 500))*getDirection(), agk::Random2(-1500, -3000));
+        agk::SetSpritePhysicsImpulse(getID_(), agk::GetSpriteXByOffset(getID_()), agk::GetSpriteYByOffset(getID_()), (getSpeed()+agk::Random2(100, 2000))*getDirection(), agk::Random2(-1500, -5000));
     }
 }
 
-void Slime::isHit(Projectile bullet, UI &userInterface) {
-    setHealth(getHealth()-bullet.getDamage());
-    const std::string bulletNumbero = intToStringo(bullet.getDamage());
-    userInterface.createFadingText(bulletNumbero, 60, agk::GetSpriteX(this->getID_())+ agk::Random2(-20,20), agk::GetSpriteY(this->getID_()), 40);
-    agk::PlaySprite(getID_(),5,0,1,2);
+void Slime::enemySpecificHit() {
+     agk::PlaySprite(getID_(),5,0,1,2);
 }
 
 void Slime::isDead(Player &mainPlayer,UI &userInterface) {
@@ -49,4 +46,22 @@ void Slime::isDead(Player &mainPlayer,UI &userInterface) {
     
     // Add death animation here
     
+}
+
+void Slime::initHealthBar() {
+    healthBar_.healthBarBox_ = agk::CreateSprite(38);
+    healthBar_.greenHealthBar_ = agk::CreateSprite(37);
+    healthBar_.x1_ = -35;
+    healthBar_.y1_ = -50;
+    healthBar_.x2_ = -30.5;
+    healthBar_.y2_ = -44;
+    
+//    agk::SetSpriteVisible(healthBar_.greenHealthBar_, 0);
+    
+    agk::SetSpriteSize(healthBar_.healthBarBox_,163,23);
+    agk::SetSpriteSize(healthBar_.greenHealthBar_,152,12.5);
+    
+    agk::SetSpritePosition(healthBar_.healthBarBox_, agk::GetSpriteX(SpriteID_)+healthBar_.x1_, agk::GetSpriteY(SpriteID_)+healthBar_.y1_);
+    agk::SetSpritePosition(healthBar_.greenHealthBar_, agk::GetSpriteX(SpriteID_)+healthBar_.x2_, agk::GetSpriteY(SpriteID_)+healthBar_.y2_);
+
 }
