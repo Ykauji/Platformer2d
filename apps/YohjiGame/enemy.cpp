@@ -117,13 +117,22 @@ void Enemy::initHealthBar(int x1, int y1,int x2,int y2) {
 }
 // -18,-50   -10,-46
 void Enemy::updateEnemyHealthBar() {
-    agk::SetSpritePosition(healthBar_.healthBarBox_, agk::GetSpriteX(SpriteID_)+healthBar_.x1_, agk::GetSpriteY(SpriteID_)+healthBar_.y1_);
-    agk::SetSpritePosition(healthBar_.greenHealthBar_, agk::GetSpriteX(SpriteID_)+healthBar_.x2_, agk::GetSpriteY(SpriteID_)+healthBar_.y2_);
+    
+    int test = (agk::GetSpriteWidth(SpriteID_)/2) - agk::GetSpriteWidth(healthBar_.healthBarBox_)/2;
+    agk::SetSpritePosition(healthBar_.healthBarBox_, agk::GetSpriteX(SpriteID_)+test-4.5, agk::GetSpriteY(SpriteID_)-50);
+    agk::SetSpritePosition(healthBar_.greenHealthBar_, agk::GetSpriteX(SpriteID_)+test, agk::GetSpriteY(SpriteID_)-44);
     
     double healthPercent = 152*health_/(double)maxHealth_;
     agk::SetSpriteSize(healthBar_.greenHealthBar_,healthPercent,12.6);
     
 
+}
+
+void Enemy::testUpdateHealth() {
+    
+    int test = (agk::GetSpriteWidth(SpriteID_)/2) - agk::GetSpriteWidth(healthBar_.healthBarBox_)/2;
+    agk::SetSpritePosition(healthBar_.healthBarBox_, agk::GetSpriteX(SpriteID_)+test-4.5, agk::GetSpriteY(SpriteID_)-50);
+    agk::SetSpritePosition(healthBar_.greenHealthBar_, agk::GetSpriteX(SpriteID_)+test, agk::GetSpriteY(SpriteID_)-44);
 }
 
 void Enemy::deleteSprites() {

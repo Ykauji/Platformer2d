@@ -9,7 +9,7 @@
 // use in Core.mm to set the window properties
 #define DEVICE_WIDTH 1920
 #define DEVICE_HEIGHT 1080
-#define WINDOW_TITLE "Jim"
+#define WINDOW_TITLE "OverThroned"
 #define FULLSCREEN 0
 
 // used to make a more unique folder for the write path

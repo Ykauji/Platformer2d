@@ -31,8 +31,8 @@ void Camera2D::Camera2DSet(int objectId,int bottomX,int bottomY,int topX,int top
     
     Camera1.limitMin.x = bottomX;
     Camera1.limitMin.y = bottomY;
-    Camera1.limitMax.x = topX - agk::GetVirtualWidth();
-    Camera1.limitMax.y = topY - agk::GetVirtualHeight();
+    Camera1.limitMax.x = topX;
+    Camera1.limitMax.y = topY;
 }
 
 

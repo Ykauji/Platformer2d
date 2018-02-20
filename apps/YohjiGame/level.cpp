@@ -115,22 +115,27 @@ void Level::loadLevelOne() {
     loadPlatform(100, -500, 500);
     loadPlatform(95,20,-325,500);
     // Castle
-    loadPlatform(20,20,2500,-200,0,100);
-    loadPlatform(18, 20, 2575, -900, 0, 101);
-    loadPlatform(16, 20, 2650, -1600, 0, 102);
-    loadPlatform(14, 20, 2725, -2300, 0, 103);
+//    loadPlatform(20,20,2500,-200,0,100);
+//    loadPlatform(18, 20, 2575, -900, 0, 101);
+//    loadPlatform(16, 20, 2650, -1600, 0, 102);
+//    loadPlatform(14, 20, 2725, -2300, 0, 103);
+    
+    loadPlatform(20,20,4500,-200,0,100);
+    loadPlatform(18, 20, 4575, -900, 0, 101);
+    loadPlatform(16, 20, 4650, -1600, 0, 102);
+    loadPlatform(14, 20, 4725, -2300, 0, 103);
     
     // Castle Door
-    loadDoor(3155, 330,2);
+    loadDoor(5155, 330,2);
     
     // Small Platforms
     loadPlatform(10,0,150);
     loadPlatform(10,1000,150);
-    loadPlatform(10,4500,150);
-    loadPlatform(10,5500,150);
+//    loadPlatform(10,4500,150);
+//    loadPlatform(10,5500,150);
     
     // Load TrainingDummy
-    spawnTrainingDummy(6000, 15);
+    spawnTrainingDummy(6000, 350);
     
     // Load Background
     
@@ -213,13 +218,13 @@ void Level::loadDoor(int x, int y,int nextLevel) {
     tempDoor.setiD(agk::CreateSprite(28));
     tempDoor.setNext(nextLevel);
     door_.push_back(tempDoor);
-    agk::SetSpriteSize(door_.back().getID(),100);
-    agk::SetSpritePosition(door_.back().getID(), x, y);
+    agk::SetSpriteSize(door_.back().getID(),200,200);
+    agk::SetSpritePosition(door_.back().getID(), x-50, y-180);
     agk::SetSpriteGroup(door_.back().getID(), 5);
     tempDoor.setiD(agk::CreateSprite(29));
     door_.push_back(tempDoor);
-    agk::SetSpriteSize(door_.back().getID(),100);
-    agk::SetSpritePosition(door_.back().getID(), x, y+70);
+    agk::SetSpriteSize(door_.back().getID(),200,200);
+    agk::SetSpritePosition(door_.back().getID(), x-50, y-30);
     agk::SetSpriteGroup(door_.back().getID(), 5);
 }
 

@@ -17,7 +17,7 @@
 
 class Player {
 public:
-    Player() {health_ = 100; speed_ = 6500; jumpHeight_ = 7500; maxJumps = 1; recentlyJumped = 0; currentWep = 1; direction_ = 1; dashTimer_ = 0; recentlyDamaged_ = 0; maxHealth_ = 100; experience_ = 0; maxExperience_ = 100; charLevel_ = 1; damage_ = 10;}
+    Player() {health_ = 100; speed_ = 6500; jumpHeight_ = 7500; maxJumps = 1; recentlyJumped = 0; currentWep = 1; direction_ = 1; dashTimer_ = 0; recentlyDamaged_ = 0; maxHealth_ = 100; experience_ = 0; maxExperience_ = 100; charLevel_ = 1; damage_ = 10; gold_ = 0;}
     ~Player() {
 
     }
@@ -101,6 +101,7 @@ protected:
     float speed_;
     double damage_;
     int iD_;
+    int gold_;
     int groundSensorID_;
     int wallSensorIDLeft_;
     int wallSensorIDRight_;

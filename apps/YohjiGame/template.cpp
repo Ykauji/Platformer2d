@@ -51,6 +51,9 @@ void app::Begin(void)
     agk::SetPhysicsWallBottom(0);
     agk::SetViewZoom(.60);
     
+//    agk::SetPhysicsDebugOn();
+    
+    
     // Ground Sensor
     
     // When loading images, if performance issues delete after usage?
@@ -153,7 +156,6 @@ void app::Begin(void)
     gameState = 4;
     if (gameState == 0) {
         levelOne.loadStartScreen();
-        agk::SetSpriteVisible(mainPlayer.getID(), 0);
         userInterface.hideUI();
         agk::SetTextVisible(1, 0);
         // Title Text
@@ -204,20 +206,32 @@ int app::Loop (void)
     if (mainPlayer.getRecentlyDamaged() < 0) {
         if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && !mainPlayer.touchingLeftWall()) {
             mainPlayer.movementLeft();
-        } else if((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && !mainPlayer.touchingRightWall()) {
-            mainPlayer.movementRight();
+        } else if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && mainPlayer.touchingLeftWall()) {
+            // If I want to slide down walls add here
         }
+        
+        if((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && !mainPlayer.touchingRightWall()) {
+            mainPlayer.movementRight();
+        } else if ((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && mainPlayer.touchingRightWall()) {
+            // Same thing
+        }
+        
     }
     if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) == 0){
     mainPlayer.stopMovement();
     }
 
     // Restrict Jumps to maxJumps
-    if (mainPlayer.getRecentlyJumped() < mainPlayer.getMaxJumps()) {
-        if (agk::GetRawKeyPressed(38) || agk::GetRawKeyPressed(87)) {
+        if (mainPlayer.touchingLeftWall() && (agk::GetRawKeyState(87) && agk::GetRawKeyState(68))) {
             mainPlayer.movementJump();
+        } else if (mainPlayer.touchingRightWall() && (agk::GetRawKeyState(87) && agk::GetRawKeyState(65))){
+            mainPlayer.movementJump();
+        } else if (mainPlayer.getRecentlyJumped() < mainPlayer.getMaxJumps()) {
+                if (agk::GetRawKeyPressed(38) || agk::GetRawKeyPressed(87)) {
+                    mainPlayer.movementJump();
+                }
         }
-    }    
+    
     // When landing, reset RecentlyJumped to 0
     if (agk::GetSpriteFirstContact(mainPlayer.getGroundSensor()) == 1 && agk::GetSpritePhysicsVelocityY(mainPlayer.getID()) <= 0){
         mainPlayer.resetJump();
@@ -233,18 +247,7 @@ int app::Loop (void)
 
     if (agk::GetRawKeyState(83)) {
         mainPlayer.movementDashDown();
-    // Checks what level Door is pointing to and loads it.
-        for (int i = 0; i < levelOne.getDoor().size(); i++) {
-            if (mainPlayer.checkDoor() == levelOne.getDoor()[i].getID()) {
-                levelOne.loadLevel(levelOne.getDoor()[i].getNext());
-                agk::SetSpriteX(mainPlayer.getID(), 0);
-                agk::SetSpriteY(mainPlayer.getID(), 0);
-                mainPlayer.movementRight();
-                break;
-            }
-        }
     }
-    
     
     
     // If moving then play animation
@@ -332,10 +335,9 @@ int app::Loop (void)
             if (mainPlayer.getBullets()[j]->isMelee() && agk::GetSpriteDistance(levelOne.getEnemies()[i]->getID_(), mainPlayer.getBullets()[j]->getID_()) < 3 && levelOne.getEnemies()[i]->getRecentlyDamaged() < 0) {
                 levelOne.getEnemies()[i]->isHit(*mainPlayer.getBullets()[j],userInterface);
                 levelOne.getEnemies()[i]->setRecentlyDamaged(3);
-            } else if(agk::GetSpriteDistance(levelOne.getEnemies()[i]->getID_(), mainPlayer.getBullets()[j]->getID_()) < 5 && levelOne.getEnemies()[i]->getRecentlyDamaged() < 0){
+            } else if(agk::GetSpriteDistance(levelOne.getEnemies()[i]->getID_(), mainPlayer.getBullets()[j]->getID_()) < 5){
                 // How close bullet is to recognize collision
                     levelOne.getEnemies()[i]->isHit(*mainPlayer.getBullets()[j],userInterface);
-                    levelOne.getEnemies()[i]->setRecentlyDamaged(10);
                     agk::SetSpritePosition(mainPlayer.getBullets()[j]->getID_() , 10000, 10000);
                     mainPlayer.clearBullet(j);
             }
@@ -343,6 +345,7 @@ int app::Loop (void)
         levelOne.getEnemies()[i]->setRecentlyDamaged(levelOne.getEnemies()[i]->getRecentlyDamaged()-1);
         if (levelOne.getEnemies()[i]->getEngaged() == true) {
             levelOne.getEnemies()[i]->updateEnemyHealthBar();
+//            levelOne.getEnemies()[i]->testUpdateHealth();
         }
     }
     
@@ -401,20 +404,32 @@ int app::Loop (void)
     // +500 exp
     if (agk::GetRawKeyPressed(79)) {
         mainPlayer.setExperience(500);
+        std::cout << agk::GetSpriteX(mainPlayer.getID()) << " " << agk::GetSpriteY(mainPlayer.getID());
     }
     if (agk::GetRawKeyPressed(82)) {
         levelOne.spawnBat(agk::Random2(-2500,2500), 0);
     }
     if (agk::GetRawKeyPressed(84)) {
-        levelOne.spawnTrainingDummy(6000, 15);
+        int tempCheck = mainPlayer.checkDoor();
+        if (tempCheck != 0) {
+            for (int i = 0; i < levelOne.getDoor().size(); i++) {
+                if (levelOne.getDoor()[i].getID() == tempCheck) {
+                    levelOne.loadLevel(levelOne.getDoor()[i].getNext());
+                    agk::SetSpritePosition(mainPlayer.getID(), 0, 0);
+                    mainPlayer.movementRight();
+                }
+            }
+        }
     }
     if (agk::GetRawKeyPressed(27)) {
         gameState = 2;
     
     }
         // Camera Stuff
+       
         if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) != 0) {
-            potato.Camera2DFollow(mainPlayer.getID());
+            // Camera Limits
+                potato.Camera2DFollow(mainPlayer.getID());
         }
         // If OffMap Reset/Die
         if (agk::GetSpriteY(mainPlayer.getID()) > 3000) {
@@ -429,14 +444,12 @@ int app::Loop (void)
     // Main Menu
     } else if (gameState == 0) {
         if (agk::GetVirtualButtonPressed(1)) {
-            gameState = 1;
+            gameState = 4;
             levelOne.loadLevel(1);
             agk::DeleteVirtualButton(1);
             agk::DeleteVirtualButton(2);
             agk::DeleteVirtualButton(3);
-            agk::SetSpriteVisible(mainPlayer.getID(), 1);
             userInterface.showUI();
-            mainPlayer.resetPlayer();
             agk::SetTextVisible(1, 1);
             agk::SetTextVisible(100, 0);
             agk::SetRawMouseVisible(0);
@@ -483,6 +496,11 @@ int app::Loop (void)
         potato.Camera2DInit(1500, 1140, 5, 0);
         potato.Camera2DSet(mainPlayer.getID(), -40000, -40000, 40000, 40000);
         potato.Camera2DFollow(mainPlayer.getID());
+    } else if (gameState == 5) {
+        // Tower Floor Selection Screen
+        
+        
+        
     }
     
 	agk::Sync();

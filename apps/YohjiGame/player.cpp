@@ -168,10 +168,7 @@ void Player::movementDashDown() {
 }
 
 int Player::checkDoor() {
-    if (agk::GetSpriteHitGroup(5, agk::GetSpriteX(iD_)+60, agk::GetSpriteY(iD_))) {
-        return agk::GetSpriteHit(agk::GetSpriteX(iD_)+60, agk::GetSpriteY(iD_));
-    }
-    return 0;
+    return agk::GetSpriteHitGroup(5, agk::GetSpriteX(iD_)+60, agk::GetSpriteY(iD_));
 }
 
 void Player::stopMovement() {
@@ -181,14 +178,16 @@ void Player::stopMovement() {
 }
 
 bool Player::touchingLeftWall() {
-    if (agk::GetSpriteFirstContact(wallSensorIDLeft_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDLeft_), agk::GetSpriteY(wallSensorIDLeft_))) {
+    if ((agk::GetSpriteFirstContact(wallSensorIDLeft_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDLeft_), agk::GetSpriteY(wallSensorIDLeft_))) || (agk::GetSpriteFirstContact(wallSensorIDLeft_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDLeft_), agk::GetSpriteY(wallSensorIDLeft_)+40))) {
+        
         return true;
     } else {
         return false;
     }
 }
 bool Player::touchingRightWall() {
-    if (agk::GetSpriteFirstContact(wallSensorIDRight_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDRight_), agk::GetSpriteY(wallSensorIDRight_))){
+    if ((agk::GetSpriteFirstContact(wallSensorIDRight_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDRight_), agk::GetSpriteY(wallSensorIDRight_))) || (agk::GetSpriteFirstContact(wallSensorIDRight_) == 1 && agk::GetSpriteHitGroup(2, agk::GetSpriteX(wallSensorIDRight_), agk::GetSpriteY(wallSensorIDRight_)+40))) {
+        
         return true;
     } else {
         return false;
@@ -263,16 +262,18 @@ void Player::loadPlayerTest() {
     
     // Wall Sensors
     wallSensorIDLeft_ = agk::CreateSprite(0);
-    agk::SetSpriteSize(wallSensorIDLeft_ ,5,45);
+    agk::SetSpriteSize(wallSensorIDLeft_ ,5,60);
     agk::SetSpriteVisible(wallSensorIDLeft_, 0);
     agk::SetSpritePhysicsOn(wallSensorIDLeft_,2);
     agk::SetSpritePhysicsIsSensor(wallSensorIDLeft_, 1);
+    agk::SetSpriteShape(wallSensorIDLeft_,2);
     
     wallSensorIDRight_ = agk::CreateSprite(0);
-    agk::SetSpriteSize(wallSensorIDRight_ ,5,45);
+    agk::SetSpriteSize(wallSensorIDRight_ ,5,60);
     agk::SetSpriteVisible(wallSensorIDRight_, 0);
     agk::SetSpritePhysicsOn(wallSensorIDRight_,2);
     agk::SetSpritePhysicsIsSensor(wallSensorIDRight_, 1);
+    agk::SetSpriteShape(wallSensorIDRight_,2);
 
     
 }
@@ -280,7 +281,7 @@ void Player::loadPlayerTest() {
 void Player::loadPlayerPhysics() {
     agk::SetSpritePosition(getID(), 200, 200);
     agk::SetSpritePhysicsOn(getID());
-    agk::SetSpritePhysicsFriction(getID(), 1);
+    agk::SetSpritePhysicsFriction(getID(), 2);
     agk::SetSpritePhysicsCanRotate(getID(), 0);
     agk::SetSpriteShape(getID(),3);
     agk::SetSpritePhysicsRestitution(getID(), 0);
@@ -310,7 +311,6 @@ void Player::resetPlayer() {
     damage_ = 10;
     agk::SetSpritePosition(iD_, 0, 0);
     movementRight();
-
 }
 
 //void Player::mouseAttack() {

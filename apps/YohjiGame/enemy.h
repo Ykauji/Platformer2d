@@ -75,6 +75,7 @@ public:
     void updateEnemyHealthBar();
     void showHealthBar();
     void deleteSprites();
+    void testUpdateHealth();
     
 protected:
     bool isEngage_;

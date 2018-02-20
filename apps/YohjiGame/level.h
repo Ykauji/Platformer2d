@@ -34,6 +34,8 @@ public:
     std::vector<Enemy*> getEnemies() {return enemies;}
     std::vector<int> getLadders() {return ladders;}
     std::vector<Door> getDoor() {return door_;}
+    int getLevel() {return level_;}
+    
     void setSpawn(int x,int y) {spawnLocation.first = x;spawnLocation.second = y;}
     void generateRandomLevel();
     // Loads platform with 1y

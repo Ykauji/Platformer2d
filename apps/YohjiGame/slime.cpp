@@ -24,12 +24,15 @@ void Slime::moveToPlayer(Player mainPlayer) {
         }
     }
     // Decides how slime jumps
+    
+    
+        
     if (std::abs(agk::GetSpriteX(mainPlayer.getID()) - agk::GetSpriteX(getID_())) < 550 && (agk::GetSpritePhysicsVelocityY(getID_()) == 0)){
         agk::SetSpritePhysicsVelocity(getID_(), agk::GetSpritePhysicsVelocityX(getID_()), 0);
-        agk::SetSpritePhysicsImpulse(getID_(), agk::GetSpriteXByOffset(getID_()), agk::GetSpriteYByOffset(getID_()), (getSpeed()*3)*getDirection(), agk::Random2(-1200, -3500));
+        agk::SetSpritePhysicsImpulse(getID_(), agk::GetSpriteXByOffset(getID_()), agk::GetSpriteYByOffset(getID_()), (getSpeed()*agk::Random2(2.5, 4))*getDirection(), agk::Random2(-1200, -4500));
     } else if (agk::GetSpritePhysicsVelocityY(getID_()) == 0){
         agk::SetSpritePhysicsVelocity(getID_(), 0, agk::GetSpritePhysicsVelocityY(getID_()));
-        agk::SetSpritePhysicsImpulse(getID_(), agk::GetSpriteXByOffset(getID_()), agk::GetSpriteYByOffset(getID_()), (getSpeed()+agk::Random2(100, 2000))*getDirection(), agk::Random2(-1500, -5000));
+        agk::SetSpritePhysicsImpulse(getID_(), agk::GetSpriteXByOffset(getID_()), agk::GetSpriteYByOffset(getID_()), (getSpeed()+agk::Random2(800, 2800))*getDirection(), agk::Random2(-1800, -6000));
     }
 }
 
