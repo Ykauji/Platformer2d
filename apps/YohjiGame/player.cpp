@@ -42,7 +42,7 @@ void Player::attack() {
         beam->setTime(100);
         beam->setDamage(25);
         beam->setDirection(direction_);
-        beam->setSpeed(7);
+        beam->setSpeed(14);
         // How long the bullet exists for
         agk::SetSpriteSize((*beam).getID_(), 100,-1);
         agk::AddSpriteAnimationFrame((*beam).getID_(), 7);
@@ -141,7 +141,7 @@ void Player::movementDashLeft() {
         // Cooldown of Dash
         dashTimer_ = 20;
         agk::SetSpritePhysicsVelocity(iD_, 0, agk::GetSpritePhysicsVelocityY(iD_));
-        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*-2.5, 0);
+        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*-3, 0);
     }
 }
 
@@ -152,7 +152,7 @@ void Player::movementDashRight() {
         currentDash_ = 1;
         dashTimer_ = 20;
         agk::SetSpritePhysicsVelocity(iD_, 0, agk::GetSpritePhysicsVelocityY(iD_));
-        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*2.5, 0);
+        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*3, 0);
     }
 }
 void Player::movementJump() {

@@ -11,6 +11,8 @@
 #include "enemy.h"
 #include "slime.h"
 #include "bat.h"
+#include "TmxConverter.h"
+#include <algorithm>
 
 // Taken care of in deleteLevel.
 Level::~Level() {
@@ -28,6 +30,7 @@ void Level::loadLevel(int levelNumber) {
             loadLevelTwo();
             break;
         case 3:
+            loadCustomLevel(3, "media/Test.tmx", "media/newTileSet.tsx");
         default:
             break;
     }
@@ -81,6 +84,24 @@ void Level::loadTile(int x, int y, int image) {
     agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
     agk::SetSpriteGroup(castleBlock.back(), 2);
 }
+void Level::loadTile(int x, int y, std::string imageStr) {
+    castleBlock.push_back(agk::CreateSprite(agk::LoadImage(imageStr.c_str())));
+    agk::SetSpritePosition(castleBlock.back(), x, y);
+    agk::SetSpritePhysicsOn(castleBlock.back(),1);
+    agk::SetSpriteShape(castleBlock.back(),3);
+    agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
+    agk::SetSpriteGroup(castleBlock.back(), 2);
+}
+
+void Level::loadTile(int x, int y, std::string imageStr,int imageIndex) {
+    castleBlock.push_back(agk::CreateSprite(agk::LoadImage(imageStr.c_str(),imageIndex)));
+    agk::SetSpritePosition(castleBlock.back(), x, y);
+    agk::SetSpritePhysicsOn(castleBlock.back(),1);
+    agk::SetSpriteShape(castleBlock.back(),3);
+    agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
+    agk::SetSpriteGroup(castleBlock.back(), 2);
+}
+
 void Level::loadTile(int x, int y, int image,int physicsOn,int depth) {
     castleBlock.push_back(agk::CreateSprite(image));
     agk::SetSpritePosition(castleBlock.back(), x, y);
@@ -97,7 +118,6 @@ void Level::loadLadderTile(int x, int y, int image) {
     agk::SetSpritePosition(ladders.back(), x, y);
     agk::SetSpriteShape(ladders.back(),3);
 }
-
 
 void Level::loadLadder(int x, int y, int yLength) {
         loadLadderTile(x, y, 25);
@@ -126,7 +146,7 @@ void Level::loadLevelOne() {
     loadPlatform(14, 20, 4725, -2300, 0, 103);
     
     // Castle Door
-    loadDoor(5155, 330,2);
+    loadDoor(5155, 330,3);
     
     // Small Platforms
     loadPlatform(10,0,150);
@@ -168,6 +188,18 @@ void Level::loadLevelTwo() {
     agk::SetSpriteDepth(background_, 10000);
     agk::FixSpriteToScreen(background_, 1);
     agk::SetSpriteSize(background_,xRes,yRes+100);
+}
+
+void Level::loadCustomLevel(int level,std::string tmxFile,std::string tileSet) {
+    deleteLevel();
+    level_ = level;
+    
+    background_ = agk::CreateSprite(17);
+    agk::SetSpriteDepth(background_, 10000);
+    agk::FixSpriteToScreen(background_, 1);
+    agk::SetSpriteSize(background_,xRes,yRes+100);
+    
+    loadLevelTmx(tmxFile, tileSet);
 }
 
 void Level::loadPlatform(int xTiles, int xPos, int yPos) {
@@ -262,6 +294,36 @@ void Level::spawnSlime(int x, int y) {
     slime->setExperience(50);
     
     enemies.push_back(slime);
+}
+
+void Level::loadLevelTmx(std::string fileName,std::string tileSetName) {
+
+    TmxConverter Test;
+    for (int i = 1; i < 5; i++) {
+        Test.parseTmx(fileName,i);
+    }
+    Test.findParametersFromArray();
+    Test.parseTmx(fileName,6);
+    Test.parseTileSetTmx(tileSetName);
+    
+    
+    
+    for (int y = 0; y < Test.getHeight(); y++) {
+        for (int x = 0; x < Test.getWidth(); x++) {
+            if (Test.getTilePlacements()[y][x] == 0) {
+                // Empty Space
+            } else {
+                // Finds index of TileSet that holds the correct filename. For some reason i-1? MUST BE SORTED.
+                int index = Test.binarySearch(Test.getTileSet(), 1, (int)Test.getTileSet().size(),Test.getTilePlacements()[y][x]);
+                if (index == -1) {
+                    std::cout << "error tile not found" << std::endl;
+                } else {
+                    loadTile(x*Test.getTileWidth(), y*Test.getTileHeight(), Test.getTileSet()[index-1].fileName_);
+                }
+                
+            }
+        }
+    }
 }
 
 void Level::spawnBat(int x, int y) {

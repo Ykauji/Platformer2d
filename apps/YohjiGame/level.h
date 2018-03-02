@@ -12,20 +12,25 @@
 #include "enemy.h"
 #include "door.h"
 
+
 class Level {
 public:
     Level() {}
     ~Level();
     void loadLevel(int levelNumber);
+    void loadLevelTmx(std::string fileName,std::string tileSetName);
     void loadStartScreen();
     void deleteLevel();
     void loadLevelOne();
     void loadLevelTwo();
+    void loadCustomLevel(int level,std::string tmxFile,std::string tileSet);
     void spawnSlime(int x, int y);
     void spawnBat(int x, int y);
     void spawnTrainingDummy(int x, int y);
     void loadTile(int x, int y);
     void loadTile(int x, int y, int image);
+    void loadTile(int x, int y, std::string image,int imageIndex);
+    void loadTile(int x, int y, std::string image);
     void loadTile(int x, int y, int image,int physicsOn,int depth);
     void loadLadderTile(int x, int y, int image);
     void loadLadder(int x, int y, int yLength);
@@ -54,6 +59,7 @@ private:
     std::pair<int,int> spawnLocation;
     int background_;
     int level_;
+    int bottomDepth_;
     int xRes = 1920;
     int yRes = 1080;
 };

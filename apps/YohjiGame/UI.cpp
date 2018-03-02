@@ -95,6 +95,10 @@ void UI::createFadingText(std::string text,int timer,int x, int y, int size, int
             // Light Pink
             agk::SetTextColor(fadingText.text_, 255, 204, 229);
             break;
+        case 5:
+            // Red
+            agk::SetTextColor(fadingText.text_, 204, 0,0);
+        
         default:
             break;
     }

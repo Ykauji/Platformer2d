@@ -177,7 +177,8 @@ void app::Begin(void)
         agk::SetVirtualButtonText(3, "Achievements");
         agk::SetVirtualButtonAlpha(3, 0);
     } else {
-        levelOne.loadLevel(1);
+//      levelOne.loadLevel(1);
+        levelOne.loadLevelTmx("media/Test.tmx", "media/newTileSet.tsx");
     }
     
     
@@ -322,6 +323,8 @@ int app::Loop (void)
                 agk::SetSpritePhysicsVelocity(mainPlayer.getID(), 0, 0);
                 agk::SetSpritePhysicsImpulse(mainPlayer.getID(), agk::GetSpriteXByOffset(mainPlayer.getID()), agk::GetSpriteYByOffset(mainPlayer.getID()),4000*levelOne.getEnemies()[i]->checkCollision(mainPlayer) , 0);
                 mainPlayer.setHealth(mainPlayer.getHealth()-levelOne.getEnemies()[i]->getDamage());
+                const std::string bulletNumbero = intToString(levelOne.getEnemies()[i]->getDamage()*-1);
+                userInterface.createFadingText(bulletNumbero, 60, agk::GetSpriteX(mainPlayer.getID())+ agk::Random2(-20,40), agk::GetSpriteY(mainPlayer.getID()), 45,5);
                 mainPlayer.setRecentlyDamaged(20);
             }
         }
@@ -345,7 +348,6 @@ int app::Loop (void)
         levelOne.getEnemies()[i]->setRecentlyDamaged(levelOne.getEnemies()[i]->getRecentlyDamaged()-1);
         if (levelOne.getEnemies()[i]->getEngaged() == true) {
             levelOne.getEnemies()[i]->updateEnemyHealthBar();
-//            levelOne.getEnemies()[i]->testUpdateHealth();
         }
     }
     
@@ -386,7 +388,6 @@ int app::Loop (void)
     // Level Update
     mainPlayer.setCharLevelStr("Lv. " + intToString(mainPlayer.getCharLevel()));
     agk::SetTextString(112, mainPlayer.getCharLevelStr().c_str());
-    
     
     
 //    // Printing stuff

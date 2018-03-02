@@ -28,6 +28,7 @@
 		C13E28221F511526003B478C /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13E28201F511526003B478C /* player.cpp */; };
 		C13E28251F5115C1003B478C /* projectile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13E28231F5115C1003B478C /* projectile.cpp */; };
 		C13E28281F511A52003B478C /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13E28261F511A52003B478C /* UI.cpp */; };
+		C15908CB204604FA0047FABB /* TmxConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C15908C9204604FA0047FABB /* TmxConverter.cpp */; };
 		C15AFCD3200ACCEB00EA551B /* dragon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C15AFCD1200ACCEB00EA551B /* dragon.cpp */; };
 		C165359320266179000E225B /* mainCharacter in Resources */ = {isa = PBXBuildFile; fileRef = C165359220266179000E225B /* mainCharacter */; };
 		C1653596202BD152000E225B /* npc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1653594202BD152000E225B /* npc.cpp */; };
@@ -80,6 +81,8 @@
 		C13E28241F5115C1003B478C /* projectile.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; lineEnding = 2; path = projectile.h; sourceTree = "<group>"; };
 		C13E28261F511A52003B478C /* UI.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; lineEnding = 2; path = UI.cpp; sourceTree = "<group>"; };
 		C13E28271F511A52003B478C /* UI.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; lineEnding = 2; path = UI.h; sourceTree = "<group>"; usesTabs = 0; };
+		C15908C9204604FA0047FABB /* TmxConverter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TmxConverter.cpp; sourceTree = "<group>"; };
+		C15908CA204604FA0047FABB /* TmxConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxConverter.h; sourceTree = "<group>"; };
 		C15AFCD1200ACCEB00EA551B /* dragon.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = dragon.cpp; sourceTree = "<group>"; };
 		C15AFCD2200ACCEB00EA551B /* dragon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dragon.h; sourceTree = "<group>"; };
 		C165359220266179000E225B /* mainCharacter */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mainCharacter; sourceTree = "<group>"; };
@@ -286,8 +289,18 @@
 				C1653597202F9B38000E225B /* door.cpp */,
 				C13377FC1F513FB4004179DE /* level.h */,
 				C13377FB1F513FB4004179DE /* level.cpp */,
+				C15908C8204604C10047FABB /* LevelEditor */,
 			);
 			name = Level;
+			sourceTree = "<group>";
+		};
+		C15908C8204604C10047FABB /* LevelEditor */ = {
+			isa = PBXGroup;
+			children = (
+				C15908CA204604FA0047FABB /* TmxConverter.h */,
+				C15908C9204604FA0047FABB /* TmxConverter.cpp */,
+			);
+			name = LevelEditor;
 			sourceTree = "<group>";
 		};
 		C165359B20350DDD000E225B /* Jobs */ = {
@@ -466,6 +479,7 @@
 			files = (
 				C1FF99CB2001E91200060FDD /* fireball.cpp in Sources */,
 				C13378001F514072004179DE /* enemy.cpp in Sources */,
+				C15908CB204604FA0047FABB /* TmxConverter.cpp in Sources */,
 				C13E28281F511A52003B478C /* UI.cpp in Sources */,
 				C13E28251F5115C1003B478C /* projectile.cpp in Sources */,
 				C1138CFD2036B17F00CF2328 /* camera.cpp in Sources */,
