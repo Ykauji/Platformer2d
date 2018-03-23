@@ -42,10 +42,10 @@ void Slime::enemySpecificHit() {
 
 void Slime::isDead(Player &mainPlayer,UI &userInterface) {
     // Drops, Experience etc.
-    
-    mainPlayer.setExperience(mainPlayer.getExperience()+(this->getExperience()));
-    const std::string experienceNumber = "+" + intToStringo(getExperience()) + " exp";
-    userInterface.createFadingText(experienceNumber, 60, agk::GetSpriteX(mainPlayer.getID()), agk::GetSpriteY(mainPlayer.getID()), 40,2);
+    Enemy::isDead(mainPlayer, userInterface);
+//    mainPlayer.setExperience(mainPlayer.getExperience()+(this->getExperience()));
+//    const std::string experienceNumber = "+" + intToStringo(getExperience()) + " exp";
+//    userInterface.createFadingText(experienceNumber, 60, agk::GetSpriteX(mainPlayer.getID()), agk::GetSpriteY(mainPlayer.getID()), 40,2);
     
     // Add death animation here
     

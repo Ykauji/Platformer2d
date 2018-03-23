@@ -17,6 +17,8 @@ app App;
 // Lazy boi fix
 #define mainPlayer (*mainPlayero)
 
+// Change Vector to list vector for easier deletes?
+
 // Main Menu -> Class Select -> Game.    Create mainCharacter at Class Select with Player * mainPlayero = new Class();
 // Game States:
 // 0 = Main Menu
@@ -133,6 +135,8 @@ void app::Begin(void)
     // Load HealthBarRed
     agk::LoadImage(37, "media/red.png");
     agk::LoadImage(38, "media/HealthBarEmptyBlue.png");
+    agk::LoadImage(39, "Enemy sprites/slime.png");
+    agk::LoadImage(40, "media/coin_gold.png");
     
     // Load Attack Animations
     
@@ -177,8 +181,8 @@ void app::Begin(void)
         agk::SetVirtualButtonText(3, "Achievements");
         agk::SetVirtualButtonAlpha(3, 0);
     } else {
-//      levelOne.loadLevel(1);
-        levelOne.loadLevelTmx("media/Test.tmx", "media/newTileSet.tsx");
+        levelOne.loadLevel(1);
+//        levelOne.loadLevelTmx("media/Test.tmx", "media/newTileSet.tsx");
     }
     
     
@@ -209,12 +213,14 @@ int app::Loop (void)
             mainPlayer.movementLeft();
         } else if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && mainPlayer.touchingLeftWall()) {
             // If I want to slide down walls add here
+            agk::SetSpritePhysicsVelocity(mainPlayer.getID(), 0, agk::GetSpritePhysicsVelocityY(mainPlayer.getID()));
         }
         
         if((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && !mainPlayer.touchingRightWall()) {
             mainPlayer.movementRight();
         } else if ((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && mainPlayer.touchingRightWall()) {
             // Same thing
+            agk::SetSpritePhysicsVelocity(mainPlayer.getID(), 0, agk::GetSpritePhysicsVelocityY(mainPlayer.getID()));
         }
         
     }
@@ -355,6 +361,7 @@ int app::Loop (void)
     for (int i = 0; i < levelOne.getEnemies().size(); i++) {
         if (levelOne.getEnemies()[i]->getHealth() <= 0) {
             levelOne.getEnemies()[i]->isDead(mainPlayer,userInterface);
+            levelOne.spawnItem(*levelOne.getEnemies()[i]);
             levelOne.deleteEnemy(levelOne.getEnemies()[i]->getID_());
         }
     }
@@ -363,7 +370,22 @@ int app::Loop (void)
     for (int i = 0; i < mainPlayer.getBullets().size(); i++) {
          mainPlayer.getBullets()[i]->updateBullet();
     }
-    
+        // Update ItemDrop Position
+        if (!levelOne.getItems().empty()) {
+            for (std::list<ItemDrop>::iterator it = levelOne.getItems().begin(); it != levelOne.getItems().end(); it++) {
+                
+            }
+//            for (auto itemP : levelOne.getItems()) {
+//                itemP.moveToPlayer(mainPlayer);
+//                if (agk::GetSpriteCollision(mainPlayer.getID(), itemP.getID_())) {
+//                    mainPlayer.setGold(mainPlayer.getGold()+itemP.getGold_());
+//                    agk::DeleteSprite(itemP.getID_());
+//                    // Delete from list
+//                    
+//                }
+//            }
+
+        }
     
     // Updates Health and Experience
     mainPlayer.updateHealth(userInterface);
@@ -405,7 +427,8 @@ int app::Loop (void)
     // +500 exp
     if (agk::GetRawKeyPressed(79)) {
         mainPlayer.setExperience(500);
-        std::cout << agk::GetSpriteX(mainPlayer.getID()) << " " << agk::GetSpriteY(mainPlayer.getID());
+//        std::cout << agk::GetSpriteX(mainPlayer.getID()) << " " << agk::GetSpriteY(mainPlayer.getID());
+        std::cout << agk::GetSpriteWidth(levelOne.getEnemies().back()->getID_());
     }
     if (agk::GetRawKeyPressed(82)) {
         levelOne.spawnBat(agk::Random2(-2500,2500), 0);

@@ -11,6 +11,8 @@
 #include <vector>
 #include "enemy.h"
 #include "door.h"
+#include "ItemDrop.h"
+#include <list>
 
 
 class Level {
@@ -26,6 +28,8 @@ public:
     void loadCustomLevel(int level,std::string tmxFile,std::string tileSet);
     void spawnSlime(int x, int y);
     void spawnBat(int x, int y);
+    void spawnKingSlime(int x, int y);
+    void spawnKingSlime(int x, int y, int maxHealth);
     void spawnTrainingDummy(int x, int y);
     void loadTile(int x, int y);
     void loadTile(int x, int y, int image);
@@ -36,10 +40,16 @@ public:
     void loadLadder(int x, int y, int yLength);
     void loadDoor(int x, int y,int nextLevel);
     void deleteEnemy(int iD);
+    void deleteItem(int iD);
     std::vector<Enemy*> getEnemies() {return enemies;}
     std::vector<int> getLadders() {return ladders;}
     std::vector<Door> getDoor() {return door_;}
+    std::list<ItemDrop> getItems() {return itemDrops_;}
+    
     int getLevel() {return level_;}
+    
+    void spawnItem(Enemy enemy);
+    
     
     void setSpawn(int x,int y) {spawnLocation.first = x;spawnLocation.second = y;}
     void generateRandomLevel();
@@ -52,8 +62,11 @@ public:
 private:
     std::vector<int> ladders;
     std::vector<int> castleBlock;
+    
     std::vector<Enemy*> enemies;
     std::vector<Door> door_;
+    std::list<ItemDrop> itemDrops_;
+    
     int backDrop;
     int nextLevelPortal;
     std::pair<int,int> spawnLocation;

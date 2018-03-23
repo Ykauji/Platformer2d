@@ -34,6 +34,8 @@ void Player::attack() {
         agk::SetSpritePhysicsRestitution((*beam).getID_(), .5);
         agk::SetSpriteSize(beam->getID_(),125);
         numBullets_.push_back(beam);
+        
+        
     }
     if (currentWep == 2 && numBullets_.size() < 10) {
         Projectile * beam = new Fireball();

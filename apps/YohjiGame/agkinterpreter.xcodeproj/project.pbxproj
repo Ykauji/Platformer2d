@@ -20,6 +20,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		9B8B6E4F1360BFC200BEF23D /* Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B8B6E4E1360BFC200BEF23D /* Core.mm */; };
 		C1138CFD2036B17F00CF2328 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1138CFB2036B17F00CF2328 /* camera.cpp */; };
+		C12354392061C78400FF8911 /* ItemDrop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C12354372061C78400FF8911 /* ItemDrop.cpp */; };
 		C13377FD1F513FB4004179DE /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13377FB1F513FB4004179DE /* level.cpp */; };
 		C13378001F514072004179DE /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13377FE1F514072004179DE /* enemy.cpp */; };
 		C13378031F5142AA004179DE /* bat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13378011F5142AA004179DE /* bat.cpp */; };
@@ -42,6 +43,7 @@
 		C1E4788C1F1EC800005955B4 /* Tiles in Resources */ = {isa = PBXBuildFile; fileRef = C1E4788B1F1EC800005955B4 /* Tiles */; };
 		C1E4788E1F26812A005955B4 /* Enemy sprites in Resources */ = {isa = PBXBuildFile; fileRef = C1E4788D1F26812A005955B4 /* Enemy sprites */; };
 		C1E478901F32A6ED005955B4 /* fireball in Resources */ = {isa = PBXBuildFile; fileRef = C1E4788F1F32A6EC005955B4 /* fireball */; };
+		C1F5C83D204A87CD004CE39A /* kingSlime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1F5C83B204A87CD004CE39A /* kingSlime.cpp */; };
 		C1FC64951F57855E00250D72 /* circle in Resources */ = {isa = PBXBuildFile; fileRef = C1FC64941F57855E00250D72 /* circle */; };
 		C1FF99CB2001E91200060FDD /* fireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1FF99C92001E91200060FDD /* fireball.cpp */; };
 		D8D8206216FD0A8400D08FAD /* icons.iconset in Resources */ = {isa = PBXBuildFile; fileRef = D8D8206116FD0A8400D08FAD /* icons.iconset */; };
@@ -66,6 +68,8 @@
 		9B8B6E4E1360BFC200BEF23D /* Core.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Core.mm; sourceTree = "<group>"; };
 		C1138CFB2036B17F00CF2328 /* camera.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = camera.cpp; sourceTree = "<group>"; };
 		C1138CFC2036B17F00CF2328 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		C12354372061C78400FF8911 /* ItemDrop.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ItemDrop.cpp; sourceTree = "<group>"; };
+		C12354382061C78400FF8911 /* ItemDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDrop.h; sourceTree = "<group>"; };
 		C13377FB1F513FB4004179DE /* level.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = level.cpp; sourceTree = "<group>"; };
 		C13377FC1F513FB4004179DE /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
 		C13377FE1F514072004179DE /* enemy.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = enemy.cpp; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 		C1E4788B1F1EC800005955B4 /* Tiles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Tiles; path = "media/TempArt/Base pack/Tiles"; sourceTree = "<group>"; };
 		C1E4788D1F26812A005955B4 /* Enemy sprites */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Enemy sprites"; path = "media/TempArt/Extra animations and enemies/Enemy sprites"; sourceTree = "<group>"; };
 		C1E4788F1F32A6EC005955B4 /* fireball */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fireball; sourceTree = "<group>"; };
+		C1F5C83B204A87CD004CE39A /* kingSlime.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = kingSlime.cpp; sourceTree = "<group>"; };
+		C1F5C83C204A87CD004CE39A /* kingSlime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kingSlime.h; sourceTree = "<group>"; };
 		C1FC64941F57855E00250D72 /* circle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = circle; sourceTree = "<group>"; };
 		C1FF99C92001E91200060FDD /* fireball.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = fireball.cpp; sourceTree = "<group>"; };
 		C1FF99CA2001E91200060FDD /* fireball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fireball.h; sourceTree = "<group>"; };
@@ -176,13 +182,14 @@
 			children = (
 				D8D8206C16FD0F0C00D08FAD /* template.h */,
 				D8D8206B16FD0F0C00D08FAD /* template.cpp */,
+				C13E28211F511526003B478C /* player.h */,
+				C13E28201F511526003B478C /* player.cpp */,
 				C165359B20350DDD000E225B /* Jobs */,
 				C1FF99C82001E2E100060FDD /* Projectiles */,
 				C1FF99C72001E2B200060FDD /* Enemies */,
 				C1138CFE203791A700CF2328 /* UI/Camera */,
 				C1138CFF2037920800CF2328 /* Level */,
-				C13E28211F511526003B478C /* player.h */,
-				C13E28201F511526003B478C /* player.cpp */,
+				C12354332061C66600FF8911 /* Upgrades/Gold */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -294,6 +301,15 @@
 			name = Level;
 			sourceTree = "<group>";
 		};
+		C12354332061C66600FF8911 /* Upgrades/Gold */ = {
+			isa = PBXGroup;
+			children = (
+				C12354382061C78400FF8911 /* ItemDrop.h */,
+				C12354372061C78400FF8911 /* ItemDrop.cpp */,
+			);
+			name = Upgrades/Gold;
+			sourceTree = "<group>";
+		};
 		C15908C8204604C10047FABB /* LevelEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,6 +335,8 @@
 				C13377FE1F514072004179DE /* enemy.cpp */,
 				C13378051F514360004179DE /* slime.h */,
 				C13378041F514360004179DE /* slime.cpp */,
+				C1F5C83C204A87CD004CE39A /* kingSlime.h */,
+				C1F5C83B204A87CD004CE39A /* kingSlime.cpp */,
 				C13378021F5142AA004179DE /* bat.h */,
 				C13378011F5142AA004179DE /* bat.cpp */,
 				C15AFCD2200ACCEB00EA551B /* dragon.h */,
@@ -481,6 +499,7 @@
 				C13378001F514072004179DE /* enemy.cpp in Sources */,
 				C15908CB204604FA0047FABB /* TmxConverter.cpp in Sources */,
 				C13E28281F511A52003B478C /* UI.cpp in Sources */,
+				C12354392061C78400FF8911 /* ItemDrop.cpp in Sources */,
 				C13E28251F5115C1003B478C /* projectile.cpp in Sources */,
 				C1138CFD2036B17F00CF2328 /* camera.cpp in Sources */,
 				C15AFCD3200ACCEB00EA551B /* dragon.cpp in Sources */,
@@ -490,6 +509,7 @@
 				9B8B6E4F1360BFC200BEF23D /* Core.mm in Sources */,
 				C18B882F1F51355400FAF323 /* player.h in Sources */,
 				C18B882E1F51355100FAF323 /* UI.h in Sources */,
+				C1F5C83D204A87CD004CE39A /* kingSlime.cpp in Sources */,
 				C165359E20350DF5000E225B /* Mage.cpp in Sources */,
 				D8D8206D16FD0F0C00D08FAD /* template.cpp in Sources */,
 				C1653596202BD152000E225B /* npc.cpp in Sources */,

@@ -10,6 +10,7 @@
 #include "agk.h"
 #include "enemy.h"
 #include "slime.h"
+#include "kingSlime.h"
 #include "bat.h"
 #include "TmxConverter.h"
 #include <algorithm>
@@ -199,6 +200,8 @@ void Level::loadCustomLevel(int level,std::string tmxFile,std::string tileSet) {
     agk::FixSpriteToScreen(background_, 1);
     agk::SetSpriteSize(background_,xRes,yRes+100);
     
+    spawnKingSlime(1000, 1000);
+    
     loadLevelTmx(tmxFile, tileSet);
 }
 
@@ -272,6 +275,57 @@ void Level::generateRandomLevel() {
     }
 }
 
+void Level::spawnKingSlime(int x, int y) {
+    Enemy * kingSlime = new KingSlime(this);
+    kingSlime->setID_(agk::CreateSprite(39));
+    agk::AddSpriteAnimationFrame(kingSlime->getID_(), 5);
+    agk::AddSpriteAnimationFrame(kingSlime->getID_(), 4);
+    agk::AddSpriteAnimationFrame(kingSlime->getID_(), 23);
+    agk::SetSpritePosition(kingSlime->getID_(), 200, 200);
+    agk::SetSpritePhysicsOn(kingSlime->getID_());
+    float sizeTest = 500;
+    agk::SetSpriteSize(kingSlime->getID_(),sizeTest);
+    agk::SetSpriteShape(kingSlime->getID_(),3);
+    agk::SetSpritePhysicsCanRotate(kingSlime->getID_(), 0);
+    kingSlime->setSpeed(75000);
+    kingSlime->setHealth(sizeTest);
+    kingSlime->setMaxHealth(sizeTest);
+    kingSlime->setEngaged(false);
+    kingSlime->setDamage(20);
+    kingSlime->setExperience(5000);
+    
+    
+    
+    enemies.push_back(kingSlime);
+
+}
+
+void Level::spawnKingSlime(int x, int y, int maxHealth) {
+    Enemy * kingSlime = new KingSlime(this);
+    kingSlime->setID_(agk::CreateSprite(39));
+    agk::AddSpriteAnimationFrame(kingSlime->getID_(), 5);
+    agk::AddSpriteAnimationFrame(kingSlime->getID_(), 4);
+    agk::AddSpriteAnimationFrame(kingSlime->getID_(), 23);
+    agk::SetSpritePosition(kingSlime->getID_(), x, y);
+    agk::SetSpritePhysicsOn(kingSlime->getID_());
+    float sizeTest = maxHealth;
+    agk::SetSpriteSize(kingSlime->getID_(),sizeTest);
+    agk::SetSpriteShape(kingSlime->getID_(),3);
+    agk::SetSpritePhysicsCanRotate(kingSlime->getID_(), 0);
+    kingSlime->setSpeed(75000);
+    kingSlime->setHealth(sizeTest);
+    kingSlime->setMaxHealth(sizeTest);
+    kingSlime->setEngaged(false);
+    kingSlime->setDamage(20);
+    kingSlime->setExperience(5000);
+    
+    
+    
+    enemies.push_back(kingSlime);
+}
+
+
+
 
 void Level::spawnSlime(int x, int y) {
     Enemy* slime = new Slime();
@@ -326,6 +380,14 @@ void Level::loadLevelTmx(std::string fileName,std::string tileSetName) {
     }
 }
 
+void Level::spawnItem(Enemy enemy) {
+    ItemDrop item(agk::CreateSprite(40),100,0);
+    agk::SetSpriteAnimation(item.getID_(), 32, 32, 8);
+    agk::SetSpritePosition(item.getID_(), agk::GetSpriteX(enemy.getID_()), agk::GetSpriteY(enemy.getID_()));
+    agk::PlaySprite(item.getID_());
+    itemDrops_.push_front(item);
+}
+
 void Level::spawnBat(int x, int y) {
     Enemy* bat = new Bat();
     bat->setID_(agk::CreateSprite(24));
@@ -365,3 +427,5 @@ void Level::deleteEnemy(int iD) {
         }
     }
 }
+
+

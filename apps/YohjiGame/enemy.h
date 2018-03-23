@@ -15,6 +15,7 @@
 #include "player.h"
 #include "projectile.h"
 #include "UI.h"
+//#include "level.h"
 
 
 class Player;
@@ -64,7 +65,7 @@ public:
     void deleteEnemy();
     virtual void attack() {}
     virtual void isHit(Projectile bullet, UI &userInterface);
-    virtual void isDead(Player &mainPlayer, UI &userInterface) {}
+    virtual void isDead(Player &mainPlayer, UI &userInterface);
     std::string intToStringo(int value);
     virtual void enemySpecificHit();
     

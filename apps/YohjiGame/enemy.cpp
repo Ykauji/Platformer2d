@@ -8,6 +8,7 @@
 
 #include "enemy.h"
 #include "agk.h"
+
 #include <cmath>
 #include <string>
 #include <sstream>
@@ -129,7 +130,6 @@ void Enemy::updateEnemyHealthBar() {
 }
 
 void Enemy::testUpdateHealth() {
-    
     int test = (agk::GetSpriteWidth(SpriteID_)/2) - agk::GetSpriteWidth(healthBar_.healthBarBox_)/2;
     agk::SetSpritePosition(healthBar_.healthBarBox_, agk::GetSpriteX(SpriteID_)+test-4.5, agk::GetSpriteY(SpriteID_)-50);
     agk::SetSpritePosition(healthBar_.greenHealthBar_, agk::GetSpriteX(SpriteID_)+test, agk::GetSpriteY(SpriteID_)-44);
@@ -141,6 +141,11 @@ void Enemy::deleteSprites() {
     agk::DeleteSprite(healthBar_.greenHealthBar_);
 }
 
+void Enemy::isDead(Player &mainPlayer, UI &userInterface) {
+    mainPlayer.setExperience(mainPlayer.getExperience()+(getExperience()));
+    const std::string experienceNumber = "+" + intToStringo(getExperience()) + " exp";
+    userInterface.createFadingText(experienceNumber, 60, agk::GetSpriteX(mainPlayer.getID()), agk::GetSpriteY(mainPlayer.getID()), 40,2);
+}
 
 
 

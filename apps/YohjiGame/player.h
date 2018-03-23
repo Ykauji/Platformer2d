@@ -49,6 +49,7 @@ public:
     
     // Setters and Getters. Bad practice, change later.
     void setHealth(int health) {health_ = health;}
+    void setGold(int gold) {gold_ = gold;}
     void setSpeed(float speed) {speed_ = speed;}
     void setID(int iD) {iD_ = iD;}
     void setJump(int jump) {jumpHeight_ = jump;}
@@ -64,6 +65,7 @@ public:
     int getLeftSensor() {return wallSensorIDLeft_;}
     int getRightSensor() {return wallSensorIDRight_;}
     int getHealth() {return health_;}
+    int getGold() {return gold_;}
     int getMaxHealth() {return maxHealth_;}
     int getHealthBar() {return healthBar_;}
     float getSpeed() {return speed_;}

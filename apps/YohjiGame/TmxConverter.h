@@ -6,7 +6,10 @@
 //
 //
 
-// Only works with one layer, can change using depth later if necessary. Tile Layer
+// Only works with one layer, can change using depth later if necessary. Tile Layer. ANY OTHER INPUT WILL FAIL.
+// Change data structure to hash table later for O(1) search.
+
+
 #ifndef TmxConverter_h
 #define TmxConverter_h
 #include <iostream>
