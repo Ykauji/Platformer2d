@@ -19,6 +19,7 @@
 		4A80ECD41A0F1C4F0090553F /* media in Resources */ = {isa = PBXBuildFile; fileRef = 4A80ECD31A0F1C4F0090553F /* media */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		9B8B6E4F1360BFC200BEF23D /* Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B8B6E4E1360BFC200BEF23D /* Core.mm */; };
+		C1042BFA20C0CD5800D3CEC1 /* levelMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1042BF820C0CD5800D3CEC1 /* levelMap.cpp */; };
 		C1138CFD2036B17F00CF2328 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1138CFB2036B17F00CF2328 /* camera.cpp */; };
 		C12354392061C78400FF8911 /* ItemDrop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C12354372061C78400FF8911 /* ItemDrop.cpp */; };
 		C13377FD1F513FB4004179DE /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C13377FB1F513FB4004179DE /* level.cpp */; };
@@ -45,6 +46,7 @@
 		C1E478901F32A6ED005955B4 /* fireball in Resources */ = {isa = PBXBuildFile; fileRef = C1E4788F1F32A6EC005955B4 /* fireball */; };
 		C1F5C83D204A87CD004CE39A /* kingSlime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1F5C83B204A87CD004CE39A /* kingSlime.cpp */; };
 		C1FC64951F57855E00250D72 /* circle in Resources */ = {isa = PBXBuildFile; fileRef = C1FC64941F57855E00250D72 /* circle */; };
+		C1FF7B3320FA9B1C00CBF8B5 /* frostbolt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1FF7B3120FA9B1C00CBF8B5 /* frostbolt.cpp */; };
 		C1FF99CB2001E91200060FDD /* fireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1FF99C92001E91200060FDD /* fireball.cpp */; };
 		D8D8206216FD0A8400D08FAD /* icons.iconset in Resources */ = {isa = PBXBuildFile; fileRef = D8D8206116FD0A8400D08FAD /* icons.iconset */; };
 		D8D8206D16FD0F0C00D08FAD /* template.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8D8206B16FD0F0C00D08FAD /* template.cpp */; };
@@ -66,6 +68,8 @@
 		721285AF167A597500C0661F /* cObjectMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cObjectMgr.h; path = ../../common/include/cObjectMgr.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Jim's Conquest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jim's Conquest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B8B6E4E1360BFC200BEF23D /* Core.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Core.mm; sourceTree = "<group>"; };
+		C1042BF820C0CD5800D3CEC1 /* levelMap.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = levelMap.cpp; sourceTree = "<group>"; };
+		C1042BF920C0CD5800D3CEC1 /* levelMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelMap.h; sourceTree = "<group>"; };
 		C1138CFB2036B17F00CF2328 /* camera.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = camera.cpp; sourceTree = "<group>"; };
 		C1138CFC2036B17F00CF2328 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		C12354372061C78400FF8911 /* ItemDrop.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ItemDrop.cpp; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 		C1F5C83B204A87CD004CE39A /* kingSlime.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = kingSlime.cpp; sourceTree = "<group>"; };
 		C1F5C83C204A87CD004CE39A /* kingSlime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kingSlime.h; sourceTree = "<group>"; };
 		C1FC64941F57855E00250D72 /* circle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = circle; sourceTree = "<group>"; };
+		C1FF7B3120FA9B1C00CBF8B5 /* frostbolt.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = frostbolt.cpp; sourceTree = "<group>"; };
+		C1FF7B3220FA9B1C00CBF8B5 /* frostbolt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = frostbolt.h; sourceTree = "<group>"; };
 		C1FF99C92001E91200060FDD /* fireball.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = fireball.cpp; sourceTree = "<group>"; };
 		C1FF99CA2001E91200060FDD /* fireball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fireball.h; sourceTree = "<group>"; };
 		D86F7A921672AE15000AFB76 /* AGK Player.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "AGK Player.entitlements"; sourceTree = "<group>"; };
@@ -184,6 +190,7 @@
 				D8D8206B16FD0F0C00D08FAD /* template.cpp */,
 				C13E28211F511526003B478C /* player.h */,
 				C13E28201F511526003B478C /* player.cpp */,
+				C1FF7B3020FA9AE500CBF8B5 /* Skills */,
 				C165359B20350DDD000E225B /* Jobs */,
 				C1FF99C82001E2E100060FDD /* Projectiles */,
 				C1FF99C72001E2B200060FDD /* Enemies */,
@@ -290,6 +297,8 @@
 		C1138CFF2037920800CF2328 /* Level */ = {
 			isa = PBXGroup;
 			children = (
+				C1042BF920C0CD5800D3CEC1 /* levelMap.h */,
+				C1042BF820C0CD5800D3CEC1 /* levelMap.cpp */,
 				C1653595202BD152000E225B /* npc.h */,
 				C1653594202BD152000E225B /* npc.cpp */,
 				C1653598202F9B38000E225B /* door.h */,
@@ -326,6 +335,15 @@
 				C165359C20350DF5000E225B /* Mage.cpp */,
 			);
 			name = Jobs;
+			sourceTree = "<group>";
+		};
+		C1FF7B3020FA9AE500CBF8B5 /* Skills */ = {
+			isa = PBXGroup;
+			children = (
+				C1FF7B3220FA9B1C00CBF8B5 /* frostbolt.h */,
+				C1FF7B3120FA9B1C00CBF8B5 /* frostbolt.cpp */,
+			);
+			name = Skills;
 			sourceTree = "<group>";
 		};
 		C1FF99C72001E2B200060FDD /* Enemies */ = {
@@ -498,7 +516,9 @@
 				C1FF99CB2001E91200060FDD /* fireball.cpp in Sources */,
 				C13378001F514072004179DE /* enemy.cpp in Sources */,
 				C15908CB204604FA0047FABB /* TmxConverter.cpp in Sources */,
+				C1042BFA20C0CD5800D3CEC1 /* levelMap.cpp in Sources */,
 				C13E28281F511A52003B478C /* UI.cpp in Sources */,
+				C1FF7B3320FA9B1C00CBF8B5 /* frostbolt.cpp in Sources */,
 				C12354392061C78400FF8911 /* ItemDrop.cpp in Sources */,
 				C13E28251F5115C1003B478C /* projectile.cpp in Sources */,
 				C1138CFD2036B17F00CF2328 /* camera.cpp in Sources */,

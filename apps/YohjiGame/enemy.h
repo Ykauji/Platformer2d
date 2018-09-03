@@ -34,7 +34,7 @@ class enemyHealthBar {
 
 class Enemy {
 public:
-    Enemy(int spriteID,int MaxHealth,int damage,int speed,int experience) {SpriteID_ = spriteID; health_ = MaxHealth; damage_ = damage; experience_ = experience; recentlyDamaged_ = 0; maxHealth_ = MaxHealth; isEngage_ = 0;}
+    Enemy(int spriteID,int MaxHealth,int damage,int speed,int experience, int gold) {SpriteID_ = spriteID; health_ = MaxHealth; damage_ = damage; experience_ = experience; recentlyDamaged_ = 0; maxHealth_ = MaxHealth; isEngage_ = 0; gold_ = gold;}
     Enemy();
     ~Enemy() {}
     
@@ -59,6 +59,8 @@ public:
     int getMaxHealth() {return maxHealth_;}
     void setEngaged(bool engaged) {isEngage_ = engaged;}
     bool getEngaged() {return isEngage_;}
+    int getGold() {return gold_;}
+    void setGold(int gold) {gold_ = gold;}
     
     std::vector<int> getDamageText() {return damageText;}
     
@@ -85,7 +87,7 @@ protected:
     int damage_;
     int speed_;
     int experience_;
-    int drop_;
+    int gold_;
     int SpriteID_;
     int direction_;
     std::vector<int> damageText;

@@ -41,6 +41,7 @@ public:
     void loadDoor(int x, int y,int nextLevel);
     void deleteEnemy(int iD);
     void deleteItem(int iD);
+    std::list<ItemDrop>::iterator deleteItemFromList(int iD);
     std::vector<Enemy*> getEnemies() {return enemies;}
     std::vector<int> getLadders() {return ladders;}
     std::vector<Door> getDoor() {return door_;}
@@ -49,6 +50,7 @@ public:
     int getLevel() {return level_;}
     
     void spawnItem(Enemy enemy);
+    void updateItemDrop(Player &mainPlayer);
     
     
     void setSpawn(int x,int y) {spawnLocation.first = x;spawnLocation.second = y;}
@@ -62,7 +64,6 @@ public:
 private:
     std::vector<int> ladders;
     std::vector<int> castleBlock;
-    
     std::vector<Enemy*> enemies;
     std::vector<Door> door_;
     std::list<ItemDrop> itemDrops_;

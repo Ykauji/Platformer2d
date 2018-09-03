@@ -61,8 +61,11 @@ void app::Begin(void)
     // When loading images, if performance issues delete after usage?
     
     // Load Music/Sound
-    agk::LoadMusicOGG(1,"media/song.ogg"); // Mooncatcher temporary music.
-//    agk::PlayMusicOGG(1,1);
+    agk::LoadMusicOGG(1,"media/ilikethis.ogg"); // Mooncatcher temporary music.
+    agk::PlayMusicOGG(1,1);
+    agk::LoadSound(2, "media/fireball.wav");
+    agk::LoadSound(3, "media/coinsound.wav");
+    agk::LoadSound(4, "media/damage.wav");
     
     // Load Tile
      agk::LoadImage(2, "Tiles/castleHalf.png");
@@ -265,6 +268,7 @@ int app::Loop (void)
             if (!(agk::GetSpriteCurrentFrame(mainPlayer.getID()) < 6) && agk::GetSpriteCurrentFrame(mainPlayer.getID()) > 1) {
                 agk::PlaySprite(mainPlayer.getID(), 8, 1, 1, 6);
             }
+            // If sprite velocity < 0 aka going left.
         } else if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) < 0) {
             if (!(agk::GetSpriteCurrentFrame(mainPlayer.getID()) < 6) && agk::GetSpriteCurrentFrame(mainPlayer.getID()) > 1) {
                 agk::PlaySprite(mainPlayer.getID(), 8, 1, 1, 6);
@@ -281,6 +285,11 @@ int app::Loop (void)
     if (agk::GetRawKeyPressed(69)) {
         mainPlayer.movementDashRight();
     }
+       
+    if (agk::GetRawKeyPressed(67)) {
+        mainPlayer.movementDash();
+    }
+        
     // Decrease DashTimer_
     mainPlayer.dashTimerDecrease();
     if (mainPlayer.getDashTimer() == 0) {
@@ -291,11 +300,16 @@ int app::Loop (void)
     if (agk::GetRawKeyPressed(49)) {
         mainPlayer.setWep(1);
     }
+        // Swap weapon 2
     if (agk::GetRawKeyPressed(50)) {
         mainPlayer.setWep(2);
     }
+        // Swap weapon 3
     if (agk::GetRawKeyPressed(51)) {
         mainPlayer.setWep(3);
+    }
+    if (agk::GetRawKeyPressed(52)) {
+        mainPlayer.setWep(4);
     }
     
     
@@ -331,7 +345,9 @@ int app::Loop (void)
                 mainPlayer.setHealth(mainPlayer.getHealth()-levelOne.getEnemies()[i]->getDamage());
                 const std::string bulletNumbero = intToString(levelOne.getEnemies()[i]->getDamage()*-1);
                 userInterface.createFadingText(bulletNumbero, 60, agk::GetSpriteX(mainPlayer.getID())+ agk::Random2(-20,40), agk::GetSpriteY(mainPlayer.getID()), 45,5);
-                mainPlayer.setRecentlyDamaged(20);
+                mainPlayer.setRecentlyDamaged(25);
+                agk::PlaySound(4);
+//                agk::SetSpriteCollideBits(mainPlayer.getID(), 0x2);
             }
         }
     }
@@ -370,22 +386,8 @@ int app::Loop (void)
     for (int i = 0; i < mainPlayer.getBullets().size(); i++) {
          mainPlayer.getBullets()[i]->updateBullet();
     }
-        // Update ItemDrop Position
-        if (!levelOne.getItems().empty()) {
-            for (std::list<ItemDrop>::iterator it = levelOne.getItems().begin(); it != levelOne.getItems().end(); it++) {
-                
-            }
-//            for (auto itemP : levelOne.getItems()) {
-//                itemP.moveToPlayer(mainPlayer);
-//                if (agk::GetSpriteCollision(mainPlayer.getID(), itemP.getID_())) {
-//                    mainPlayer.setGold(mainPlayer.getGold()+itemP.getGold_());
-//                    agk::DeleteSprite(itemP.getID_());
-//                    // Delete from list
-//                    
-//                }
-//            }
-
-        }
+//      Update ItemDrop Position
+        levelOne.updateItemDrop(mainPlayer);
     
     // Updates Health and Experience
     mainPlayer.updateHealth(userInterface);
@@ -417,6 +419,8 @@ int app::Loop (void)
         agk::Print(levelOne.getEnemies()[0]->getHealth());
     }
     
+    agk::Print(mainPlayer.getGold());
+    
     // Cheat Codes!
     
     
@@ -445,16 +449,16 @@ int app::Loop (void)
             }
         }
     }
+    // Pause Game!
     if (agk::GetRawKeyPressed(27)) {
         gameState = 2;
     
     }
         // Camera Stuff
        
-        if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) != 0) {
+//        if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) != 0) {
             // Camera Limits
-                potato.Camera2DFollow(mainPlayer.getID());
-        }
+            potato.Camera2DFollow(mainPlayer.getID());
         // If OffMap Reset/Die
         if (agk::GetSpriteY(mainPlayer.getID()) > 3000) {
             agk::SetSpritePosition(mainPlayer.getID(), 0, 0);
@@ -491,7 +495,7 @@ int app::Loop (void)
         
     } else if (gameState == 4) {
         // For now only one Class
-        // 1 is Mage
+        // 1 is regular , 2 is Mage
         int classChoice = 1;
         
         switch (classChoice) {
@@ -520,11 +524,11 @@ int app::Loop (void)
         potato.Camera2DInit(1500, 1140, 5, 0);
         potato.Camera2DSet(mainPlayer.getID(), -40000, -40000, 40000, 40000);
         potato.Camera2DFollow(mainPlayer.getID());
+        
     } else if (gameState == 5) {
         // Tower Floor Selection Screen
         
-        
-        
+    
     }
     
 	agk::Sync();
@@ -546,7 +550,7 @@ void app::End (void)
 
 
 // Notes:
-// Change FloatingText to HashTable implementation for O(1) delete.
+// Change FloatingTexts to HashTable implementation for O(1) delete. ?
 // Partition functions into groups
 // 
 

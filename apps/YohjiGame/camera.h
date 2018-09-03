@@ -10,9 +10,8 @@
 
 // ------------------------------------
 // 2D Camera for AGK T1 1088
-// Version 1.0
 // Stuart Tresadern
-// Translated into C++ by Yojo
+// Translated into C++ AGK T2 by Yojo
 // ------------------------------------
 
 

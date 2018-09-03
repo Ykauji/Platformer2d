@@ -32,6 +32,7 @@ public:
     void decreaseTime() {time_--;}
     void deleteProjectile();
     virtual void updateBullet();
+    virtual void specialEffect() {}
     bool isMelee() {return isMelee_;}
     void setMelee(bool value) {isMelee_ = value;}
     

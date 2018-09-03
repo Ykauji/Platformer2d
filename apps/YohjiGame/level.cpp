@@ -76,6 +76,7 @@ void Level::loadTile(int x, int y) {
     agk::SetSpriteShape(castleBlock.back(),3);
     agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
     agk::SetSpriteGroup(castleBlock.back(), 2);
+    agk::SetSpriteCategoryBits(castleBlock.back(), 0x2);
 }
 void Level::loadTile(int x, int y, int image) {
     castleBlock.push_back(agk::CreateSprite(image));
@@ -84,6 +85,7 @@ void Level::loadTile(int x, int y, int image) {
     agk::SetSpriteShape(castleBlock.back(),3);
     agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
     agk::SetSpriteGroup(castleBlock.back(), 2);
+    agk::SetSpriteCategoryBits(castleBlock.back(), 0x2);
 }
 void Level::loadTile(int x, int y, std::string imageStr) {
     castleBlock.push_back(agk::CreateSprite(agk::LoadImage(imageStr.c_str())));
@@ -92,6 +94,7 @@ void Level::loadTile(int x, int y, std::string imageStr) {
     agk::SetSpriteShape(castleBlock.back(),3);
     agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
     agk::SetSpriteGroup(castleBlock.back(), 2);
+    agk::SetSpriteCategoryBits(castleBlock.back(), 0x2);
 }
 
 void Level::loadTile(int x, int y, std::string imageStr,int imageIndex) {
@@ -101,6 +104,7 @@ void Level::loadTile(int x, int y, std::string imageStr,int imageIndex) {
     agk::SetSpriteShape(castleBlock.back(),3);
     agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
     agk::SetSpriteGroup(castleBlock.back(), 2);
+    agk::SetSpriteCategoryBits(castleBlock.back(), 0x2);
 }
 
 void Level::loadTile(int x, int y, int image,int physicsOn,int depth) {
@@ -112,6 +116,7 @@ void Level::loadTile(int x, int y, int image,int physicsOn,int depth) {
         agk::SetSpriteShape(castleBlock.back(),3);
         agk::AddSpriteShapeBox(castleBlock.back(), -35, -30, 35, -38,0);
         agk::SetSpriteGroup(castleBlock.back(), 2);
+        agk::SetSpriteCategoryBits(castleBlock.back(), 0x2);
     }
 }
 void Level::loadLadderTile(int x, int y, int image) {
@@ -159,7 +164,6 @@ void Level::loadLevelOne() {
     spawnTrainingDummy(6000, 350);
     
     // Load Background
-    
     background_ = agk::CreateSprite(17);
     agk::SetSpriteDepth(background_, 10000);
     agk::FixSpriteToScreen(background_, 1);
@@ -293,7 +297,7 @@ void Level::spawnKingSlime(int x, int y) {
     kingSlime->setEngaged(false);
     kingSlime->setDamage(20);
     kingSlime->setExperience(5000);
-    
+    kingSlime->setGold(1000);
     
     
     enemies.push_back(kingSlime);
@@ -318,6 +322,7 @@ void Level::spawnKingSlime(int x, int y, int maxHealth) {
     kingSlime->setEngaged(false);
     kingSlime->setDamage(20);
     kingSlime->setExperience(5000);
+    kingSlime->setGold(500);
     
     
     
@@ -346,7 +351,7 @@ void Level::spawnSlime(int x, int y) {
     slime->setEngaged(false);
     slime->setDamage(10);
     slime->setExperience(50);
-    
+    slime->setGold(500);
     enemies.push_back(slime);
 }
 
@@ -359,8 +364,6 @@ void Level::loadLevelTmx(std::string fileName,std::string tileSetName) {
     Test.findParametersFromArray();
     Test.parseTmx(fileName,6);
     Test.parseTileSetTmx(tileSetName);
-    
-    
     
     for (int y = 0; y < Test.getHeight(); y++) {
         for (int x = 0; x < Test.getWidth(); x++) {
@@ -381,11 +384,39 @@ void Level::loadLevelTmx(std::string fileName,std::string tileSetName) {
 }
 
 void Level::spawnItem(Enemy enemy) {
-    ItemDrop item(agk::CreateSprite(40),100,0);
-    agk::SetSpriteAnimation(item.getID_(), 32, 32, 8);
-    agk::SetSpritePosition(item.getID_(), agk::GetSpriteX(enemy.getID_()), agk::GetSpriteY(enemy.getID_()));
-    agk::PlaySprite(item.getID_());
-    itemDrops_.push_front(item);
+    // Spawn different number of Coins
+    // 100 gold coins.
+    for (int i = 0; i < enemy.getGold()/100; i++) {
+        ItemDrop item(agk::CreateSprite(40),100,0);
+        agk::SetSpriteAnimation(item.getID_(), 32, 32, 8);
+        agk::SetSpritePosition(item.getID_(), agk::GetSpriteX(enemy.getID_()), agk::GetSpriteY(enemy.getID_()));
+//        agk::SetSpriteSize(item.getID_(),40);
+        agk::SetSpritePhysicsOn(item.getID_());
+        agk::SetSpriteShape(item.getID_(),1);
+        agk::SetSpritePhysicsCanRotate(item.getID_(), 0);
+        agk::SetSpritePhysicsImpulse(item.getID_(), agk::GetSpriteXByOffset(enemy.getID_()), agk::GetSpriteYByOffset(enemy.getID_()),agk::Random2(-1300, 1300),-800);
+        agk::PlaySprite(item.getID_());
+        agk::SetSpriteCollideBits(item.getID_(),0x2);
+        itemDrops_.push_front(item);
+    }
+}
+
+void Level::updateItemDrop(Player &mainPlayer) {
+    //      Update ItemDrop Position
+    if (!itemDrops_.empty()) {
+        // Check items collision, update and delete.
+        for (auto it = itemDrops_.begin(); it != itemDrops_.end(); it++) {
+            it->moveToPlayer(mainPlayer);
+            if (agk::GetSpriteCollision(mainPlayer.getID(), it->getID_())) {
+                // Handle sprite collision
+                mainPlayer.setGold(mainPlayer.getGold() + it->getGold_());
+                agk::DeleteSprite(it->getID_());
+                agk::PlaySound(3);
+                // delete from list here.
+                it = deleteItemFromList(it->getID_());
+            }
+        }
+    }
 }
 
 void Level::spawnBat(int x, int y) {
@@ -418,6 +449,18 @@ void Level::spawnTrainingDummy(int x,int y) {
     
     enemies.push_back(dummy);
 }
+
+std::list<ItemDrop>::iterator Level::deleteItemFromList(int iD) {
+    auto headPointer = itemDrops_.begin();
+    while (headPointer != itemDrops_.end()) {
+        if (headPointer->getID_() == iD) {
+            return itemDrops_.erase(headPointer);
+        } else {
+            headPointer++;
+        }
+    }
+}
+
 
 void Level::deleteEnemy(int iD) {
     for (int i = 0; i < enemies.size(); i++) {

@@ -29,6 +29,7 @@ Enemy::Enemy() {
     damage_ = 10;
     speed_ = 10;
     experience_ = 10;
+    gold_ = 100;
 }
 
 // Enemy Functions
@@ -125,7 +126,6 @@ void Enemy::updateEnemyHealthBar() {
     
     double healthPercent = 152*health_/(double)maxHealth_;
     agk::SetSpriteSize(healthBar_.greenHealthBar_,healthPercent,12.6);
-    
 
 }
 

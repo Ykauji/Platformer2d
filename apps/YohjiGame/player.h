@@ -32,6 +32,7 @@ public:
     void movementRight();
     virtual void movementDashLeft();
     virtual void movementDashRight();
+    virtual void movementDash();
     void movementJump();
     void movementDashDown();
     int checkDoor();
@@ -47,7 +48,7 @@ public:
     bool touchingLeftWall();
     bool touchingRightWall();
     
-    // Setters and Getters. Bad practice, change later.
+    // Setters and Getters. Bad practice? change later.
     void setHealth(int health) {health_ = health;}
     void setGold(int gold) {gold_ = gold;}
     void setSpeed(float speed) {speed_ = speed;}
