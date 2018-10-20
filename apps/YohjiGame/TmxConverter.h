@@ -14,6 +14,7 @@
 #define TmxConverter_h
 #include <iostream>
 #include <vector>
+#include <map>
 
 class tileSet {
 public:
@@ -51,7 +52,7 @@ public:
     int getTileWidth() {return tileWidth;}
     int getTileHeight() {return tileHeight;}
     std::vector< std::vector<int> > getTilePlacements() {return tilePlacements_;}
-    std::vector<tileSet> getTileSet() {return tmxTileSet;}
+    std::map<int,tileSet> getTileSet() {return tmxTileSet;}
     
     int binarySearch(std::vector<tileSet> arr, int l, int r, int x)
     {
@@ -89,7 +90,10 @@ private:
     std::string lineFiveArr_[10];
     std::string returnArr_[10];
     
-    std::vector<tileSet> tmxTileSet;
+    // Change this to map!!!! O(1) search vs O(N)
+//    std::vector<tileSet> tmxTileSet;
+    std::map<int,tileSet> tmxTileSet;
+    
     std::vector< std::vector<int> > tilePlacements_;
     
     int stringToInt(std::string str);

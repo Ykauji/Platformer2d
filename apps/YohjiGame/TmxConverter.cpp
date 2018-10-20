@@ -53,9 +53,9 @@ void TmxConverter::parseTileSetTmx(std::string fileName) {
         
         newTile.fileName_ = "media/" + tempStr;
         
-        tmxTileSet.push_back(newTile);
+        tmxTileSet[tempInt] = newTile;
     }
-    tmxTileSet.pop_back();
+//    tmxTileSet.pop_back();
     
 }
 

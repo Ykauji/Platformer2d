@@ -14,6 +14,13 @@
 
 void Slime::moveToPlayer(Player mainPlayer) {
     // Change Direction when land
+    if (frozen_ == true) {
+        return;
+    }
+    
+    if (getRecentlyDamaged() > 0) {
+        return;
+    }
     if (agk::GetSpritePhysicsVelocityY(getID_()) == 0) {
         if (agk::GetSpriteX(mainPlayer.getID()) < agk::GetSpriteX(getID_())) {
             agk::SetSpriteFlip(getID_(), 0, 0);
@@ -24,8 +31,6 @@ void Slime::moveToPlayer(Player mainPlayer) {
         }
     }
     // Decides how slime jumps
-    
-    
         
     if (std::abs(agk::GetSpriteX(mainPlayer.getID()) - agk::GetSpriteX(getID_())) < 550 && (agk::GetSpritePhysicsVelocityY(getID_()) == 0)){
         agk::SetSpritePhysicsVelocity(getID_(), agk::GetSpritePhysicsVelocityX(getID_()), 0);

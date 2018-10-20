@@ -18,9 +18,11 @@
 //#include "level.h"
 
 
+
 class Player;
 class Projectile;
 class UI;
+
 
 class enemyHealthBar {
   public:
@@ -66,7 +68,7 @@ public:
     
     void deleteEnemy();
     virtual void attack() {}
-    virtual void isHit(Projectile bullet, UI &userInterface);
+    virtual void isHit(Projectile * bullet, UI &userInterface);
     virtual void isDead(Player &mainPlayer, UI &userInterface);
     std::string intToStringo(int value);
     virtual void enemySpecificHit();
@@ -93,5 +95,8 @@ protected:
     std::vector<int> damageText;
     int recentlyDamaged_;
     enemyHealthBar healthBar_;
+    
+    // status effects
+    bool frozen_;
 };
 #endif /* enemy_h */

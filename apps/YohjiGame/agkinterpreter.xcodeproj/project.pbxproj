@@ -40,7 +40,13 @@
 		C18B882D1F51354C00FAF323 /* projectile.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28241F5115C1003B478C /* projectile.h */; };
 		C18B882E1F51355100FAF323 /* UI.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28271F511A52003B478C /* UI.h */; };
 		C18B882F1F51355400FAF323 /* player.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28211F511526003B478C /* player.h */; };
-		C1E4788A1F1EBF92005955B4 /* Player in Resources */ = {isa = PBXBuildFile; fileRef = C1E478891F1EBF92005955B4 /* Player */; };
+		C196B3C32177F9A500DE286D /* meleeProjectile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C196B3C12177F9A500DE286D /* meleeProjectile.cpp */; };
+		C1B77A6621752DDF00EA5747 /* melee.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1B77A6421752DDF00EA5747 /* melee.cpp */; };
+		C1B77A692176D92600EA5747 /* tornado.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1B77A672176D92600EA5747 /* tornado.cpp */; };
+		C1B77A6B2177B41C00EA5747 /* PlayerSprites in Resources */ = {isa = PBXBuildFile; fileRef = C1B77A6A2177B41C00EA5747 /* PlayerSprites */; };
+		C1D2B9262168252E00F7DD82 /* ui in Resources */ = {isa = PBXBuildFile; fileRef = C1D2B9252168252E00F7DD82 /* ui */; };
+		C1D2B929216EC44500F7DD82 /* skills.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1D2B927216EC44500F7DD82 /* skills.cpp */; };
+		C1D2B92C216EC83700F7DD82 /* fireballskill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1D2B92A216EC83700F7DD82 /* fireballskill.cpp */; };
 		C1E4788C1F1EC800005955B4 /* Tiles in Resources */ = {isa = PBXBuildFile; fileRef = C1E4788B1F1EC800005955B4 /* Tiles */; };
 		C1E4788E1F26812A005955B4 /* Enemy sprites in Resources */ = {isa = PBXBuildFile; fileRef = C1E4788D1F26812A005955B4 /* Enemy sprites */; };
 		C1E478901F32A6ED005955B4 /* fireball in Resources */ = {isa = PBXBuildFile; fileRef = C1E4788F1F32A6EC005955B4 /* fireball */; };
@@ -101,7 +107,18 @@
 		C165359C20350DF5000E225B /* Mage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Mage.cpp; sourceTree = "<group>"; };
 		C165359D20350DF5000E225B /* Mage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mage.h; sourceTree = "<group>"; };
 		C16D9B4E1FEC4DFA005A9BD8 /* fx */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fx; sourceTree = "<group>"; };
-		C1E478891F1EBF92005955B4 /* Player */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Player; path = "media/TempArt/Base pack/Player"; sourceTree = "<group>"; };
+		C196B3C12177F9A500DE286D /* meleeProjectile.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = meleeProjectile.cpp; sourceTree = "<group>"; };
+		C196B3C22177F9A500DE286D /* meleeProjectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meleeProjectile.h; sourceTree = "<group>"; };
+		C1B77A6421752DDF00EA5747 /* melee.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = melee.cpp; sourceTree = "<group>"; };
+		C1B77A6521752DDF00EA5747 /* melee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = melee.h; sourceTree = "<group>"; };
+		C1B77A672176D92600EA5747 /* tornado.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = tornado.cpp; sourceTree = "<group>"; };
+		C1B77A682176D92600EA5747 /* tornado.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tornado.h; sourceTree = "<group>"; };
+		C1B77A6A2177B41C00EA5747 /* PlayerSprites */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PlayerSprites; path = ui/PlayerSprites; sourceTree = "<group>"; };
+		C1D2B9252168252E00F7DD82 /* ui */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ui; sourceTree = "<group>"; };
+		C1D2B927216EC44500F7DD82 /* skills.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = skills.cpp; sourceTree = "<group>"; };
+		C1D2B928216EC44500F7DD82 /* skills.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skills.h; sourceTree = "<group>"; };
+		C1D2B92A216EC83700F7DD82 /* fireballskill.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = fireballskill.cpp; sourceTree = "<group>"; };
+		C1D2B92B216EC83700F7DD82 /* fireballskill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fireballskill.h; sourceTree = "<group>"; };
 		C1E4788B1F1EC800005955B4 /* Tiles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Tiles; path = "media/TempArt/Base pack/Tiles"; sourceTree = "<group>"; };
 		C1E4788D1F26812A005955B4 /* Enemy sprites */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Enemy sprites"; path = "media/TempArt/Extra animations and enemies/Enemy sprites"; sourceTree = "<group>"; };
 		C1E4788F1F32A6EC005955B4 /* fireball */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fireball; sourceTree = "<group>"; };
@@ -249,6 +266,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C1B77A6A2177B41C00EA5747 /* PlayerSprites */,
+				C1D2B9252168252E00F7DD82 /* ui */,
 				C165359220266179000E225B /* mainCharacter */,
 				C16D9B4E1FEC4DFA005A9BD8 /* fx */,
 				C1FC64941F57855E00250D72 /* circle */,
@@ -256,7 +275,6 @@
 				C1E4788F1F32A6EC005955B4 /* fireball */,
 				C1E4788D1F26812A005955B4 /* Enemy sprites */,
 				C1E4788B1F1EC800005955B4 /* Tiles */,
-				C1E478891F1EBF92005955B4 /* Player */,
 				4A80ECD31A0F1C4F0090553F /* media */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				D8984FF3132319CA00687EF5 /* agkinterpreter-Info.plist */,
@@ -340,8 +358,14 @@
 		C1FF7B3020FA9AE500CBF8B5 /* Skills */ = {
 			isa = PBXGroup;
 			children = (
-				C1FF7B3220FA9B1C00CBF8B5 /* frostbolt.h */,
-				C1FF7B3120FA9B1C00CBF8B5 /* frostbolt.cpp */,
+				C1D2B928216EC44500F7DD82 /* skills.h */,
+				C1D2B927216EC44500F7DD82 /* skills.cpp */,
+				C1D2B92B216EC83700F7DD82 /* fireballskill.h */,
+				C1D2B92A216EC83700F7DD82 /* fireballskill.cpp */,
+				C1B77A6521752DDF00EA5747 /* melee.h */,
+				C1B77A6421752DDF00EA5747 /* melee.cpp */,
+				C1B77A682176D92600EA5747 /* tornado.h */,
+				C1B77A672176D92600EA5747 /* tornado.cpp */,
 			);
 			name = Skills;
 			sourceTree = "<group>";
@@ -370,6 +394,10 @@
 				C13E28231F5115C1003B478C /* projectile.cpp */,
 				C1FF99CA2001E91200060FDD /* fireball.h */,
 				C1FF99C92001E91200060FDD /* fireball.cpp */,
+				C1FF7B3220FA9B1C00CBF8B5 /* frostbolt.h */,
+				C1FF7B3120FA9B1C00CBF8B5 /* frostbolt.cpp */,
+				C196B3C22177F9A500DE286D /* meleeProjectile.h */,
+				C196B3C12177F9A500DE286D /* meleeProjectile.cpp */,
 			);
 			name = Projectiles;
 			sourceTree = "<group>";
@@ -492,15 +520,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B77A6B2177B41C00EA5747 /* PlayerSprites in Resources */,
 				C16D9B4F1FEC4DFA005A9BD8 /* fx in Resources */,
 				4A80ECD41A0F1C4F0090553F /* media in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				C13E281C1F4E8164003B478C /* bat in Resources */,
+				C1D2B9262168252E00F7DD82 /* ui in Resources */,
 				D8D8206216FD0A8400D08FAD /* icons.iconset in Resources */,
 				C1FC64951F57855E00250D72 /* circle in Resources */,
 				C165359320266179000E225B /* mainCharacter in Resources */,
 				C1E478901F32A6ED005955B4 /* fireball in Resources */,
-				C1E4788A1F1EBF92005955B4 /* Player in Resources */,
 				C1E4788C1F1EC800005955B4 /* Tiles in Resources */,
 				C1E4788E1F26812A005955B4 /* Enemy sprites in Resources */,
 			);
@@ -518,9 +547,11 @@
 				C15908CB204604FA0047FABB /* TmxConverter.cpp in Sources */,
 				C1042BFA20C0CD5800D3CEC1 /* levelMap.cpp in Sources */,
 				C13E28281F511A52003B478C /* UI.cpp in Sources */,
+				C1D2B929216EC44500F7DD82 /* skills.cpp in Sources */,
 				C1FF7B3320FA9B1C00CBF8B5 /* frostbolt.cpp in Sources */,
 				C12354392061C78400FF8911 /* ItemDrop.cpp in Sources */,
 				C13E28251F5115C1003B478C /* projectile.cpp in Sources */,
+				C196B3C32177F9A500DE286D /* meleeProjectile.cpp in Sources */,
 				C1138CFD2036B17F00CF2328 /* camera.cpp in Sources */,
 				C15AFCD3200ACCEB00EA551B /* dragon.cpp in Sources */,
 				C13378031F5142AA004179DE /* bat.cpp in Sources */,
@@ -528,13 +559,16 @@
 				C13377FD1F513FB4004179DE /* level.cpp in Sources */,
 				9B8B6E4F1360BFC200BEF23D /* Core.mm in Sources */,
 				C18B882F1F51355400FAF323 /* player.h in Sources */,
+				C1B77A6621752DDF00EA5747 /* melee.cpp in Sources */,
 				C18B882E1F51355100FAF323 /* UI.h in Sources */,
 				C1F5C83D204A87CD004CE39A /* kingSlime.cpp in Sources */,
+				C1B77A692176D92600EA5747 /* tornado.cpp in Sources */,
 				C165359E20350DF5000E225B /* Mage.cpp in Sources */,
 				D8D8206D16FD0F0C00D08FAD /* template.cpp in Sources */,
 				C1653596202BD152000E225B /* npc.cpp in Sources */,
 				C1653599202F9B38000E225B /* door.cpp in Sources */,
 				C13E28221F511526003B478C /* player.cpp in Sources */,
+				C1D2B92C216EC83700F7DD82 /* fireballskill.cpp in Sources */,
 				C18B882D1F51354C00FAF323 /* projectile.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

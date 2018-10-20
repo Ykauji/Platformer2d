@@ -37,9 +37,15 @@ void Camera2D::Camera2DSet(int objectId,int bottomX,int bottomY,int topX,int top
 
 
 void Camera2D::Camera2DFollow(int objectId) {
+    // THIS IS ORIGINAL IF U HAVE PROBLEM TRY AGAIN SIR
+//    Camera1.position.x = Camera2DMove(0,0,objectId,agk::GetSpriteX(objectId),agk::GetSpriteWidth(objectId));
+//    Camera1.position.y = Camera2DMove(1,1,objectId,agk::GetSpriteY(objectId),agk::GetSpriteHeight(objectId));
     
-    Camera1.position.x = Camera2DMove(0,0,objectId,agk::GetSpriteX(objectId),agk::GetSpriteWidth(objectId));
-    Camera1.position.y = Camera2DMove(1,1,objectId,agk::GetSpriteY(objectId),agk::GetSpriteHeight(objectId));
+    Camera1.position.x = Camera2DMove(0,0,objectId,agk::GetSpriteX(objectId),100);
+    Camera1.position.y = Camera2DMove(1,1,objectId,agk::GetSpriteY(objectId),200);
+
+    
+    
 
     agk::SetViewOffset( Camera1.position.x, Camera1.position.y);
     

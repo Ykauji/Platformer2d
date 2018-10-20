@@ -68,9 +68,10 @@ int Enemy::checkCollision(Player mainPlayer) {
     return 0;
 }
 
-void Enemy::isHit(Projectile bullet,UI &userInterface) {
-    setHealth(getHealth()-bullet.getDamage());
-    const std::string bulletNumbero = intToStringo(bullet.getDamage());
+void Enemy::isHit(Projectile * bullet,UI &userInterface) {
+    setHealth(getHealth()-bullet->getDamage());
+    bullet->specialEffect(*this);
+    const std::string bulletNumbero = intToStringo(bullet->getDamage());
     userInterface.createFadingText(bulletNumbero, 60, agk::GetSpriteX(this->getID_())+ agk::Random2(-10,30), agk::GetSpriteY(this->getID_()), 40);
     if (health_ < maxHealth_ && isEngage_ == 0) {
         isEngage_ = 1;

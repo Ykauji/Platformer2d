@@ -8,116 +8,16 @@
 
 #include "player.h"
 #include "agk.h"
-#include "fireball.h"
+#include "fireballskill.h"
+#include "melee.h"
+#include "tornado.h"
+#include "frostbolt.h"
 #include <sstream>
 
-
 void Player::attack() {
-    // How many bullets can exist at once
-    if (currentWep == 1 && numBullets_.size() < 10) {
-        Projectile * beam = new Projectile();
-        (*beam).setID(agk::CreateSprite(3));
-        // How long the bullet exists for
-        (*beam).setTime(120);
-        
-        agk::SetSpritePhysicsOn((*beam).getID_());
-        agk::SetSpriteShape((*beam).getID_(),3);
-        if (direction_ == -1) {
-            agk::SetSpritePosition((*beam).getID_(),agk::GetSpriteX(iD_)+20*direction_, agk::GetSpriteY(iD_));
-            agk::SetSpritePhysicsImpulse((*beam).getID_(), agk::GetSpriteX(iD_)+direction_*50, agk::GetSpriteY(iD_)+50, 100*direction_, 50);
-        } else {
-            agk::SetSpritePosition((*beam).getID_(),agk::GetSpriteX(iD_)+70*direction_, agk::GetSpriteY(iD_));
-            agk::SetSpritePhysicsImpulse((*beam).getID_(), agk::GetSpriteX(iD_)+direction_*70, agk::GetSpriteY(iD_)+50, 100*direction_, 50);
-        }
-        
-        agk::SetSpritePhysicsIsBullet((*beam).getID_(), 1);
-        agk::SetSpritePhysicsRestitution((*beam).getID_(), 2);
-        agk::SetSpriteCollideBits(beam->getID_(), 0x2);
-        agk::SetSpriteSize(beam->getID_(),125);
-        numBullets_.push_back(beam);
-        
-        
-    }
-    if (currentWep == 2 && numBullets_.size() < 10) {
-        Projectile * beam = new Fireball();
-        beam->setID(agk::CreateSprite(7));
-        beam->setTime(100);
-        beam->setDamage(25);
-        beam->setDirection(direction_);
-        beam->setSpeed(14);
-        // How long the bullet exists for
-        agk::SetSpriteSize((*beam).getID_(), 100,-1);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 7);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 8);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 9);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 10);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 11);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 12);
-        agk::PlaySprite((*beam).getID_());
-        agk::SetSpriteActive(beam->getID_(), 1);
-        
-        if (direction_ == 1) {
-            agk::SetSpriteFlip((*beam).getID_(), 1, 0);
-            agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+80*direction_), agk::GetSpriteY(iD_)+35);
-        }
-        if (direction_ == -1) {
-            agk::SetSpriteFlip((*beam).getID_(), 0, 0);
-            agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+40*direction_), agk::GetSpriteY(iD_)+35);
-        }
-        
-        agk::PlaySound(2);
-        numBullets_.push_back(beam);
-    }
-    
-    if (currentWep == 3) {
-        Projectile *beam = new Projectile(agk::CreateSprite(30),10,10+(damage_*.1));
-        agk::SetSpriteSize((*beam).getID_(), 100,-1);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 30);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 31);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 32);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 33);
-        agk::AddSpriteAnimationFrame((*beam).getID_(), 34);
-        
-        if (direction_ == 1) {
-            agk::SetSpriteFlip((*beam).getID_(), 0, 1);
-            agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+150*direction_), agk::GetSpriteY(iD_));
-        }
-        if (direction_ == -1) {
-            agk::SetSpriteFlip((*beam).getID_(), 1, 1);
-            agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(iD_)+80*direction_), agk::GetSpriteY(iD_));
-        }
-        if (!(agk::GetSpriteCurrentFrame(iD_) > 9 && agk::GetSpriteCurrentFrame(iD_) < 14)) {
-            agk::PlaySprite(iD_,20,1,10,13);
-        }
-//        agk::PlaySprite(iD_,10,0,10,10);
-        agk::PlaySprite((*beam).getID_(),40,0);
-        beam->setMelee(true);
-        numBullets_.push_back(beam);
-    }
-    
-    if (currentWep == 4) {
-        for (int i = 0; i < 15; i++) {
-            Projectile * beam = new Projectile();
-            (*beam).setID(agk::CreateSprite(3));
-            // How long the bullet exists for
-            (*beam).setTime(120);
-            
-            agk::SetSpritePhysicsOn((*beam).getID_());
-            agk::SetSpriteShape((*beam).getID_(),3);
-            if (direction_ == -1) {
-                agk::SetSpritePosition((*beam).getID_(),agk::GetSpriteX(iD_)+20*direction_, agk::GetSpriteY(iD_));
-                agk::SetSpritePhysicsImpulse((*beam).getID_(), agk::GetSpriteX(iD_)+direction_*50, agk::GetSpriteY(iD_)+50, 100*direction_, 250);
-            } else {
-                agk::SetSpritePosition((*beam).getID_(),agk::GetSpriteX(iD_)+70*direction_, agk::GetSpriteY(iD_));
-                agk::SetSpritePhysicsImpulse((*beam).getID_(), agk::GetSpriteX(iD_)+direction_*70, agk::GetSpriteY(iD_)+50, 100*direction_, 250);
-            }
-            
-            agk::SetSpritePhysicsIsBullet((*beam).getID_(), 1);
-            agk::SetSpritePhysicsRestitution((*beam).getID_(), 2);
-            agk::SetSpriteCategoryBits(beam->getID_(), 0x2);
-            agk::SetSpriteCollideBits(beam->getID_(), 0x2);
-            agk::SetSpriteSize(beam->getID_(),125);
-            numBullets_.push_back(beam);
+    if (skills_.count(currentWep) == 1) {
+        if (skills_[currentWep]->canCast()) {
+            skills_[currentWep]->castSkill(this);
         }
     }
 }
@@ -147,22 +47,55 @@ void Player::updateDirection() {
 void Player::movementLeft() {
     if (dashTimer_ < 0) {
         direction_ = -1;
-        agk::SetSpritePhysicsVelocity(iD_, 0, agk::GetSpritePhysicsVelocityY(iD_));
-        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*-1, 0);
+        int maxSpeed = 750;
+        agk::SetSpriteFlip(iD_, 1, 0);
+        // Set State
+        if (playerState == Idle) {
+            playerState = Walking;
+        }
+        if (agk::GetSpritePhysicsVelocityX(iD_) > 0) {
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)-150, agk::GetSpritePhysicsVelocityY(iD_));
+        } else if (agk::GetSpritePhysicsVelocityX(iD_) > -maxSpeed/4) {
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)-250, agk::GetSpritePhysicsVelocityY(iD_));
+        } else if (agk::GetSpritePhysicsVelocityX(iD_) < -maxSpeed) {
+            agk::SetSpritePhysicsVelocity(iD_, -maxSpeed, agk::GetSpritePhysicsVelocityY(iD_));
+        } else {
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)-20, agk::GetSpritePhysicsVelocityY(iD_));
+        }
+        
+        
+//        agk::SetSpritePhysicsVelocity(iD_, 0, agk::GetSpritePhysicsVelocityY(iD_));
+//        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*-1, 0);
     }
 }
 
 void Player::movementRight() {
     if (dashTimer_ < 0) {
+        agk::SetSpriteFlip(iD_, 0, 0);
         direction_ = 1;
-        agk::SetSpritePhysicsVelocity(iD_, 0, agk::GetSpritePhysicsVelocityY(iD_));
-        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_, 0);
+        int maxSpeed = 750;
+        // Setting State
+        if (playerState == Idle) {
+            playerState = Walking;
+        }
+        if (agk::GetSpritePhysicsVelocityX(iD_) < 100) {
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)+150, agk::GetSpritePhysicsVelocityY(iD_));
+        } else if (agk::GetSpritePhysicsVelocityX(iD_) < maxSpeed/4) {
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)+250, agk::GetSpritePhysicsVelocityY(iD_));
+        } else if (agk::GetSpritePhysicsVelocityX(iD_) > maxSpeed) {
+            agk::SetSpritePhysicsVelocity(iD_, maxSpeed, agk::GetSpritePhysicsVelocityY(iD_));
+        } else {
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)+20, agk::GetSpritePhysicsVelocityY(iD_));
+        }
+//        agk::SetSpritePhysicsVelocity(iD_, 0, agk::GetSpritePhysicsVelocityY(iD_));
+//        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_, 0);
     }
 }
 
 void Player::movementDashLeft() {
     if (dashTimer_ < 0) {
         agk::SetSpriteFlip(iD_, 1, 0);
+        playerState = Dashing;
         direction_ = -1;
         currentDash_ = 1;
         // Cooldown of Dash
@@ -175,6 +108,7 @@ void Player::movementDashLeft() {
 void Player::movementDashRight() {
     if (dashTimer_ < 0) {
         agk::SetSpriteFlip(iD_, 0, 0);
+        playerState = Dashing;
         direction_ = 1;
         currentDash_ = 1;
         dashTimer_ = 20;
@@ -193,7 +127,7 @@ void Player::movementDash() {
 }
 
 void Player::movementJump() {
-//    agk::PlaySprite(iD_,60,0,12,12);
+    playerState = Jumping;
     agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_), 0);
     agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), 0, jumpHeight_*-1);
     recentlyJumped++;
@@ -209,8 +143,8 @@ int Player::checkDoor() {
 }
 
 void Player::stopMovement() {
-    if (!(agk::GetSpriteCurrentFrame(getID()) < 10 && agk::GetSpriteCurrentFrame(getID()) > 6)) {
-        agk::PlaySprite(getID(), 7, 1, 7, 9);
+    if (playerState == State::Walking) {
+            playerState = State::Idle;
     }
 }
 
@@ -241,7 +175,7 @@ void Player::updateHealth(UI &healthBar) {
 }
 
 void Player::updateExperience(UI &experienceBar) {
-    double experiencePercent = 390*(experience_/(double)maxExperience_);
+    double experiencePercent = 1850*(experience_/(double)maxExperience_);
     agk::SetSpriteSize(experienceBar.getexperienceBar(),experiencePercent,5);
 }
 
@@ -257,41 +191,132 @@ bool Player::levelUp(UI &userInterface) {
     return false;
 }
 
-void Player::loadPlayer() {
-    agk::LoadImage(1, "Player/p3_walk01.png");
-    setID(agk::CreateSprite(1));
-    agk::SetSpriteSize(getID(),68);
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk01.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk02.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk03.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk04.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk05.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk06.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk07.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk08.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk09.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk10.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_walk11.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("Player/p3_jump.png"));
-   
+void Player::updatePlayer(double frameTime, UI & userInterface) {
+    updateHealth(userInterface);
+    updateExperience(userInterface);
+    levelUp(userInterface);
+    for (auto & it : skills_) {
+        userInterface.updateIcon(it.first,it.second->updateCooldown(frameTime));
+    }
+    playAnimations();
 }
+
+void Player::playAnimations() {
+    switch (playerState) {
+        case Idle:
+            if (!((agk::GetSpriteCurrentFrame(getID()) < 9 && agk::GetSpriteCurrentFrame(getID()) > 4))) {
+                agk::PlaySprite(getID(), 7, 1, 5, 8);
+            }
+            break;
+        case Walking:
+            if (!((agk::GetSpriteCurrentFrame(getID()) < 5) && agk::GetSpriteCurrentFrame(getID()) > 0)) {
+                agk::PlaySprite(getID(), 8, 1, 1, 4);
+            }
+            break;
+        case Jumping:
+            if (!((agk::GetSpriteCurrentFrame(getID()) < 20) && agk::GetSpriteCurrentFrame(getID()) > 16)) {
+                agk::PlaySprite(getID(), 8, 1, 17, 19);
+            }
+            break;
+        case Hurt:
+            if (!((agk::GetSpriteCurrentFrame(getID()) < 24) && agk::GetSpriteCurrentFrame(getID()) > 21)) {
+                agk::PlaySprite(getID(), 20, 0, 22, 23);
+            }
+            break;
+        case DoubleJump:
+            break;
+        case JumpAttack:
+            break;
+        case Dashing:
+            if (!((agk::GetSpriteCurrentFrame(getID()) < 22) && agk::GetSpriteCurrentFrame(getID()) > 19)) {
+                agk::PlaySprite(getID(), 5, 0, 20, 21);
+            }
+            break;
+        case WallSliding:
+            // If not touching wall, switch states
+            if (!touchingLeftWall() && !touchingRightWall() && playerState == WallSliding) {
+                playerState = Idle;
+            }
+            if (!(agk::GetSpriteCurrentFrame(getID()) == 24)) {
+                agk::PlaySprite(getID(),5,1,24,24);
+            }
+            std::cout << "im on the wall" << std::endl;
+            break;
+        case MeleeAttacking:
+            if (!((agk::GetSpriteCurrentFrame(getID()) < 17) && agk::GetSpriteCurrentFrame(getID()) > 8)) {
+                agk::PlaySprite(getID(), 20, 0, 9, 16);
+            }
+            if (agk::GetSpriteCurrentFrame(getID()) == 16) {
+                playerState = Idle;
+            }
+            break;
+        case Attacking2:
+            if (!((agk::GetSpriteCurrentFrame(getID()) < 32) && agk::GetSpriteCurrentFrame(getID()) > 24)) {
+                agk::PlaySprite(getID(), 20, 0, 25, 31);
+            }
+            if (agk::GetSpriteCurrentFrame(getID()) == 31) {
+                playerState = Idle;
+            }
+
+            break;
+        case Aquire:
+            break;
+    }
+//    std::cout << "current state =" << playerState << std::endl;
+}
+
 void Player::loadPlayerTest() {
-    agk::LoadImage(1, "mainCharacter/rogue like idle_Animation 1_0.png");
+    agk::LoadImage(1, "PlayerSprites/Hero/idle/Idle01.png");
     setID(agk::CreateSprite(1));
-    agk::SetSpriteSize(getID(),170);
+    agk::SetSpriteSize(getID(),350);
     
-    // 1-9
+    // Run: 1-4
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/run/Run01.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/run/Run02.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/run/Run03.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/run/Run04.png"));
     
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_0.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_1.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_2.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_3.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_4.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like run_Animation 1_5.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like idle_Animation 1_0.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like idle_Animation 1_1.png"));
-    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("mainCharacter/rogue like idle_Animation 1_2.png"));
+    // Idle 5-8
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/idle/Idle01.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/idle/Idle02.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/idle/Idle03.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/idle/Idle04.png"));
     
+    // Attack 9-16
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/attack/Attack01.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/attack/Attack02.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/attack/Attack03.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/attack/Attack04.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/attack/Attack05.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/attack/Attack06.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/attack/Attack07.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/attack/Attack08.png"));
+    
+    // Jumping 17-19
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/jump/Jump01.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/jump/Jump02.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/jump/Jump03.png"));
+    
+    // Dashing 20-21
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/dash/shadow.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/dash/Dash01.png"));
+    
+    // Hurt 22-23
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/hurt/Hurt01.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/hurt/Hurt02.png"));
+    
+    // Wall hold! 24
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/Wall Slide/Wall Slide01.png"));
+    
+    // Attack#2 25-31
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/skill1/Skill101.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/skill1/Skill102.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/skill1/Skill103.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/skill1/Skill104.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/skill1/Skill105.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/skill1/Skill106.png"));
+    agk::AddSpriteAnimationFrame(getID(), agk::LoadImage("PlayerSprites/Hero/skill1/Skill107.png"));
+
     // Ground Sensor
     groundSensorID_ = agk::CreateSprite(0);
     agk::SetSpriteSize(groundSensorID_ ,30,5);
@@ -315,7 +340,13 @@ void Player::loadPlayerTest() {
     agk::SetSpritePhysicsIsSensor(wallSensorIDRight_, 1);
     agk::SetSpriteShape(wallSensorIDRight_,2);
 
-    
+    // Add skills
+    Skills * fireball = new Fireballskill();
+    changeSkill(1, fireball);
+    Skills * melee = new MeleeSkill();
+    changeSkill(2,melee);
+    Skills * tornado = new TornadoSkill();
+    changeSkill(3,tornado);
 }
 
 void Player::loadPlayerPhysics() {
@@ -352,6 +383,46 @@ void Player::resetPlayer() {
     gold_ = 0;
     agk::SetSpritePosition(iD_, 0, 0);
     movementRight();
+}
+
+void Player::resetJump() {
+    recentlyJumped = 0;
+    if (playerState == Jumping) {
+        playerState = Idle;
+    }
+}
+
+void Player::changeSkill(int skillBox, Skills * skill) {
+    // Clear skill ptr in current box.
+    if (skills_.count(skillBox) == 1) {
+         delete skills_[skillBox];
+    }
+    skills_[skillBox] = skill;
+}
+
+std::string intToStringooo(int value) {
+    char buffer [50];
+    int n, a=value;
+    n=sprintf (buffer, "%d", a);
+    return buffer;
+}
+
+void Player::checkEnemyCollisions(std::vector<Enemy*> & enemies, UI & userInterface) {
+    if (getRecentlyDamaged() < 0 ) {
+        for (int i = 0; i < enemies.size(); i++) {
+            if (agk::GetSpriteCollision(getID(), enemies[i]->getID_())) {
+                agk::SetSpritePhysicsImpulse(getID(), agk::GetSpriteXByOffset(getID()), agk::GetSpriteYByOffset(getID()),9000*enemies[i]->checkCollision(*this) , -2000);
+                setHealth(getHealth()-enemies[i]->getDamage());
+                const std::string bulletNumbero = intToStringooo(enemies[i]->getDamage()*-1);
+                userInterface.createFadingText(bulletNumbero, 60, agk::GetSpriteX(getID())+ agk::Random2(-20,40), agk::GetSpriteY(getID()), 45,5);
+                setStateHurt();
+                setRecentlyDamaged(25);
+                agk::PlaySound(4);
+            }
+        }
+    }
+    setRecentlyDamaged(getRecentlyDamaged()-1);
+   
 }
 
 //void Player::mouseAttack() {

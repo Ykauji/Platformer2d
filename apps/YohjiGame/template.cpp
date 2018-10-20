@@ -49,7 +49,7 @@ void app::Begin(void)
     agk::SetScissor(0,0,0,0);
     // Set up Physics
     agk::SetPhysicsScale(.05);
-    agk::SetPhysicsGravity(0, 1000);
+    agk::SetPhysicsGravity(0, 1200);
     agk::SetPhysicsWallBottom(0);
     agk::SetViewZoom(.60);
     
@@ -58,7 +58,7 @@ void app::Begin(void)
     
     // Ground Sensor
     
-    // When loading images, if performance issues delete after usage?
+    // When loading images, if performance issues delete after usage? SPEND A DAY ORGANIZING?
     
     // Load Music/Sound
     agk::LoadMusicOGG(1,"media/ilikethis.ogg"); // Mooncatcher temporary music.
@@ -71,7 +71,7 @@ void app::Begin(void)
      agk::LoadImage(2, "Tiles/castleHalf.png");
     
     // Load Projectiles
-    agk::LoadImage(3, "Player/laserPurpleDot.png");
+    agk::LoadImage(3, "mainCharacter/laserPurpleDot.png");
     // Fireball
     agk::LoadImage(7, "fireball/1.png");
     agk::LoadImage(8, "fireball/2.png");
@@ -141,6 +141,7 @@ void app::Begin(void)
     agk::LoadImage(39, "Enemy sprites/slime.png");
     agk::LoadImage(40, "media/coin_gold.png");
     
+    
     // Load Attack Animations
     
     // Load Dragon
@@ -152,7 +153,7 @@ void app::Begin(void)
     // Load Health Numbers
     std::string currentHealth = intToString(mainPlayer.getHealth()) + "/";
     agk::CreateText(1,  currentHealth.c_str());
-    agk::SetTextPosition(1, 945, 966);
+    agk::SetTextPosition(1, agk::GetSpriteX(userInterface.getHealthBarGreen())+agk::GetSpriteWidth(userInterface.getHealthBarGreen())/2-50 , agk::GetSpriteY(userInterface.getHealthBarGreen())-2.5);
     agk::SetTextSize(1, 20);
     agk::SetTextDepth(1, 1);
     agk::FixTextToScreen(1, 1);
@@ -206,16 +207,19 @@ void app::Begin(void)
 // Game Logic
 int app::Loop (void)
 {
+    float timeSinceLastFrame = agk::GetFrameTime();
+    
     if (gameState == 1) {
         
     agk::Print(agk::GetSpriteCurrentFrame(mainPlayer.getID()));
     
     //Player Movement
-    if (mainPlayer.getRecentlyDamaged() < 0) {
+//    if (mainPlayer.getRecentlyDamaged() < 0) {
         if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && !mainPlayer.touchingLeftWall()) {
             mainPlayer.movementLeft();
         } else if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && mainPlayer.touchingLeftWall()) {
             // If I want to slide down walls add here
+            mainPlayer.setStateWallSlide();
             agk::SetSpritePhysicsVelocity(mainPlayer.getID(), 0, agk::GetSpritePhysicsVelocityY(mainPlayer.getID()));
         }
         
@@ -223,11 +227,13 @@ int app::Loop (void)
             mainPlayer.movementRight();
         } else if ((agk::GetRawKeyState(39) || agk::GetRawKeyState(68)) && mainPlayer.touchingRightWall()) {
             // Same thing
+            mainPlayer.setStateWallSlide();
             agk::SetSpritePhysicsVelocity(mainPlayer.getID(), 0, agk::GetSpritePhysicsVelocityY(mainPlayer.getID()));
         }
         
-    }
-    if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) == 0){
+        
+//    }
+        if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) == 0 && agk::GetSpritePhysicsVelocityY(mainPlayer.getID()) == 0){
     mainPlayer.stopMovement();
     }
 
@@ -248,9 +254,10 @@ int app::Loop (void)
     }
     
     // Move Character Sensors (For some reason if moved before, GetSpriteFirstContact is changed to 0)
-    agk::SetSpritePosition(mainPlayer.getGroundSensor(), agk::GetSpriteX(mainPlayer.getID())+66,agk::GetSpriteY(mainPlayer.getID())+130);
-    agk::SetSpritePosition(mainPlayer.getLeftSensor(), agk::GetSpriteX(mainPlayer.getID())+30,agk::GetSpriteY(mainPlayer.getID())+50);
-    agk::SetSpritePosition(mainPlayer.getRightSensor(), agk::GetSpriteX(mainPlayer.getID())+130,agk::GetSpriteY(mainPlayer.getID())+50);
+    agk::SetSpritePosition(mainPlayer.getGroundSensor(), agk::GetSpriteX(mainPlayer.getID())+agk::GetSpriteWidth(mainPlayer.getID())/2,agk::GetSpriteY(mainPlayer.getID())+agk::GetSpriteHeight(mainPlayer.getID())-100);
+        
+        agk::SetSpritePosition(mainPlayer.getLeftSensor(), agk::GetSpriteX(mainPlayer.getID())+agk::GetSpriteWidth(mainPlayer.getID())/2-60,agk::GetSpriteY(mainPlayer.getID())+(agk::GetSpriteHeight(mainPlayer.getID())/2)-15);
+        agk::SetSpritePosition(mainPlayer.getRightSensor(), agk::GetSpriteX(mainPlayer.getID())+agk::GetSpriteWidth(mainPlayer.getID())/2+60,agk::GetSpriteY(mainPlayer.getID())+(agk::GetSpriteHeight(mainPlayer.getID())/2)-15);
 
     
     // Holding down drops faster and Doors, S
@@ -260,23 +267,9 @@ int app::Loop (void)
     }
     
     
-    // If moving then play animation
-    if (agk::GetSpritePhysicsVelocityY(mainPlayer.getID()) < 0) {
-        // When moving play running animations!
-    } else {
-        if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) > 0) {
-            if (!(agk::GetSpriteCurrentFrame(mainPlayer.getID()) < 6) && agk::GetSpriteCurrentFrame(mainPlayer.getID()) > 1) {
-                agk::PlaySprite(mainPlayer.getID(), 8, 1, 1, 6);
-            }
-            // If sprite velocity < 0 aka going left.
-        } else if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) < 0) {
-            if (!(agk::GetSpriteCurrentFrame(mainPlayer.getID()) < 6) && agk::GetSpriteCurrentFrame(mainPlayer.getID()) > 1) {
-                agk::PlaySprite(mainPlayer.getID(), 8, 1, 1, 6);
-            }   
-        }
-    }
+   
     // Update Direction
-    mainPlayer.updateDirection();
+    //mainPlayer.updateDirection();
     
     // Dash Left and Right Q . E
     if (agk::GetRawKeyPressed(81)) {
@@ -293,25 +286,46 @@ int app::Loop (void)
     // Decrease DashTimer_
     mainPlayer.dashTimerDecrease();
     if (mainPlayer.getDashTimer() == 0) {
+        mainPlayer.setStateIdle();
         agk::SetSpritePhysicsVelocity(mainPlayer.getID(), 0, agk::GetSpritePhysicsVelocityY(mainPlayer.getID()));
         agk::SetSpritePhysicsImpulse(mainPlayer.getID(), agk::GetSpriteXByOffset(mainPlayer.getID()), agk::GetSpriteYByOffset(mainPlayer.getID()), mainPlayer.getSpeed()*mainPlayer.getDirection(), 0);
     }
     // Changing Weps with 1,2,3,4 etc.
-    if (agk::GetRawKeyPressed(49)) {
-        mainPlayer.setWep(1);
-    }
-        // Swap weapon 2
-    if (agk::GetRawKeyPressed(50)) {
-        mainPlayer.setWep(2);
-    }
-        // Swap weapon 3
-    if (agk::GetRawKeyPressed(51)) {
-        mainPlayer.setWep(3);
-    }
-    if (agk::GetRawKeyPressed(52)) {
-        mainPlayer.setWep(4);
+    if (agk::GetRawKeyState(49)) {
+        mainPlayer.setWep(1); 
+        userInterface.keyPressed(1);
+    } else {
+        userInterface.keyReleased(1);
     }
     
+        // Swap weapon 2
+    if (agk::GetRawKeyState(50)) {
+        mainPlayer.setWep(2);
+        userInterface.keyPressed(2);
+    } else {
+        userInterface.keyReleased(2);
+    }
+        // Swap weapon 3
+    if (agk::GetRawKeyState(51)) {
+        mainPlayer.setWep(3);
+        userInterface.keyPressed(3);
+    } else {
+        userInterface.keyReleased(3);
+    }
+    if (agk::GetRawKeyState(52)) {
+        mainPlayer.setWep(4);
+        userInterface.keyPressed(4);
+    } else {
+        userInterface.keyReleased(4);
+    }
+    if (agk::GetRawKeyState(53)) {
+        mainPlayer.setWep(5);
+        userInterface.keyPressed(5);
+        int xSize = 600;
+        userInterface.displayMessage(1, agk::GetVirtualWidth()/2-xSize/2, 100, xSize, 200, "This is a test!!",40);
+    } else {
+        userInterface.keyReleased(5);
+    }
     
     // Test Attack
     if (agk::GetRawKeyPressed(32)) {
@@ -330,27 +344,12 @@ int app::Loop (void)
 //        agk::Print(mainPlayer.getNumBullets());
     }
     
-    // Enemy AI
+    // Enemy Move
     for (int i = 0; i < levelOne.getEnemies().size(); i++) {
         levelOne.getEnemies()[i]->moveToPlayer(mainPlayer);
     }
     
-    
-    // Player and Enemy Collision turn into function
-    if (mainPlayer.getRecentlyDamaged() < 0 ) {
-        for (int i = 0; i < levelOne.getEnemies().size(); i++) {
-            if (agk::GetSpriteCollision(mainPlayer.getID(), levelOne.getEnemies()[i]->getID_())) {
-                agk::SetSpritePhysicsVelocity(mainPlayer.getID(), 0, 0);
-                agk::SetSpritePhysicsImpulse(mainPlayer.getID(), agk::GetSpriteXByOffset(mainPlayer.getID()), agk::GetSpriteYByOffset(mainPlayer.getID()),4000*levelOne.getEnemies()[i]->checkCollision(mainPlayer) , 0);
-                mainPlayer.setHealth(mainPlayer.getHealth()-levelOne.getEnemies()[i]->getDamage());
-                const std::string bulletNumbero = intToString(levelOne.getEnemies()[i]->getDamage()*-1);
-                userInterface.createFadingText(bulletNumbero, 60, agk::GetSpriteX(mainPlayer.getID())+ agk::Random2(-20,40), agk::GetSpriteY(mainPlayer.getID()), 45,5);
-                mainPlayer.setRecentlyDamaged(25);
-                agk::PlaySound(4);
-//                agk::SetSpriteCollideBits(mainPlayer.getID(), 0x2);
-            }
-        }
-    }
+    mainPlayer.checkEnemyCollisions(levelOne.getEnemies(),userInterface);
     mainPlayer.setRecentlyDamaged(mainPlayer.getRecentlyDamaged()-1);
     
     // Bullet and Enemy Collision
@@ -358,11 +357,12 @@ int app::Loop (void)
         for (int j = 0; j < mainPlayer.getBullets().size(); j++) {
             // If Melee
             if (mainPlayer.getBullets()[j]->isMelee() && agk::GetSpriteDistance(levelOne.getEnemies()[i]->getID_(), mainPlayer.getBullets()[j]->getID_()) < 3 && levelOne.getEnemies()[i]->getRecentlyDamaged() < 0) {
-                levelOne.getEnemies()[i]->isHit(*mainPlayer.getBullets()[j],userInterface);
+                levelOne.getEnemies()[i]->isHit(mainPlayer.getBullets()[j],userInterface);
                 levelOne.getEnemies()[i]->setRecentlyDamaged(3);
-            } else if(agk::GetSpriteDistance(levelOne.getEnemies()[i]->getID_(), mainPlayer.getBullets()[j]->getID_()) < 5){
+                agk::SetSpritePhysicsImpulse(levelOne.getEnemies()[i]->getID_(), agk::GetSpriteXByOffset(levelOne.getEnemies()[i]->getID_()), agk::GetSpriteYByOffset(levelOne.getEnemies()[i]->getID_()), 1000*mainPlayero->getDirection() , -1000);
+            } else if(agk::GetSpriteDistance(levelOne.getEnemies()[i]->getID_(), mainPlayer.getBullets()[j]->getID_()) < 5 && !mainPlayer.getBullets()[j]->isMelee()){
                 // How close bullet is to recognize collision
-                    levelOne.getEnemies()[i]->isHit(*mainPlayer.getBullets()[j],userInterface);
+                    levelOne.getEnemies()[i]->isHit(mainPlayer.getBullets()[j],userInterface);
                     agk::SetSpritePosition(mainPlayer.getBullets()[j]->getID_() , 10000, 10000);
                     mainPlayer.clearBullet(j);
             }
@@ -373,7 +373,7 @@ int app::Loop (void)
         }
     }
     
-    // If enemy is under 1 health delete.
+    // If enemy is under 1 health delete. Maybe move to when enemy takes dmg to save loopos.
     for (int i = 0; i < levelOne.getEnemies().size(); i++) {
         if (levelOne.getEnemies()[i]->getHealth() <= 0) {
             levelOne.getEnemies()[i]->isDead(mainPlayer,userInterface);
@@ -389,10 +389,9 @@ int app::Loop (void)
 //      Update ItemDrop Position
         levelOne.updateItemDrop(mainPlayer);
     
-    // Updates Health and Experience
-    mainPlayer.updateHealth(userInterface);
-    mainPlayer.levelUp(userInterface);
-    mainPlayer.updateExperience(userInterface);
+    // Updates health/exp
+    mainPlayer.updatePlayer(timeSinceLastFrame,userInterface);
+
     
     if (mainPlayer.getHealth() <= 0) {
         levelOne.deleteLevel();
@@ -401,6 +400,7 @@ int app::Loop (void)
         agk::SetSpriteY(mainPlayer.getID(), 0);
         mainPlayer.resetPlayer();
     }
+    
     
     // Floating Text Update
     userInterface.fadeTimeUpdate(3);
@@ -430,9 +430,8 @@ int app::Loop (void)
     }
     // +500 exp
     if (agk::GetRawKeyPressed(79)) {
-        mainPlayer.setExperience(500);
+        mainPlayer.setExperience(99);
 //        std::cout << agk::GetSpriteX(mainPlayer.getID()) << " " << agk::GetSpriteY(mainPlayer.getID());
-        std::cout << agk::GetSpriteWidth(levelOne.getEnemies().back()->getID_());
     }
     if (agk::GetRawKeyPressed(82)) {
         levelOne.spawnBat(agk::Random2(-2500,2500), 0);
@@ -493,6 +492,7 @@ int app::Loop (void)
     // Life Overview
     } else if (gameState == 3) {
         
+        // Choose class
     } else if (gameState == 4) {
         // For now only one Class
         // 1 is regular , 2 is Mage

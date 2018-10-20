@@ -30,16 +30,16 @@ void ItemDrop::moveToPlayer(Player &mainPlayer) {
     }
     
     if (isMoving_ == true) {
-        if (agk::GetSpriteX(spriteID_) < agk::GetSpriteX(mainPlayer.getID())+60) {
+        if (agk::GetSpriteX(spriteID_) < agk::GetSpriteX(mainPlayer.getID())+agk::GetSpriteWidth(mainPlayer.getID())/2-10) {
             agk::SetSpriteX(spriteID_, agk::GetSpriteX(spriteID_)+15);
-        } else if (agk::GetSpriteX(spriteID_) > agk::GetSpriteX(mainPlayer.getID())+120) {
+        } else if (agk::GetSpriteX(spriteID_) > agk::GetSpriteX(mainPlayer.getID())+agk::GetSpriteWidth(mainPlayer.getID())/2+10) {
             agk::SetSpriteX(spriteID_, agk::GetSpriteX(spriteID_)-15);
         } else {
             
         }
-        if (agk::GetSpriteY(spriteID_) < agk::GetSpriteY(mainPlayer.getID())+28) {
+        if (agk::GetSpriteY(spriteID_) < agk::GetSpriteY(mainPlayer.getID())+agk::GetSpriteHeight(mainPlayer.getID())/2-10) {
             agk::SetSpriteY(spriteID_, agk::GetSpriteY(spriteID_)+10);
-        } else if (agk::GetSpriteY(spriteID_) > agk::GetSpriteY(mainPlayer.getID())+48) {
+        } else if (agk::GetSpriteY(spriteID_) > agk::GetSpriteY(mainPlayer.getID())+agk::GetSpriteHeight(mainPlayer.getID())/2+10) {
             agk::SetSpriteY(spriteID_, agk::GetSpriteY(spriteID_)-10);
         } else {
             

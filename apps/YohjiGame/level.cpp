@@ -371,7 +371,8 @@ void Level::loadLevelTmx(std::string fileName,std::string tileSetName) {
                 // Empty Space
             } else {
                 // Finds index of TileSet that holds the correct filename. For some reason i-1? MUST BE SORTED.
-                int index = Test.binarySearch(Test.getTileSet(), 1, (int)Test.getTileSet().size(),Test.getTilePlacements()[y][x]);
+//                int index = Test.binarySearch(Test.getTileSet(), 1, (int)Test.getTileSet().size(),Test.getTilePlacements()[y][x]);
+                int index = Test.getTilePlacements()[y][x];
                 if (index == -1) {
                     std::cout << "error tile not found" << std::endl;
                 } else {
@@ -459,8 +460,7 @@ std::list<ItemDrop>::iterator Level::deleteItemFromList(int iD) {
             headPointer++;
         }
     }
-}
-
+} 
 
 void Level::deleteEnemy(int iD) {
     for (int i = 0; i < enemies.size(); i++) {

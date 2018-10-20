@@ -10,11 +10,14 @@
 #define projectile_h
 #include <iostream>
 
+class Enemy;
+
 
 class Projectile {
 public:
     Projectile() {time_ = 0; weaponDamage_ = 20;}
     Projectile(int iD, int time, int weaponDamage) {weaponType_ = iD; time_ = time; weaponDamage_ = weaponDamage;}
+    Projectile(int iD, int time, int weaponDamage,int playerID) {weaponType_ = iD; time_ = time; weaponDamage_ = weaponDamage; userID_ = playerID;}
     Projectile(int iD, int time, int weaponDamage,int direction,int speed) {weaponType_ = iD; time_ = time; weaponDamage_ = weaponDamage; direction_ = direction; speed_ = speed;}
     Projectile(std::pair<float,float> trajectory);
     void setID(int iD_) {weaponType_ = iD_;}
@@ -32,16 +35,18 @@ public:
     void decreaseTime() {time_--;}
     void deleteProjectile();
     virtual void updateBullet();
-    virtual void specialEffect() {}
+    virtual void specialEffect(Enemy & e);
     bool isMelee() {return isMelee_;}
     void setMelee(bool value) {isMelee_ = value;}
     
-private:
+protected:
     int weaponType_;
     int speed_;
     int weaponDamage_;
     int time_;
     int direction_;
+    int knockback_;
+    int userID_;
     bool isMelee_;
     // Float of mouse pointer
     std::pair<float,float> trajectory_;

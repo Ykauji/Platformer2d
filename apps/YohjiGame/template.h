@@ -26,7 +26,8 @@ class app
         // If 0, main menu, 1 game, 2 menu
         int gameState;
         int background;
-        // global game vars
+        // Keybinds : user key maps to game key.
+        std::map<char,char> keybinds_;
     
         // Global Func
         std::string intToString(int value);

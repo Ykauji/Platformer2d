@@ -42,7 +42,7 @@ public:
     void deleteEnemy(int iD);
     void deleteItem(int iD);
     std::list<ItemDrop>::iterator deleteItemFromList(int iD);
-    std::vector<Enemy*> getEnemies() {return enemies;}
+    std::vector<Enemy*> & getEnemies() {return enemies;}
     std::vector<int> getLadders() {return ladders;}
     std::vector<Door> getDoor() {return door_;}
     std::list<ItemDrop> getItems() {return itemDrops_;}

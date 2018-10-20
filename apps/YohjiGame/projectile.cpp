@@ -8,6 +8,7 @@
 #include "agk.h"
 #include "projectile.h"
 #include <cmath>
+#include "enemy.h"
 
 using namespace AGK;
 
@@ -24,5 +25,9 @@ Projectile::Projectile(std::pair<float,float> trajectory) {
 }
 
 void Projectile::updateBullet() {
-//        agk::SetSpritePosition(getID_(), agk::GetSpriteX(getID_())+(getDirection()*getSpeed()), agk::GetSpriteY(getID_()));
+//    agk::SetSpriteAngle(this->getID_(), agk::GetSpriteAngle(getID_())+2*getDirection());
+}
+
+void Projectile::specialEffect(Enemy & e) {
+    
 }
