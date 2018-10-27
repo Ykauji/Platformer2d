@@ -10,5 +10,7 @@
 #include "agk.h"
 
 void TornadoSkill::castSkill(Player * p) {
+    int potato = agk::CreateSprite(27);
+    agk::SetSpritePosition(potato, agk::GetSpriteX(p->getID()), agk::GetSpriteY(p->getID()));
     agk::CreatePhysicsForce(agk::GetSpriteX(p->getID()), agk::GetSpriteY(p->getID()), 100, 100, 500, 0);
 }

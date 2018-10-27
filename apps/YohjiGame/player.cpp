@@ -54,13 +54,13 @@ void Player::movementLeft() {
             playerState = Walking;
         }
         if (agk::GetSpritePhysicsVelocityX(iD_) > 0) {
-            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)-150, agk::GetSpritePhysicsVelocityY(iD_));
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)-200, agk::GetSpritePhysicsVelocityY(iD_));
         } else if (agk::GetSpritePhysicsVelocityX(iD_) > -maxSpeed/4) {
             agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)-250, agk::GetSpritePhysicsVelocityY(iD_));
         } else if (agk::GetSpritePhysicsVelocityX(iD_) < -maxSpeed) {
             agk::SetSpritePhysicsVelocity(iD_, -maxSpeed, agk::GetSpritePhysicsVelocityY(iD_));
         } else {
-            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)-20, agk::GetSpritePhysicsVelocityY(iD_));
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)-40, agk::GetSpritePhysicsVelocityY(iD_));
         }
         
         
@@ -79,13 +79,13 @@ void Player::movementRight() {
             playerState = Walking;
         }
         if (agk::GetSpritePhysicsVelocityX(iD_) < 100) {
-            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)+150, agk::GetSpritePhysicsVelocityY(iD_));
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)+200, agk::GetSpritePhysicsVelocityY(iD_));
         } else if (agk::GetSpritePhysicsVelocityX(iD_) < maxSpeed/4) {
             agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)+250, agk::GetSpritePhysicsVelocityY(iD_));
         } else if (agk::GetSpritePhysicsVelocityX(iD_) > maxSpeed) {
             agk::SetSpritePhysicsVelocity(iD_, maxSpeed, agk::GetSpritePhysicsVelocityY(iD_));
         } else {
-            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)+20, agk::GetSpritePhysicsVelocityY(iD_));
+            agk::SetSpritePhysicsVelocity(iD_, agk::GetSpritePhysicsVelocityX(iD_)+40, agk::GetSpritePhysicsVelocityY(iD_));
         }
 //        agk::SetSpritePhysicsVelocity(iD_, 0, agk::GetSpritePhysicsVelocityY(iD_));
 //        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_, 0);
@@ -240,7 +240,6 @@ void Player::playAnimations() {
             if (!(agk::GetSpriteCurrentFrame(getID()) == 24)) {
                 agk::PlaySprite(getID(),5,1,24,24);
             }
-            std::cout << "im on the wall" << std::endl;
             break;
         case MeleeAttacking:
             if (!((agk::GetSpriteCurrentFrame(getID()) < 17) && agk::GetSpriteCurrentFrame(getID()) > 8)) {
@@ -367,8 +366,8 @@ void Player::updateLevelStats() {
 
 void Player::resetPlayer() {
     health_ = 100;
-    speed_ = 6500;
-    jumpHeight_ = 7500;
+    speed_ = 9000;
+    jumpHeight_ = 12000;
     maxJumps = 1;
     recentlyJumped = 0;
     currentWep = 1;
@@ -381,6 +380,7 @@ void Player::resetPlayer() {
     charLevel_ = 1;
     damage_ = 10;
     gold_ = 0;
+    playerState = Idle;
     agk::SetSpritePosition(iD_, 0, 0);
     movementRight();
 }

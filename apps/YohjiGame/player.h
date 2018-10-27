@@ -17,7 +17,7 @@
 
 class Player {
 public:
-    Player() {health_ = 100; speed_ = 9000; jumpHeight_ = 12000; maxJumps = 1; recentlyJumped = 0; currentWep = 1; direction_ = 1; dashTimer_ = 0; recentlyDamaged_ = 0; maxHealth_ = 100; experience_ = 0; maxExperience_ = 100; charLevel_ = 1; damage_ = 10; gold_ = 0;}
+    Player() {health_ = 100; speed_ = 9000; jumpHeight_ = 12000; maxJumps = 1; recentlyJumped = 0; currentWep = 1; direction_ = 1; dashTimer_ = 0; recentlyDamaged_ = 0; maxHealth_ = 100; experience_ = 0; maxExperience_ = 100; charLevel_ = 1; damage_ = 10; gold_ = 0; playerState = Idle;}
     ~Player() {
 
     }

@@ -12,7 +12,6 @@
 #ifndef LevelMap_h
 #define LevelMap_h
 
-#include <iostream>
 #include <vector>
 #include "agk.h"
 

@@ -191,8 +191,6 @@ void app::Begin(void)
     
     
     
-    
-    
     // Cursor invisible
 //    agk::SetRawMouseVisible(0);
     
@@ -214,7 +212,6 @@ int app::Loop (void)
     agk::Print(agk::GetSpriteCurrentFrame(mainPlayer.getID()));
     
     //Player Movement
-//    if (mainPlayer.getRecentlyDamaged() < 0) {
         if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && !mainPlayer.touchingLeftWall()) {
             mainPlayer.movementLeft();
         } else if ((agk::GetRawKeyState(37) || agk::GetRawKeyState(65)) && mainPlayer.touchingLeftWall()) {
@@ -231,11 +228,14 @@ int app::Loop (void)
             agk::SetSpritePhysicsVelocity(mainPlayer.getID(), 0, agk::GetSpritePhysicsVelocityY(mainPlayer.getID()));
         }
         
-        
-//    }
-        if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) == 0 && agk::GetSpritePhysicsVelocityY(mainPlayer.getID()) == 0){
+    if (agk::GetSpritePhysicsVelocityX(mainPlayer.getID()) == 0 && agk::GetSpritePhysicsVelocityY(mainPlayer.getID()) == 0){
     mainPlayer.stopMovement();
     }
+//        agk::SetSpritePhysicsFriction(mainPlayer.getID(), 0);
+//        if (agk::GetRawKeyState(37) == 0 && agk::GetRawKeyState(39) == 0) {
+//            agk::SetSpritePhysicsFriction(mainPlayer.getID(), 2);
+//        }
+       
 
     // Restrict Jumps to maxJumps
         if (mainPlayer.touchingLeftWall() && (agk::GetRawKeyState(87) && agk::GetRawKeyState(68))) {
