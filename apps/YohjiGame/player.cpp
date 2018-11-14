@@ -101,7 +101,7 @@ void Player::movementDashLeft() {
         // Cooldown of Dash
         dashTimer_ = 20;
         agk::SetSpritePhysicsVelocity(iD_, 0, agk::GetSpritePhysicsVelocityY(iD_));
-        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*-3, 0);
+        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*-5, 0);
     }
 }
 
@@ -113,7 +113,7 @@ void Player::movementDashRight() {
         currentDash_ = 1;
         dashTimer_ = 20;
         agk::SetSpritePhysicsVelocity(iD_, 0, agk::GetSpritePhysicsVelocityY(iD_));
-        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*3, 0);
+        agk::SetSpritePhysicsImpulse(iD_, agk::GetSpriteXByOffset(iD_), agk::GetSpriteYByOffset(iD_), speed_*5, 0);
     }
 }
 
@@ -354,7 +354,7 @@ void Player::loadPlayerPhysics() {
     agk::SetSpritePhysicsFriction(getID(), 2);
     agk::SetSpritePhysicsCanRotate(getID(), 0);
     agk::SetSpriteShape(getID(),3);
-    agk::SetSpritePhysicsRestitution(getID(), 0);
+    agk::SetSpritePhysicsRestitution(getID(), -1);
     agk::SetSpriteDepth(getID(), 1);
 }
 

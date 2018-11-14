@@ -5,6 +5,7 @@
 #include "player.h"
 #include "level.h"
 #include "camera.h"
+#include "particleManager.h"
 
 // use in Core.mm to set the window properties
 #define DEVICE_WIDTH 1920
@@ -23,8 +24,13 @@ class app
         Camera2D potato;
         Level levelOne;
         UI userInterface;
+        ParticleManager &particleManager = ParticleManager::getInstance();
+    
+        
+    
         // If 0, main menu, 1 game, 2 menu
         int gameState;
+        // Tie this to lvl instead.
         int background;
         // Keybinds : user key maps to game key.
         std::map<char,char> keybinds_;

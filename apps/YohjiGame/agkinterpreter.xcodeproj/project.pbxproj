@@ -40,6 +40,8 @@
 		C18B882D1F51354C00FAF323 /* projectile.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28241F5115C1003B478C /* projectile.h */; };
 		C18B882E1F51355100FAF323 /* UI.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28271F511A52003B478C /* UI.h */; };
 		C18B882F1F51355400FAF323 /* player.h in Sources */ = {isa = PBXBuildFile; fileRef = C13E28211F511526003B478C /* player.h */; };
+		C18D84322198A59E009AD2A0 /* particleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18D84302198A59E009AD2A0 /* particleSystem.cpp */; };
+		C18D8439219B621B009AD2A0 /* particleManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18D8437219B621B009AD2A0 /* particleManager.cpp */; };
 		C196B3C32177F9A500DE286D /* meleeProjectile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C196B3C12177F9A500DE286D /* meleeProjectile.cpp */; };
 		C1B77A6621752DDF00EA5747 /* melee.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1B77A6421752DDF00EA5747 /* melee.cpp */; };
 		C1B77A692176D92600EA5747 /* tornado.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1B77A672176D92600EA5747 /* tornado.cpp */; };
@@ -107,6 +109,10 @@
 		C165359C20350DF5000E225B /* Mage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Mage.cpp; sourceTree = "<group>"; };
 		C165359D20350DF5000E225B /* Mage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mage.h; sourceTree = "<group>"; };
 		C16D9B4E1FEC4DFA005A9BD8 /* fx */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fx; sourceTree = "<group>"; };
+		C18D84302198A59E009AD2A0 /* particleSystem.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = particleSystem.cpp; sourceTree = "<group>"; };
+		C18D84312198A59E009AD2A0 /* particleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particleSystem.h; sourceTree = "<group>"; };
+		C18D8437219B621B009AD2A0 /* particleManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = particleManager.cpp; sourceTree = "<group>"; };
+		C18D8438219B621B009AD2A0 /* particleManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particleManager.h; sourceTree = "<group>"; };
 		C196B3C12177F9A500DE286D /* meleeProjectile.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = meleeProjectile.cpp; sourceTree = "<group>"; };
 		C196B3C22177F9A500DE286D /* meleeProjectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meleeProjectile.h; sourceTree = "<group>"; };
 		C1B77A6421752DDF00EA5747 /* melee.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = melee.cpp; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 				C1138CFE203791A700CF2328 /* UI/Camera */,
 				C1138CFF2037920800CF2328 /* Level */,
 				C12354332061C66600FF8911 /* Upgrades/Gold */,
+				C18D84332198A5D4009AD2A0 /* Particles */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -353,6 +360,17 @@
 				C165359C20350DF5000E225B /* Mage.cpp */,
 			);
 			name = Jobs;
+			sourceTree = "<group>";
+		};
+		C18D84332198A5D4009AD2A0 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				C18D84312198A59E009AD2A0 /* particleSystem.h */,
+				C18D84302198A59E009AD2A0 /* particleSystem.cpp */,
+				C18D8438219B621B009AD2A0 /* particleManager.h */,
+				C18D8437219B621B009AD2A0 /* particleManager.cpp */,
+			);
+			path = Particles;
 			sourceTree = "<group>";
 		};
 		C1FF7B3020FA9AE500CBF8B5 /* Skills */ = {
@@ -542,8 +560,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C18D84322198A59E009AD2A0 /* particleSystem.cpp in Sources */,
 				C1FF99CB2001E91200060FDD /* fireball.cpp in Sources */,
 				C13378001F514072004179DE /* enemy.cpp in Sources */,
+				C18D8439219B621B009AD2A0 /* particleManager.cpp in Sources */,
 				C15908CB204604FA0047FABB /* TmxConverter.cpp in Sources */,
 				C1042BFA20C0CD5800D3CEC1 /* levelMap.cpp in Sources */,
 				C13E28281F511A52003B478C /* UI.cpp in Sources */,

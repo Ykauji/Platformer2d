@@ -36,6 +36,11 @@
  </tile>
  <tile id="29">
   <image width="70" height="70" source="TempArt/Base pack/Tiles/castleHillLeft.png"/>
+  <objectgroup draworder="index">
+   <object id="2" x="-0.43957" y="70.5569">
+    <polygon points="0,0 70.311,-70.7767 69.3798,-1.86254"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="30">
   <image width="70" height="70" source="TempArt/Base pack/Tiles/castleHillLeft2.png"/>

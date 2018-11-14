@@ -51,7 +51,7 @@ void app::Begin(void)
     agk::SetPhysicsScale(.05);
     agk::SetPhysicsGravity(0, 1200);
     agk::SetPhysicsWallBottom(0);
-    agk::SetViewZoom(.60);
+    agk::SetViewZoom(.65);
     
 //    agk::SetPhysicsDebugOn();
     
@@ -62,10 +62,11 @@ void app::Begin(void)
     
     // Load Music/Sound
     agk::LoadMusicOGG(1,"media/ilikethis.ogg"); // Mooncatcher temporary music.
-    agk::PlayMusicOGG(1,1);
+//    agk::PlayMusicOGG(1,1);
     agk::LoadSound(2, "media/fireball.wav");
     agk::LoadSound(3, "media/coinsound.wav");
     agk::LoadSound(4, "media/damage.wav");
+    
     
     // Load Tile
      agk::LoadImage(2, "Tiles/castleHalf.png");
@@ -141,10 +142,9 @@ void app::Begin(void)
     agk::LoadImage(39, "Enemy sprites/slime.png");
     agk::LoadImage(40, "media/coin_gold.png");
     
+    agk::LoadImage(41,"media/particle.png");
     
     // Load Attack Animations
-    
-    // Load Dragon
     
     
     // Load UI
@@ -159,6 +159,7 @@ void app::Begin(void)
     agk::FixTextToScreen(1, 1);
     
     // Load Start Screen Stuff
+    
     
     // Change GameState to 0 for mainScreen    Flow = 0 -> 4 -> 1
     gameState = 4;
@@ -186,7 +187,7 @@ void app::Begin(void)
         agk::SetVirtualButtonAlpha(3, 0);
     } else {
         levelOne.loadLevel(1);
-//        levelOne.loadLevelTmx("media/Test.tmx", "media/newTileSet.tsx");
+//        levelOne.loadLevelTmx("media/Levels/Boss_Level/Test.tmx", "media/Levels/Boss_Level/newTileSet.tmx");
     }
     
     
@@ -196,7 +197,6 @@ void app::Begin(void)
     
     
     // Load Player Animations
-    
     
     // Highest Image = 40.
 }
@@ -208,6 +208,8 @@ int app::Loop (void)
     float timeSinceLastFrame = agk::GetFrameTime();
     
     if (gameState == 1) {
+    // Update particle system.
+    particleManager.updateAll(timeSinceLastFrame);
         
     agk::Print(agk::GetSpriteCurrentFrame(mainPlayer.getID()));
     
@@ -459,14 +461,16 @@ int app::Loop (void)
             // Camera Limits
             potato.Camera2DFollow(mainPlayer.getID());
         // If OffMap Reset/Die
-        if (agk::GetSpriteY(mainPlayer.getID()) > 3000) {
-            agk::SetSpritePosition(mainPlayer.getID(), 0, 0);
+        if (agk::GetSpriteY(mainPlayer.getID()) > levelOne.getBottomDepth()) {
+            agk::SetSpritePosition(mainPlayer.getID(), levelOne.getSpawnLocation().first , levelOne.getSpawnLocation().second);
             mainPlayer.movementRight();
             mainPlayer.setHealth(mainPlayer.getHealth()/2);
             potato.Camera2DFollow(mainPlayer.getID());
         }
         
 	agk::Print( agk::ScreenFPS() );
+    agk::Print(agk::GetSpriteX(mainPlayero->getID()));
+    agk::Print(agk::GetSpriteY(mainPlayero->getID()));
         
     // Main Menu
     } else if (gameState == 0) {
@@ -521,7 +525,8 @@ int app::Loop (void)
         mainPlayer.loadPlayerPhysics();
         agk::SetSpriteActive(mainPlayer.getID(), 1);
         
-        potato.Camera2DInit(1500, 1140, 5, 0);
+//        potato.Camera2DInit(1500, 1140, 5, 0);
+        potato.Camera2DInit((1920/2)+200, (1080/2)+200, 5, 0);
         potato.Camera2DSet(mainPlayer.getID(), -40000, -40000, 40000, 40000);
         potato.Camera2DFollow(mainPlayer.getID());
         

@@ -21,13 +21,13 @@ void MeleeSkill::castSkill(Player * p) {
     beam->setDirection(p->getDirection());
     
     if (p->getDirection() == 1) {
-        p->movementDashRight();
+//        p->movementDashRight();
         p->setRecentlyDamaged(25);
         agk::SetSpriteFlip((*beam).getID_(), 0, 1);
         agk::SetSpritePosition((*beam).getID_(),((agk::GetSpriteX(p->getID())+agk::GetSpriteWidth(p->getID())/2+50)*p->getDirection()), agk::GetSpriteY(p->getID())+agk::GetSpriteHeight(p->getID())/3);
     }
     if (p->getDirection() == -1) {
-        p->movementDashLeft();
+//        p->movementDashLeft();
         p->setRecentlyDamaged(35);
         agk::SetSpriteFlip((*beam).getID_(), 1, 1);
         agk::SetSpritePosition((*beam).getID_(),(agk::GetSpriteX(p->getID())+(agk::GetSpriteWidth(p->getID())/2-80)*p->getDirection()), agk::GetSpriteY(p->getID())+agk::GetSpriteHeight(p->getID())/3);

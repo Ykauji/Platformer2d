@@ -48,6 +48,8 @@ public:
     std::list<ItemDrop> getItems() {return itemDrops_;}
     
     int getLevel() {return level_;}
+    std::pair<int,int> getSpawnLocation() {return spawnLocation_;}
+    int getBottomDepth() {return bottomDepth_;}
     
     void spawnItem(Enemy enemy);
     void updateItemDrop(Player &mainPlayer);
@@ -74,6 +76,7 @@ private:
     int background_;
     int level_;
     int bottomDepth_;
+    std::pair<int,int> spawnLocation_;
     int xRes = 1920;
     int yRes = 1080;
 };

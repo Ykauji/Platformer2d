@@ -12,6 +12,7 @@
 #include <cmath>
 #include <string>
 #include <sstream>
+#include "particleManager.h"
 
 std::string Enemy::intToStringo(int value) {
     std::stringstream ss;
@@ -73,10 +74,12 @@ void Enemy::isHit(Projectile * bullet,UI &userInterface) {
     bullet->specialEffect(*this);
     const std::string bulletNumbero = intToStringo(bullet->getDamage());
     userInterface.createFadingText(bulletNumbero, 60, agk::GetSpriteX(this->getID_())+ agk::Random2(-10,30), agk::GetSpriteY(this->getID_()), 40);
+    // Engaged.
     if (health_ < maxHealth_ && isEngage_ == 0) {
         isEngage_ = 1;
         initHealthBar();
     }
+   
     enemySpecificHit();
 }
 
@@ -146,6 +149,23 @@ void Enemy::isDead(Player &mainPlayer, UI &userInterface) {
     mainPlayer.setExperience(mainPlayer.getExperience()+(getExperience()));
     const std::string experienceNumber = "+" + intToStringo(getExperience()) + " exp";
     userInterface.createFadingText(experienceNumber, 60, agk::GetSpriteX(mainPlayer.getID()), agk::GetSpriteY(mainPlayer.getID()), 40,2);
+    // Particles!
+    ParticleManager &particleManager = ParticleManager::getInstance();
+    ParticleSystem deathParticles;
+    deathParticles.initParticleSystem(agk::GetSpriteX(getID_()),agk::GetSpriteY(getID_()));
+    deathParticles.setParticleAngle(360.0f);
+    deathParticles.setParticleDirection(0.0f, 3.0f);
+    deathParticles.setParticleFrequency(10.0f);
+    deathParticles.setParticleLife(15.0f);
+    deathParticles.setStopEmittingTimer(0.1f);
+    deathParticles.setTimer(0.15f);
+    deathParticles.setParticleSize(3.0f);
+    deathParticles.addColorFrames(0.0f, 243, 255, 255, 255);
+    deathParticles.addColorFrames(0.1f, 220, 124, 61, 255);
+    deathParticles.addColorFrames(0.19f, 247, 209, 102, 255);
+    deathParticles.addColorFrames(0.2f, 255, 255, 255, 0);
+    particleManager.addNewParticleSystem(deathParticles);
+    
 }
 
 

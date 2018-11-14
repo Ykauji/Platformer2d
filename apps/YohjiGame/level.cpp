@@ -31,7 +31,8 @@ void Level::loadLevel(int levelNumber) {
             loadLevelTwo();
             break;
         case 3:
-            loadCustomLevel(3, "media/Test.tmx", "media/newTileSet.tsx");
+//            loadCustomLevel(3, "media/Levels/Boss_Level/Test.tmx", "media/Levels/TileSets/newTileSet.tsx");
+            loadCustomLevel(3, "media/Levels/TileSets/test_map2.tmx", "media/Levels/TileSets/castleTileset70x70.tsx");
         default:
             break;
     }
@@ -137,7 +138,9 @@ void Level::loadLadder(int x, int y, int yLength) {
 void Level::loadLevelOne() {
     deleteLevel();
     level_ = 1;
-    
+    bottomDepth_ = 3000;
+    spawnLocation_.first = 0;
+    spawnLocation.second = 0;
     loadPlatform(100, -500, 500);
     loadPlatform(95,20,-325,500);
     // Castle
@@ -204,8 +207,10 @@ void Level::loadCustomLevel(int level,std::string tmxFile,std::string tileSet) {
     agk::FixSpriteToScreen(background_, 1);
     agk::SetSpriteSize(background_,xRes,yRes+100);
     
-    spawnKingSlime(1000, 1000);
-    
+    spawnKingSlime(6500, 3000);
+    bottomDepth_ = 6000;
+    spawnLocation_.first = 0;
+    spawnLocation.second = 0;
     loadLevelTmx(tmxFile, tileSet);
 }
 
@@ -297,8 +302,8 @@ void Level::spawnKingSlime(int x, int y) {
     kingSlime->setEngaged(false);
     kingSlime->setDamage(20);
     kingSlime->setExperience(5000);
-    kingSlime->setGold(1000);
-    
+    kingSlime->setGold(1500);
+    agk::SetSpritePosition(kingSlime->getID_(), x, y);
     
     enemies.push_back(kingSlime);
 
